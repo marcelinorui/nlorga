@@ -1,0 +1,18 @@
+<% include header %>
+
+<form action="post" method="/admin/addOrganization">
+<div>
+	<label for="description"></label>
+	<input type="text" id="description"/>
+	<select id="organizationconfiguration">
+		<option>Organization Configuration 1</option>
+		<option>Organization Configuration 2</option>
+		<option>Organization Configuration 3</option>
+		<option>Organization Configuration 4</option>
+		<option>Organization Configuration 5</option>
+	</select>
+</div>
+<button type="submit">Save</button>
+<a href="/admin/organizationList">Cancel</a>
+
+<% include footer %>

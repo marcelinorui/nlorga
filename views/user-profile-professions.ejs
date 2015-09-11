@@ -1,0 +1,15 @@
+
+<% professions.forEach(function(profession){ %>
+	<div class="form-group">
+		<label><%- profession.profession %></label>
+		<span class="pull-right">
+			
+				<input type="checkbox" data-style="btn-group-sm" name="<%- profession.profession %>" 
+				<% if (profession.active === 1) {%>
+					checked
+				<% } %>
+				/>
+			
+		<span>  			
+	</div>
+<% }); %>	

@@ -1,0 +1,14 @@
+<% include partials/header %>
+<div>
+  <%- message %>
+  <br />
+  <%if( error != undefined ) {%>
+    <%if (error.status) { %>
+      <%- error.status %><br />
+    <% }%>
+    <%if (error.stack) { %>
+      <%- error.stack %><br />
+    <% }%>
+  <% }%>
+</div>
+<% include partials/footer %>

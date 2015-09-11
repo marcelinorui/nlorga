@@ -1,0 +1,33 @@
+<% include partials/header %>
+
+<form action="/user/profile" method="post">
+<div>
+	<h3>
+        <label ><% include partials/display-username %></label>
+	</h3>
+    <div class="form-group">
+		<label for="displayname">Display Name</label>
+		<input type="text" value="<%- user.displayname %>" name="displayname" />
+	</div>
+    <% include user-profile-professions %>
+    <div class="form-group">
+
+		<label>Commander Tag</label>
+		<span class="pull-right">
+			
+			<%- user.hascommanderTag %>
+				<input type="checkbox" data-style="btn-group-sm" name="hascommanderTag" 
+				<% if (user.hascommanderTag) {%>
+					checked
+				<% } %>
+				/>
+			</label>
+		<span>  			
+
+    </div>
+	<div>
+			<button type="submit">Change Profile</button>
+	</div>
+</div>
+
+<% include partials/footer %>

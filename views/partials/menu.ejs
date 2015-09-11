@@ -1,0 +1,32 @@
+<nav class="navbar navbar-inverse navbar-static-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar-collapse" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<% if ( user ) { %>
+				<a class="navbar-brand" href="/user">Brand</a>
+				<% } else { %>
+					<a class="navbar-brand" href="/">Brand</a>
+					<% } %>
+		</div>
+		<div class="collapse navbar-collapse" id="my-navbar-collapse">
+			<% if (  user ) {%>
+				<ul class="nav navbar-nav">
+					<% include user-menu %>
+					<% include admin-menu %>
+
+				</ul>			
+					
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/logout">Sign Out</a></li>
+				</ul>
+				
+				<p class="navbar-text navbar-right">Welcome <a href="/profile" class="navbar-link"><% include display-username %></a></p>
+			<% }%>
+		</div>
+	</div>
+</nav>
