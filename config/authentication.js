@@ -15,7 +15,7 @@ module.exports = function (passport) {
     function (username, password, done) {
       db.Login.verifyLogin(username, password, function (err, user) {
         if (err) {
-          return done(err.message.replace('ER_SIGNAL_EXCEPTION: ',''), false);
+          return done('An error has occurred please try again later.', false);
         }
         if (!user) {
           return done(null, false, {message:'Invalid Username/Password.'});

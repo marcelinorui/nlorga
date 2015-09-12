@@ -17,6 +17,7 @@ var db        = {
           user: config.db.username,
           password: config.db.password,
           database: config.db.database,
+          multipleStatements:true,
           debug: false
         });        
         

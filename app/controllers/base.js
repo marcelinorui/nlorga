@@ -21,11 +21,11 @@ function base(passport) {
 	router.post('/login', function (req, res, next) {
 		passport.authenticate('local', function (err, user, info) {
 			if(err){
-				req.session.message = err;
+				req.flash('error', err);
 				return res.redirect('/login');
 			}
 			if (!user) {
-				req.session.message = info.message;
+				req.flash('warning', info.message);
 				return res.redirect('/login');
 			}
 			req.login(user, { session: true }, function (err) {

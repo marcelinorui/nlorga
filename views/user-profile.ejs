@@ -1,33 +1,43 @@
 <% include partials/header %>
 
-<form action="/user/profile" method="post">
-<div>
-	<h3>
-        <label ><% include partials/display-username %></label>
-	</h3>
-    <div class="form-group">
-		<label for="displayname">Display Name</label>
-		<input type="text" value="<%- user.displayname %>" name="displayname" />
-	</div>
-    <% include user-profile-professions %>
-    <div class="form-group">
-
-		<label>Commander Tag</label>
-		<span class="pull-right">
-			
-			<%- user.hascommanderTag %>
-				<input type="checkbox" data-style="btn-group-sm" name="hascommanderTag" 
-				<% if (user.hascommanderTag) {%>
-					checked
-				<% } %>
-				/>
-			</label>
-		<span>  			
-
-    </div>
-	<div>
-			<button type="submit">Change Profile</button>
-	</div>
-</div>
+<form action="/user/profile" method="post" class="form-horizontal">
+		<h3>
+			<label ><% include partials/display-username %></label>
+		</h3>
+		<div class="form-group">
+			<div class="col-sm-2">
+			<label class="control-label" for="displayname">Display Name</label></div>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" value="<%- profile.user.displayname %>" name="displayname" />
+			</div>
+		</div>
+		<hr>
+		<% include user-profile-professions %>
+		<hr>
+		<div class="form-group">
+			<div class="col-sm-4">
+				<div class="col-sm-6">
+					<label class="control-label">Commander Tag</label>
+				</div>
+				<div class="col-sm-6">
+					<span class="pull-right">
+							<input type="checkbox" data-style="btn-group-sm" name="hascommanderTag" 
+							<% if (profile.user.hascommanderTag) {%>
+								checked
+							<% } %>
+							/>
+						
+					<span>  			
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+		<div class="col-sm-12">
+			<span class="pull-right">
+				<button type="submit" class="btn btn-primary">Change Profile</button>
+			</span>
+			</div>
+		</div>
+</form>
 
 <% include partials/footer %>

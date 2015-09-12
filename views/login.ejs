@@ -13,14 +13,6 @@
 			<label for="password">Password</label>
 			<input type="password" id="password" class="form-control" name="password" placeholder="Password" />
 		</div>
-		<%if ( message && message != '') {%>
-			<div class="alert alert-warning alert-dismissible" role="alert">
-  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  				<strong>&nbsp;
-					<span> <%- message %></span>
-				</strong>
-			</div>
-		<%}%>
 		<div class="pull-right">
 			<button type="submit" id="btn-login" class="btn btn-primary">Login</button>
 		</div>

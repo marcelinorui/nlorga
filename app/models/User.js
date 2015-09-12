@@ -9,9 +9,9 @@ function User(db) {
 
 util.inherits(User, Base);
 
-User.prototype.updateLoginPassword = function (username, password, callback) {
-	var sql = 'CALL updateLoginPassword(?,?)';
-	var params = [username, password];
+User.prototype.changeLoginPassword = function (idlogin, password, callback) {
+	var sql = 'CALL changeLoginPassword(?,?)';
+	var params = [idlogin, password];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
@@ -21,7 +21,6 @@ User.prototype.updateLoginPassword = function (username, password, callback) {
 		}
 	});
 };
-
 
 User.prototype.changeUserProfile = function (idlogin, displayname, hascommanderTag, professions, callback) {
 	var sql = 'CALL changeUserProfile(?,?,?,?,?)';
@@ -36,22 +35,22 @@ User.prototype.changeUserProfile = function (idlogin, displayname, hascommanderT
 	});
 };
 
-User.prototype.getUserProfessions = function (idlogin, callback) {
+User.prototype.getUserProfile = function (idlogin, callback) {
 	var self = this;
-	var sql = 'CALL getUserProfessions(?)';
+	var sql = 'CALL getUserProfile(?)';
 	var params = [idlogin];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
-			var out = self.getFields(rows, fields);
+			var out = { 
+				user: self.getTable(rows, fields, 0)[0],
+				professions: self.getTable(rows, fields, 1)
+			}
 			callback(err, out);
 		} else {
 			callback(err, null);
 		}
 	});
 };
-
-
-
 
 module.exports = User;

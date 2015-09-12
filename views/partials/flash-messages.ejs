@@ -1,0 +1,9 @@
+<% if ( messages ) { %>
+<script>
+	<% for(var name in messages){ %> 
+		<% for ( var i = 0; i < messages[name].length; i++){ %>
+			toastr['<%- name %>']('<%- messages[name][i] %>');
+		<% } %>
+	<% } %>
+</script>
+<% } %>

@@ -1,12 +1,10 @@
 var BaseResponse = require('./base-response.js'),
 	util = require('util');
 
-function UserIndexResponse(request, error){
+function Response(request, error){
 	BaseResponse.apply(this,arguments);
 	this.organizationInProgress = false;
 }
-util.inherits(UserIndexResponse, BaseResponse);
+util.inherits(Response, BaseResponse);
 
-
-
-module.exports = UserIndexResponse;
+module.exports = Response;

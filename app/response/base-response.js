@@ -1,11 +1,9 @@
 function BaseResponse(request, error){
 	this.error = error || null;
-	this.message = request.session.message || null;
+	this.messages = request.session.flash || {};
 	this.user = request.user || null;
 	
-	if ( request.session.message ){
-		request.session.message = '';
-	}
+	request.session.flash = {};	
 }
 
 module.exports = BaseResponse;

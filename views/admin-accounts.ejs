@@ -1,0 +1,84 @@
+<% include partials/header %>
+<div class="col-lg-offset-2 col-lg-8">
+	<% /* <div class="row">
+			<div class="col-lg-3">
+				<label> </label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="col-lg-3">
+				<label> </label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="col-lg-3">
+				<label> </label>
+				<input type="text" class="form-control">
+			</div>
+	</div>
+	<br> 
+	<div class="row">
+		<div class="col-lg-offset-8 col-lg-4">
+			<div class="btn-group pull-right">
+				<button class="btn btn-default">Clear</button>
+				<button type="submit" class="btn btn-default">Search</button>
+			</div>	
+		</div>
+	</div>
+	<hr>
+	*/%>
+	<table class="table table-striped table-hover table-responsive">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Account</th>
+				<th>Name</th>
+				<th>Commander</th>
+				<th>Admin</th>
+				<th>Created</th>
+				<th>
+					<div class="btn-group pull-right">
+						<a href="/admin/account/create" role="button" class="btn btn-primary btn-sm">
+							<span class="glyphicon glyphicon-plus"></span> New
+						</a>
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i = 0; i < accounts.data.length; i++ ){ %>
+				<tr <% if (getDate(accounts.data[i].enddate) != '9999-12-31'){%>class="text-strikeout"<% }%>>
+					<td><%- accounts.data[i].idlogin %></td>
+					<td><%- accounts.data[i].username %></td>
+					<td><%- accounts.data[i].displayname %></td>
+					<td>				 
+						<% if (accounts.data[i].hascommanderTag == 1) {%>
+							<span class="glyphicon glyphicon-ok text-success"></span>
+						<% } %>						
+					</td>
+					<td>
+						<% if (accounts.data[i].isAdmin == 1) {%>
+							<span class="glyphicon glyphicon-ok text-success"></span>
+						<% } %>
+					</td>
+					<td><%- getDate(accounts.data[i].createddate) %></td>
+					<td>
+						<a href="/admin/account/<%-accounts.data[i].idlogin%>/edit" role="button" class="btn btn-success btn-sm" >
+						<span class="glyphicon glyphicon-search"></span> Edit
+						</a>													
+					</td>					
+				</tr>
+			<% }%> 
+		</tbody>
+		<% if (accounts.data[0]) { %>
+		<tfoot>
+			<tr>
+				<td colspan="<%- (Object.keys(accounts.data[0]).length +1 ) %>">
+					<% var paginator = accounts; %>
+					<% include partials/paginator %>
+				</td>
+			</tr>
+		</tfoot>
+		<% }%> 
+	</table>
+</div>
+
+<% include partials/footer %>

@@ -1,11 +1,9 @@
 var BaseResponse = require('./base-response.js'),
 	util = require('util');
 
-function UserChangePasswordResponse(request, error){
+function Response(request, error){
 	BaseResponse.apply(this,arguments);
 }
-util.inherits(UserChangePasswordResponse, BaseResponse);
+util.inherits(Response, BaseResponse);
 
-
-
-module.exports = UserChangePasswordResponse;
+module.exports = Response;

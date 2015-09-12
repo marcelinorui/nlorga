@@ -9,23 +9,20 @@
 			</button>
 			<% if ( user ) { %>
 				<a class="navbar-brand" href="/user">Brand</a>
-				<% } else { %>
-					<a class="navbar-brand" href="/">Brand</a>
-					<% } %>
+			<% } else { %>
+				<a class="navbar-brand" href="/">Brand</a>
+			<% } %>
 		</div>
 		<div class="collapse navbar-collapse" id="my-navbar-collapse">
 			<% if (  user ) {%>
 				<ul class="nav navbar-nav">
 					<% include user-menu %>
 					<% include admin-menu %>
-
-				</ul>			
-					
+				</ul>					
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/logout">Sign Out</a></li>
-				</ul>
-				
-				<p class="navbar-text navbar-right">Welcome <a href="/profile" class="navbar-link"><% include display-username %></a></p>
+				</ul>				
+				<p class="navbar-text navbar-right">Welcome <a href="/user/profile" class="navbar-link"><% include display-username %></a></p>
 			<% }%>
 		</div>
 	</div>

@@ -9,8 +9,10 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var passport = require('./authentication.js');
-//var flash = require('connect-flash');
+var flash = require('connect-flash');
 var passport = require('passport');
+var ErrorResponse = require('./../app/response/error-response.js');
+var moment = require('moment');
 
 module.exports = function (app, db, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -31,6 +33,8 @@ module.exports = function (app, db, config) {
     secret: 'SOMERANDOMSECRETHERE', 
     cookie: { maxAge: 3600*60000 }
   }));
+  app.use(flash());
+  
   app.use(express.static( config.root + '/public'));
 
   app.use(methodOverride());
@@ -39,11 +43,16 @@ module.exports = function (app, db, config) {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  app.locals.getDate = function(dateObj){
+    return moment(dateObj).format('YYYY-MM-DD');
+  };
 
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
-  controllers.forEach(function (controller) {
-    require(controller)(app, passport);
-  });
+  app.use('/', require('./../app/controllers/base.js')(passport));	
+  app.use('/user', require('./../app/controllers/user.js')(passport));
+  app.use('/admin', require('./../app/controllers/admin.js')(passport));
+  //app.use('/api/user', require('./app/controllers/api-user.js')(passport));
+  app.use('/api/admin', require('./../app/controllers/api-admin.js')(passport));
+ 
 
   app.use(function (req, res, next) {
     var err = new Error('Ooops gess that wasn\'t suposed to hapen');
@@ -53,23 +62,15 @@ module.exports = function (app, db, config) {
 
   if (app.locals.ENV_DEVELOPMENT) {
     app.use(function (err, req, res, next) {
+      var errResponse = new ErrorResponse(req,err);
       res.status(err.status || 500);
-      res.render('error', {
-        user: req.user,
-        message: err.message,
-        error: err,
-        title: 'error'
-      });
+      res.render('error', errResponse);
     });
   } else {
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
-      res.render('error', {
-        user: req.user,
-        message: err.message,
-        error: {},
-        title: 'error'
-      });
+      var errResponse = new ErrorResponse(req,err);
+      res.render('error', errResponse);
     });
   }
 };

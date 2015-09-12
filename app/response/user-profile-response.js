@@ -1,13 +1,14 @@
 var BaseResponse = require('./base-response.js'),
 	util = require('util');
 
-function UserProfileResponse(request, error){
+function Response(request, error){
 	BaseResponse.apply(this,arguments);
-	this.professions = request.session.professions || null;
-	if ( request.session.professions ){
-		request.session.professions = null;
+	
+	this.profile = request.session.profile || null;	
+	if ( request.session.profile ){
+		request.session.profile = null;
 	}
 }
-util.inherits(UserProfileResponse, BaseResponse);
+util.inherits(Response, BaseResponse);
 
-module.exports = UserProfileResponse;
+module.exports = Response;
