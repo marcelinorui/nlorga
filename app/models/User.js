@@ -43,7 +43,7 @@ User.prototype.getUserProfile = function (idlogin, callback) {
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
 			var out = { 
-				user: self.getTable(rows, fields, 0)[0],
+				user: self.getFirstRow(rows, fields),
 				professions: self.getTable(rows, fields, 1)
 			}
 			callback(err, out);

@@ -67,7 +67,6 @@ Base.prototype.paginateQuery = function( table , columns , where , order , param
     });
 };
 
-
 Base.prototype.getFields = function (tables, fields) {
     return this.getTable(tables,fields,0);
 };

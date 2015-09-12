@@ -79,15 +79,20 @@ function user(passport) {
 	router.get('/changePassword', isUserAuthenticated,
 		function (req, res) {
 			var Response = require('./../response/user-change-password-response.js');
-			res.render('user-change-password', new Response(req, null));
+			res.render('user-change-password', new Response(req));
 		});
-
 
 	router.post('/changePassword', isUserAuthenticated,
 		function (req, res, next) {
-			if (req.body['password1'] && req.body['password2']) {
-				if (req.body['password1'] == req.body['password2']) {
-					db.User.changeLoginPassword(req.user.idlogin, req.body['password1'],
+			var obj = {
+				password1:req.body['password1'], 
+				password2:req.body['password2'],
+
+			};
+			
+			if (obj.password1 && obj.password2) {
+				if (obj.password1 == obj.password2 && obj.password1.legnth > 0 && obj.password2.length > 0) {
+					db.User.changeLoginPassword(req.user.idlogin, obj.password1,
 						function (err, ok) {
 							if (!err) {
 								req.flash('success', 'Password changed successfully.');

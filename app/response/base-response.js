@@ -1,5 +1,4 @@
-function BaseResponse(request, error){
-	this.error = error || null;
+function BaseResponse(request){
 	this.messages = request.session.flash || {};
 	this.user = request.user || null;
 	

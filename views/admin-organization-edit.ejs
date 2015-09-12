@@ -1,3 +1,67 @@
 <% include partials/header %>
 
+<div class="col-lg-offset-4 col-lg-8">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h5>Create New Account </h5>
+		</div>
+		<div class="panel-body">
+			<form action="/admin/organization/<%- organization.idorganization%>/edit" method="post">
+				<div class="form-group">
+					<label for="username">Title</label>
+					<input type="text" id="title" class="form-control" name="title" placeholder="Title" value="<%- organization.title%>" 
+					/>
+				</div>
+			</form>
+				<div>
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status" method="post">
+						<button type="submit"> Reset </button>	
+					</form>					
+					<% if ( organization.status == 1) { %>
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
+						<button type="submit">Start Party Registry</button>	
+					</form>
+					<% } %>
+					<% if ( organization.status == 2) { %>
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
+					<button type="submit">Stop Party Registry  </button>	
+					</form>
+					<% } %>
+					<% if ( organization.status == 3) { %>
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
+					<button type="submit">Create Partys</button>	
+					</form>
+					<% } %>
+					<% if ( organization.status == 4) { %>
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
+					<button type="submit">Show Partys </button>	
+					</form>
+					<% } %>
+					<% if ( organization.status == 5) { %>			
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
+					<button type="submit">Close Organization</button>	
+					</form>
+					<% } %>
+				</div>
+				<div>
+					partydata.asdadasd
+					
+					This is the active party data by the status
+									
+				</div>
+				<hr>
+				<div class="form-group">
+					<div class=" pull-left">
+						<a role="button" href="/admin/organizaqtions" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span> Back</a>
+					</div>
+					<div class=" pull-right">
+						<button type="submit" id="btn-login" class="btn btn-primary"> <span class="glyphicon glyphicon-ok "></span> Create</button>
+					</div>
+				</div>
+				
+			<form>
+		</div>
+	</div>
+</div>
+
 <% include partials/footer %>

@@ -92,7 +92,8 @@ function admin(passport) {
 			hascommanderTag: req.body['hascommanderTag'] ? 1:0,
 			isAdmin : req.body['isAdmin'] ? 1:0,
 			forDelete : req.body['forDelete'] ? 1:0		
-		};		
+		};
+				
 		db.Account.updateAccount(
 			account.idlogin,
 			account.username,
