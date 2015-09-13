@@ -31,17 +31,11 @@ Base.prototype.paginateQuery = function( table , columns , where , order , param
     if (!itemsPerPage){ itemsPerPage = 10;}
     
     var startIndex = (currentPage-1)*itemsPerPage;
-    var myFrom = ' FROM '+ '`'+table+'`' + where + order
+    var myFrom = ' FROM '+ table + where + order
     
     var queryParams = parameters;
     
-    var querySql = '';
-    if ( columns != '*' ){
-        querySql = 'SELECT ' + '`'+columns.join('`, `') + '`' + myFrom + ' LIMIT ?,? ;'
-    } else {
-        querySql = 'SELECT ' + columns.join(', ')  + myFrom + ' LIMIT ?,? ;'
-    }
-    
+    var querySql = 'SELECT ' + columns.join(', ')  + myFrom + ' LIMIT ?,? ;'
     queryParams.push(startIndex);
     queryParams.push(itemsPerPage);
     

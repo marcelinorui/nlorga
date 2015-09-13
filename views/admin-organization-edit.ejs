@@ -1,67 +1,112 @@
 <% include partials/header %>
 
-<div class="col-lg-offset-4 col-lg-8">
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h5>Create New Account </h5>
+<div class="col-lg-12">
+		<div class="title">
+			<h2>Organization <b><%- organization.title %></b></h2>
 		</div>
-		<div class="panel-body">
-			<form action="/admin/organization/<%- organization.idorganization%>/edit" method="post">
-				<div class="form-group">
-					<label for="username">Title</label>
-					<input type="text" id="title" class="form-control" name="title" placeholder="Title" value="<%- organization.title%>" 
-					/>
-				</div>
-			</form>
+			
+		<% if ( organization.idstatus == 1 ) {  %>
+		<form action="/admin/organization/<%- organization.idorganization%>/edit" method="post">
+			<div class="form-group">
+				<label for="username">Title</label>
+					<input type="text" id="title" class="form-control" name="title" placeholder="Title" value="<%- organization.title %>" 
+				/>
+			</div>
+			<div class="form-group">
+				<label for="partyconfiguration">Party Configuration</label>
 				<div>
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status" method="post">
-						<button type="submit"> Reset </button>	
-					</form>					
-					<% if ( organization.status == 1) { %>
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
-						<button type="submit">Start Party Registry</button>	
+					<select name="partyconfiguration" class="form-control">
+					<% for( var i = 0; i < partyconfiguration.length ;i++){ %>
+						<option value="<%- partyconfiguration[i].idpartyconfiguration%>"
+							<% if ( partyconfiguration[i].idpartyconfiguration == organization.partyconfiguration ) { %> 
+							selected <% } 
+							%>
+						> 
+							<%= partyconfiguration[i].description %>
+						</option>
+					<% } %>			
+					</select>
+				</div>
+			</div>		
+			<div class="form-group">
+		
+				<div class=" pull-right">
+					<button type="submit" id="btn-login" class="btn btn-primary"> <span class="glyphicon glyphicon-ok "></span> Save</button>
+				</div>				
+			</div>
+		</form>	
+		<br>
+		<% } else { %>
+		<h3>
+			<span>Party Configuration: </span>						
+				<b><%- organization.description %></b>						
+		</h3>
+		<% } %>
+		<hr>
+		
+		<div class="col-lg-12">
+			<% if ( getDate(organization.enddate) == '9999-12-31' ){ %>
+			<div class="col-lg-3">
+				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/0" method="post">
+					<button type="submit" class="btn btn-danger"> Reset Organization </button>	
+				</form>	
+			</div>
+			<% } %>
+			<div class="col-lg-9">
+				<% if ( organization.idstatus == 1) { %>
+				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
+					<button type="submit" class="btn btn-success">Start Party Registry</button>	
+				</form>
+				<% } %>			
+				<% if ( organization.idstatus == 2) { %>
+				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
+					<button type="submit" class="btn btn-success">Stop Party Registry</button>	
+				</form>
+				</div>
+				<% } %>
+				<% if ( organization.idstatus == 3) { %>
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="">
+						<div class="col-lg-offset-3 col-lg-5">
+							<label>Pick a party size</label>
+							<div class="form-group">
+								<div class="radio"><label><input type="radio" name="size" value="2" checked /> 2 Members</label></div>
+								<div class="radio"><label><input type="radio" name="size" value="3" /> 3 Members</label></div>
+								<div class="radio"><label><input type="radio" name="size" value="4"  /> 4 Members</label></div>
+								<div class="radio"><label><input type="radio" name="size" value="5"  /> 5 Members</label></div>
+							</div>
+						</div>
+						<div class="col-lg-offset-2 col-lg-2">
+							<div class="form-group">
+								<button type="submit" class="btn btn-success">Create Partys</button>
+							</div>
+						</div>
 					</form>
-					<% } %>
-					<% if ( organization.status == 2) { %>
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
-					<button type="submit">Stop Party Registry  </button>	
-					</form>
-					<% } %>
-					<% if ( organization.status == 3) { %>
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
-					<button type="submit">Create Partys</button>	
-					</form>
-					<% } %>
-					<% if ( organization.status == 4) { %>
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
+				<% } %>
+				<% if ( organization.idstatus == 4) { %>
+				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
 					<button type="submit">Show Partys </button>	
-					</form>
-					<% } %>
-					<% if ( organization.status == 5) { %>			
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post">
+				</form>
+				<% } %>
+				<% if ( organization.idstatus == 5) { %>			
+				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
 					<button type="submit">Close Organization</button>	
-					</form>
-					<% } %>
-				</div>
-				<div>
-					partydata.asdadasd
-					
-					This is the active party data by the status
-									
-				</div>
-				<hr>
-				<div class="form-group">
-					<div class=" pull-left">
-						<a role="button" href="/admin/organizaqtions" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span> Back</a>
-					</div>
-					<div class=" pull-right">
-						<button type="submit" id="btn-login" class="btn btn-primary"> <span class="glyphicon glyphicon-ok "></span> Create</button>
-					</div>
-				</div>
-				
-			<form>
+				</form>
+				<% } %>
+			</div>
 		</div>
-	</div>
+		<div class="clearfix"></div>
+		<hr>
+		<div class="col-lg-12">
+			This is the active party data by the status
+		</div>
+		<div class="clearfix"></div>
+		<hr>
+		<div class="col-lg-12">
+			<div class=" pull-left">
+				<a role="button" href="/admin/organizations" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span> Back</a>
+			</div>				
+		</div>
+	
 </div>
 
 <% include partials/footer %>

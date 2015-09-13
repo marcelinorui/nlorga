@@ -9,13 +9,15 @@ function Configuration(db){
 
 util.inherits(Configuration, Base);
 
-Configuration.prototype.createOrganization = function(callback){
-	var sql = 'CALL createOrganization()';
-	var params = [ ];
+Configuration.prototype.getActivePartyConfiguration = function(callback){
+	var sql = 'CALL getActivePartyConfiguration()';
+	var params = [];
 	var query = mysql.format(sql,params);
+	var self = this;
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
-			callback(err, 'ok');
+			var out = self.getTable(rows,fields);
+			callback(err, out);
 		} else {
 			callback(err,null);
 		}

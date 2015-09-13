@@ -4,18 +4,18 @@ function base(passport) {
 	var router = express.Router();
 
 	router.get('/', function (req, res, next) {
-		var BaseResponse = require('./../response/base-response.js');
-		res.render('index', new BaseResponse(req,null));
+		var Response = require('./../response/base-response.js');
+		res.render('index', new Response(req));
 	});
 
 	router.get('/index', function (req, res, next) {
-		var BaseResponse = require('./../response/base-response.js');
-		res.render('index', new BaseResponse(req,null));
+		var Response = require('./../response/base-response.js');
+		res.render('index', new Response(req));
 	});
 
 	router.get('/login', function (req, res, next) {
-		var LogInResponse = require('./../response/login-response.js');
-		res.render('login', new LogInResponse(req, null));
+		var Response = require('./../response/login-response.js');
+		res.render('login', new Response(req));
 	});
 
 	router.post('/login', function (req, res, next) {
@@ -41,8 +41,8 @@ function base(passport) {
 	});
 	
 	router.get('/no-permitions', function (req, res) {
-		var BaseResponse = require('./../response/base-response.js');
-		res.render('no-permitions', new BaseResponse(req,null));
+		var Response = require('./../response/base-response.js');
+		res.render('no-permitions', new Response(req));
 	});
 	
 	return router;

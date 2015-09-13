@@ -15,12 +15,12 @@ function user(passport) {
 
 	router.get('/', isUserAuthenticated, function (req, res) {
 		var Response = require('./../response/user-index-response.js');
-		res.render('user-index', new Response(req, null));
+		res.render('user-index', new Response(req));
 	});
 
 	router.get('/index', isUserAuthenticated, function (req, res) {
 		var Response = require('./../response/user-index-response.js');
-		res.render('user-index', new Response(req, null));
+		res.render('user-index', new Response(req));
 	});
 
 	router.get('/profile', isUserAuthenticated,
@@ -34,7 +34,7 @@ function user(passport) {
 		},
 		function (req, res) {
 			var Response = require('./../response/user-profile-response.js');
-			res.render('user-profile', new Response(req, null));
+			res.render('user-profile', new Response(req));
 		});
 
 	router.post('/profile', isUserAuthenticated,

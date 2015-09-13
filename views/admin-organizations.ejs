@@ -1,5 +1,5 @@
 <% include partials/header %>
-<div class="col-lg-offset-2 col-lg-8">
+<div class="col-lg-12">
 	<% /* <div class="row">
 			<div class="col-lg-3">
 				<label> </label>
@@ -29,13 +29,13 @@
 		<thead>
 			<tr>
 				<th>#</th>
-				<th></th>
-				<th></th>
-				<th></th>
+				<th>Title</th>
+				<th>Status</th>
+				<th>Description</th>
 				<th>Created</th>
 				<th>
 					<div class="btn-group pull-right">
-						<a href="/admin/organization/create" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="New Account">
+						<a href="/admin/organization/create" role="button" class="btn btn-primary btn-sm">
 							<span class="glyphicon glyphicon-plus"></span> New
 						</a>
 					</div>
@@ -46,17 +46,14 @@
 			<% for(var i = 0; i < organizations.data.length; i++ ){ %>
 				<tr>
 					<td><%- organizations.data[i].idorganization %></td>
-					<td><%- organizations.data[i].status %></td>
 					<td><%- organizations.data[i].title %></td>
-					<td><%- organizations.data[i].createddate %>
-					<td><%- organizations.data[i].updateddate %>
+					<td><%- organizations.data[i].status %></td>
+					<td><%- organizations.data[i].description %></td>
+					<td><%- getDate(organizations.data[i].createddate) %>
 					<td>
 						<a href="/admin/organization/<%-organizations.data[i].idorganization%>/edit" role="button" class="btn btn-success btn-sm" title="Edit" data-toggle="tooltip" >
 							<span class="glyphicon glyphicon-search"></span> Edit
 						</a>
-						<a href="#" role="button" class="btn btn-warning btn-sm" title="Remove" data-toggle="modal" data-target="#modalremove<%-accounts.data[i].idlogin%>">
-							<span class="glyphicon glyphicon-remove"></span> Remove
-						</a>							
 					</td>					
 				</tr>
 			<% }%> 

@@ -4,9 +4,13 @@ var BaseResponse = require('./base-response.js'),
 function Response(request){
 	BaseResponse.apply(this, arguments);
 	this.organization = request.session.organization || null;	
+	this.partyconfiguration = request.session.partyconfiguration || null;
 	if ( request.session.organization ){
 		request.session.organization = null;
-	}	
+	}
+	if ( request.session.partyconfiguration ){
+		request.session.partyconfiguration = null;
+	}		
 }
 
 util.inherits(Response, BaseResponse);
