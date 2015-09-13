@@ -152,10 +152,12 @@ function admin(passport) {
 		var idorganization = req.params.id;
 		db.Organization.getOrganization(idorganization,function(err,organization,partyconfiguration){
 			if(!err){
-					req.session.organization = organization;
-					req.session.partyconfiguration = partyconfiguration;
-				}
-				return next(err);
+				req.session.organization = organization;
+				req.session.partyconfiguration = partyconfiguration;
+			} else {
+				req.flash('error','SQL Error.')
+			}
+			return next();
 		});
 	},
 	function(req,res,next){
@@ -163,44 +165,49 @@ function admin(passport) {
 		res.render('admin-organization-edit',new Response(req))
 	});
 	
-	router.get('/organization/:id/edit/status/0', isAdminAuthenticated, function(req,res,next){
-	
-	},function(req,res,next){ 
-			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
-			req.session.idorganization = null;	
+	router.post('/organization/:id/edit', isAdminAuthenticated, function(req,res,next){
+		var idorganization = req.params.id;
+		var title = req.body['title'];
+		var idpartyconfiguration = req.body['idpartyconfiguration']; 
+		db.Organization.updateOrganization(
+					idorganization,
+					title,
+					idpartyconfiguration,
+		function(err,ok){
+			if(! err ){
+				req.flash('success','The organization changed successfuly.')
+			} else {
+				req.flash('error','SQL Error.')
+			}
+			return next();
+		});
+	},
+	function(req,res,next){
+		res.redirect('/admin/organization/'+req.params.id+'/edit');
 	});
 	
-	router.get('/organization/:id/edit/status/1', isAdminAuthenticated, function(req,res,next){
-	
+	router.post('/organization/:id/status/:idstatus', isAdminAuthenticated, function(req,res,next){
+		if ( req.params.idstatus == -1){
+			db.Organization.resetOrganization(req.params.id,function(err,ok){
+				if(!err){
+					req.flash('success','The organization was reseted successfuly.');
+				}
+				return next(err);
+			});
+		} else {
+			var idstatus = req.params.idstatus;
+			idstatus = idstatus > 5 ? 5 : idstatus;
+			db.Organization.moveStatusOrganization(req.params.id,idstatus,function(err,ok){
+				if(!err){
+					req.flash('success','The Organization status changed successfuly.');
+				}
+				return next(err);
+			});	
+		}		
 	},function(req,res,next){ 
-			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
-			req.session.idorganization = null;	
+			res.redirect('/admin/organization/'+req.params.id+'/edit');
 	});
-	router.get('/organization/:id/edit/status/2', isAdminAuthenticated, function(req,res,next){
-	
-	},function(req,res,next){ 
-			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
-			req.session.idorganization = null;	
-	});
-	router.get('/organization/:id/edit/status/3', isAdminAuthenticated, function(req,res,next){
-	
-	},function(req,res,next){ 
-			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
-			req.session.idorganization = null;	
-	});
-	router.get('/organization/:id/edit/status/4', isAdminAuthenticated, function(req,res,next){
-	
-	},function(req,res,next){ 
-			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
-			req.session.idorganization = null;	
-	});
-	router.get('/organization/:id/edit/status/5', isAdminAuthenticated, function(req,res,next){
-	
-	},function(req,res,next){ 
-			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
-			req.session.idorganization = null;	
-	});
-	
+		
 	router.get('/configurations', isAdminAuthenticated, function(req,res,next){
 		next();
 	},function(req,res,next){

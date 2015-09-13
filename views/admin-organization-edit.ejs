@@ -4,7 +4,9 @@
 		<div class="title">
 			<h2>Organization <b><%- organization.title %></b></h2>
 		</div>
-			
+			<h4>
+			<%- organization.status %>	
+		</h4>
 		<% if ( organization.idstatus == 1 ) {  %>
 		<form action="/admin/organization/<%- organization.idorganization%>/edit" method="post">
 			<div class="form-group">
@@ -15,14 +17,14 @@
 			<div class="form-group">
 				<label for="partyconfiguration">Party Configuration</label>
 				<div>
-					<select name="partyconfiguration" class="form-control">
-					<% for( var i = 0; i < partyconfiguration.length ;i++){ %>
-						<option value="<%- partyconfiguration[i].idpartyconfiguration%>"
-							<% if ( partyconfiguration[i].idpartyconfiguration == organization.idpartyconfiguration ) { %> 
+					<select name="idpartyconfiguration" class="form-control">
+					<% for( var i = 0; i < organization.partyconfiguration.length ;i++){ %>
+						<option value="<%- organization.partyconfiguration[i].idpartyconfiguration%>"
+							<% if ( organization.partyconfiguration[i].idpartyconfiguration == organization.idpartyconfiguration ) { %> 
 							selected <% } 
 							%>
 						> 
-							<%= partyconfiguration[i].description %>
+							<%= organization.partyconfiguration[i].description %>
 						</option>
 					<% } %>			
 					</select>
@@ -31,7 +33,7 @@
 			<div class="form-group">
 		
 				<div class=" pull-right">
-					<button type="submit" id="btn-login" class="btn btn-primary"> <span class="glyphicon glyphicon-ok "></span> Save</button>
+					<button type="submit" id="btn-login" class="btn btn-primary"><span class="glyphicon glyphicon-ok "></span> Save</button>
 				</div>				
 			</div>
 		</form>	
@@ -39,30 +41,25 @@
 		<% } else { %>
 		<h3>
 			<span>Party Configuration: </span>						
-				<b><%- organization.description %></b>						
-		</h3>
+				<b><%- organization.description %></b>					
+		</h3>		
 		<% } %>
-		<hr>
-		
+		<hr>		
 		<div class="col-lg-12">
-			<% if ( getDate(organization.enddate) == '9999-12-31' ){ %>
+			<% if ( organization.idstatus != 6 ){ %>
 			<div class="col-lg-3">
-				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/0" method="post">
-					<input type="hidden" name="idorganization" value="<%- organization.idorganization%>" />
+				<form action="/admin/organization/<%- organization.idorganization%>/status/-1" method="post">
 					<button type="submit" class="btn btn-danger"> Reset Organization </button>	
 				</form>	
 			</div>
 			<% } %>
 			<div class="col-lg-9">
-				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" >
-					<input type="hidden" name="idorganization" value="<%- organization.idorganization%>" />
+				<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 				<% if ( organization.idstatus == 1) { %>
 					<button type="submit" class="btn btn-success">Start Party Registry</button>	
 				<% } %>			
 				<% if ( organization.idstatus == 2) { %>
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" >
-						<button type="submit" class="btn btn-success">Stop Party Registry</button>	
-					</form>
+					<button type="submit" class="btn btn-success">Stop Party Registry</button>	
 				</div>
 				<% } %>
 				<% if ( organization.idstatus == 3) { %>
@@ -83,10 +80,10 @@
 						</div>
 				<% } %>
 				<% if ( organization.idstatus == 4) { %>
-					<button type="submit">Show Partys </button>	
+					<button type="submit" class="btn btn-success">Show Partys </button>	
 				<% } %>
 				<% if ( organization.idstatus == 5) { %>			
-					<button type="submit">Close Organization</button>	
+					<button type="submit" class="btn btn-success">Close Organization</button>	
 				<% } %>
 				</form>
 			</div>

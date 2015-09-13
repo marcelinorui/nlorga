@@ -32,11 +32,94 @@ Organization.prototype.getOrganization = function(idorganization,callback){
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
 			var organization = self.getFirstRow(rows,fields);
-			var partyconfiguration = null;
+		
 			if (organization.idstatus == 1){
-				partyconfiguration = self.getTable(rows,fields,1);
+				organization.partyconfiguration = self.getTable(rows,fields,1);
 			}
-			callback(err, organization,partyconfiguration);
+			if (organization.idstatus == 2){
+				
+			}
+			if (organization.idstatus == 3){
+				
+			}
+			if (organization.idstatus == 4){
+				
+			}
+			if (organization.idstatus == 5){
+				
+			}
+			
+			callback(err, organization);
+		} else {
+			callback(err,null);
+		}
+	});
+};
+
+
+Organization.prototype.updateOrganization = function(idorganization,title,idpartyconfiguration,callback){
+	var sql = 'CALL updateOrganization(?,?,?)';
+	var params = [ idorganization,title,idpartyconfiguration];
+	var query = mysql.format(sql,params);
+	this.db.query(query, function (err, rows, fields) {
+		if (!err) {
+			callback(err, 'ok');
+		} else {
+			callback(err,null);
+		}
+	});	
+};
+
+Organization.prototype.resetOrganization = function(idorganization,callback){
+	var sql = 'CALL resetOrganization(?)';
+	var params = [ idorganization ];
+	var query = mysql.format(sql,params);
+	this.db.query(query, function (err, rows, fields) {
+		if (!err) {
+			callback(err, 'ok');
+		} else {
+			callback(err,null);
+		}
+	});	
+};
+
+Organization.prototype.moveStatusOrganization = function(idorganization,idstatus,callback){
+	var sql = 'CALL moveStatusOrganization(?,?)';
+	var params = [ idorganization,idstatus ];
+	var query = mysql.format(sql,params);
+	this.db.query(query, function (err, rows, fields) {
+		if (!err) {
+			callback(err, 'ok');
+		} else {
+			callback(err,null);
+		}
+	});
+};
+
+Organization.prototype.getRegistrys = function(idorganization,callback){
+	var sql = 'CALL getRegistrys(?)';
+	var params = [ idorganization ];
+	var query = mysql.format(sql,params);
+	var self = this;
+	this.db.query(query, function (err, rows, fields) {
+		if (!err) {
+			var registrys = self.getTable(rows,fields);
+			callback(err, registrys);
+		} else {
+			callback(err,null);
+		}
+	});
+};
+
+Organization.prototype.getPartys = function(idorganization,callback){
+	var sql = 'CALL getPartys(?)';
+	var params = [ idorganization ];
+	var query = mysql.format(sql,params);
+	var self = this;
+	this.db.query(query, function (err, rows, fields) {
+		if (!err) {
+			var registrys = self.getTable(rows,fields);
+			callback(err, registrys);
 		} else {
 			callback(err,null);
 		}
