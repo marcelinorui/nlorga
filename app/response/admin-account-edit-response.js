@@ -1,7 +1,7 @@
 var BaseResponse = require('./base-response.js'),
 	util = require('util');
 
-function Response(requests){
+function Response(request){
 	BaseResponse.apply(this, arguments);
 	this.account = request.session.account || null;	
 	if ( request.session.account ){

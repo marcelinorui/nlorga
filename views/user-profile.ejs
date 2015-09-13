@@ -1,10 +1,11 @@
 <% include partials/header %>
 
 <form action="/user/profile" method="post" class="form-horizontal">
-		
-		<h3>
-			<label ><% include partials/display-username %></label>
-		</h3>
+		<div class="title">
+		<h2>
+			<b><% include partials/display-username %></b> Profile
+		</h2>
+		</div>
 		<div class="form-group">
 			<div class="col-sm-2">
 			<label class="control-label" for="displayname">Display Name</label></div>
@@ -33,7 +34,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-		<div class="col-sm-12">
+			<div class="col-lg-12">
 			<span class="pull-right">
 				<button type="submit" class="btn btn-primary">Change Profile</button>
 			</span>

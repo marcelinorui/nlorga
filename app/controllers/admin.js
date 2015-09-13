@@ -163,6 +163,43 @@ function admin(passport) {
 		res.render('admin-organization-edit',new Response(req))
 	});
 	
+	router.get('/organization/:id/edit/status/0', isAdminAuthenticated, function(req,res,next){
+	
+	},function(req,res,next){ 
+			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
+			req.session.idorganization = null;	
+	});
+	
+	router.get('/organization/:id/edit/status/1', isAdminAuthenticated, function(req,res,next){
+	
+	},function(req,res,next){ 
+			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
+			req.session.idorganization = null;	
+	});
+	router.get('/organization/:id/edit/status/2', isAdminAuthenticated, function(req,res,next){
+	
+	},function(req,res,next){ 
+			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
+			req.session.idorganization = null;	
+	});
+	router.get('/organization/:id/edit/status/3', isAdminAuthenticated, function(req,res,next){
+	
+	},function(req,res,next){ 
+			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
+			req.session.idorganization = null;	
+	});
+	router.get('/organization/:id/edit/status/4', isAdminAuthenticated, function(req,res,next){
+	
+	},function(req,res,next){ 
+			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
+			req.session.idorganization = null;	
+	});
+	router.get('/organization/:id/edit/status/5', isAdminAuthenticated, function(req,res,next){
+	
+	},function(req,res,next){ 
+			res.redirect('/admin/organization/'+req.session.idorganization+'/edit');
+			req.session.idorganization = null;	
+	});
 	
 	router.get('/configurations', isAdminAuthenticated, function(req,res,next){
 		next();

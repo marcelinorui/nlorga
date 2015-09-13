@@ -18,7 +18,7 @@
 					<select name="partyconfiguration" class="form-control">
 					<% for( var i = 0; i < partyconfiguration.length ;i++){ %>
 						<option value="<%- partyconfiguration[i].idpartyconfiguration%>"
-							<% if ( partyconfiguration[i].idpartyconfiguration == organization.partyconfiguration ) { %> 
+							<% if ( partyconfiguration[i].idpartyconfiguration == organization.idpartyconfiguration ) { %> 
 							selected <% } 
 							%>
 						> 
@@ -48,31 +48,32 @@
 			<% if ( getDate(organization.enddate) == '9999-12-31' ){ %>
 			<div class="col-lg-3">
 				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/0" method="post">
+					<input type="hidden" name="idorganization" value="<%- organization.idorganization%>" />
 					<button type="submit" class="btn btn-danger"> Reset Organization </button>	
 				</form>	
 			</div>
 			<% } %>
 			<div class="col-lg-9">
+				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" >
+					<input type="hidden" name="idorganization" value="<%- organization.idorganization%>" />
 				<% if ( organization.idstatus == 1) { %>
-				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
 					<button type="submit" class="btn btn-success">Start Party Registry</button>	
-				</form>
 				<% } %>			
 				<% if ( organization.idstatus == 2) { %>
-				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
-					<button type="submit" class="btn btn-success">Stop Party Registry</button>	
-				</form>
+					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" >
+						<button type="submit" class="btn btn-success">Stop Party Registry</button>	
+					</form>
 				</div>
 				<% } %>
 				<% if ( organization.idstatus == 3) { %>
-					<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="">
 						<div class="col-lg-offset-3 col-lg-5">
 							<label>Pick a party size</label>
 							<div class="form-group">
-								<div class="radio"><label><input type="radio" name="size" value="2" checked /> 2 Members</label></div>
-								<div class="radio"><label><input type="radio" name="size" value="3" /> 3 Members</label></div>
-								<div class="radio"><label><input type="radio" name="size" value="4"  /> 4 Members</label></div>
-								<div class="radio"><label><input type="radio" name="size" value="5"  /> 5 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="2" checked /> 2 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="3"  /> 3 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="4"  /> 4 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="5"  /> 5 Members</label></div>
+								<%/*<div class="radio"><label><input type="radio" name="partysize" value="10" disabled  /> 10 Members</label></div>*/%>
 							</div>
 						</div>
 						<div class="col-lg-offset-2 col-lg-2">
@@ -80,24 +81,20 @@
 								<button type="submit" class="btn btn-success">Create Partys</button>
 							</div>
 						</div>
-					</form>
 				<% } %>
 				<% if ( organization.idstatus == 4) { %>
-				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
 					<button type="submit">Show Partys </button>	
-				</form>
 				<% } %>
 				<% if ( organization.idstatus == 5) { %>			
-				<form action="/admin/organization/<%- organization.idorganization%>/edit/status/<%- organization.idstatus%>" method="post" class="pull-right">
 					<button type="submit">Close Organization</button>	
-				</form>
 				<% } %>
+				</form>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 		<hr>
 		<div class="col-lg-12">
-			This is the active party data by the status
+			Not yet implemented
 		</div>
 		<div class="clearfix"></div>
 		<hr>
