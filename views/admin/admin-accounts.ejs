@@ -109,31 +109,29 @@
 </script>
 
 <script type="text/html" id="data">
-	<%% for(var i = 0; i < obj.length; i++ ){ %>
-		<tr <%% if (obj[i].enddate.substring(0,10) != '9999-12-31'){%>class="text-strikeout"<%% }%> >
-			<td><%%- obj[i].idlogin %></td>
-			<td><%%- obj[i].username %></td>
-			<td><%%- obj[i].displayname %></td>
+		<tr <%% if (obj.enddate.substring(0,10) != '9999-12-31'){%>class="text-strikeout"<%% }%> >
+			<td><%%- obj.idlogin %></td>
+			<td><%%- obj.username %></td>
+			<td><%%- obj.displayname %></td>
 			<td>				 
-				<%% if (obj[i].hascommanderTag == 1) {%>
+				<%% if (obj.hascommanderTag == 1) {%>
 					<span class="glyphicon glyphicon-ok text-success"></span>
 				<%% } %>						
 			</td>
 			<td>
-				<%% if (obj[i].isAdmin == 1) {%>
+				<%% if (obj.isAdmin == 1) {%>
 					<span class="glyphicon glyphicon-ok text-success"></span>
 				<%% } %>
 			</td>
-			<td><%%- obj[i].createddate.substring(0,10) %></td>
+			<td><%%- obj.createddate.substring(0,10) %></td>
 			<td>
 				<div class="btn-group pull-right">
-					<a href="/admin/account/<%%- obj[i].idlogin %>/edit" role="button" class="btn btn-success btn-sm" >
+					<a href="/admin/account/<%%- obj.idlogin %>/edit" role="button" class="btn btn-success btn-sm" >
 						<span class="glyphicon glyphicon-search"></span> Edit
 					</a>
 				</div>													
 			</td>					
 		</tr>
-	<%% }%> 
 </script>
 
 <script>
@@ -149,13 +147,7 @@
 				this.on('collection:data-fetched',this.updatePager,this);				
 			},
 			parse: function(response){
-				var pager ={
-					total : response.total,
-					currentPage : response.currentPage,
-					itemsPerPage: response.itemsPerPage,
-					pageCount:response.pageCount
-				};
-				this.trigger('collection:data-fetched',pager);
+				this.trigger('collection:data-fetched',response.pager);
 				return response.data;
 			},
 			changeItemsPerPage:function(itemsPerPage){
@@ -169,18 +161,16 @@
 				this.fetch().done(function(){self.trigger('collection:updated',self);});	
 			},
 			fetch: function(options) {
-            	options || (options = {data: {}});
-            	options.data.currentPage = this.pager.currentPage;
-				options.data.itemsPerPage = this.pager.itemsPerPage;
+            	options || ( options = {
+					data: {
+						currentPage : this.pager.currentPage,
+						itemsPerPage :this.pager.itemsPerPage
+					}
+				});
 				return Backbone.Collection.prototype.fetch.call(this, options);
           	},
 			 updatePager:function(pager){
-				 this.pager = {
-					total : pager.total,
-					currentPage : pager.currentPage,
-					itemsPerPage: pager.itemsPerPage,
-					pageCount:pager.pageCount
-				 };				 
+				 this.pager = pager;
 			 }
 		});	
 		
@@ -196,9 +186,8 @@
 			},
 			initialize:function(options){
 				this.collection = new NL.Collection.Pager(options.table.data);
-				this.collection.updatePager(options.table);
+				this.collection.updatePager(options.table.pager);
 				this.collection.url = options.url;
-				
 				this.$table = this.$el.find('table');
 				this.$header = this.$table.find('thead');
 				this.$body = this.$table.find('tbody');
@@ -209,7 +198,11 @@
 				this.render(this.collection);				
 			},
 			render:function(){
-				this.$body.html(this.defaults.bodytemplate(this.collection.toJSON()));
+				this.$body.html('');
+				var obj = this.collection.toJSON();
+				for(var i = 0; i < obj.length; i++){
+					this.$body.append(this.defaults.bodytemplate(obj[i]));
+				}
 				this.$footer.html('<tr><td colspan="'+ this.columns +'">' + this.defaults.footertemplate(this.collection.pager)+'</td></tr>');
 			},
 			pagerClick:function(e,self){

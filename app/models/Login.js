@@ -16,8 +16,8 @@ Login.prototype.verifyLogin = function( username, password, callback){
 	var query = mysql.format(sql,params);
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
-			var out = self.getFields(rows,fields);
-			callback(err, out[0]);
+			var out = self.getFirstRow(rows,fields);
+			callback(err, out);
 		} else {
 			callback(err,null);
 		}
