@@ -1,6 +1,7 @@
-var express = require('express');
-
+var express = require('express'),
+		 db = require('./../models/index.js');
 function isAdminAuthenticated(req, res, next) {
+	return next();
 	if (req.isAuthenticated()) {
 		if (req.user.isAdmin === true) {
 			return next();
@@ -20,6 +21,16 @@ function apiAdmin(passport) {
 		res.status(200).json('ok');
 	});
 	
+	
+	router.get('/accounts', isAdminAuthenticated, function(req,res,next){
+		db.Account.listAccounts('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, accounts){
+			if(!err){
+				res.status(200).json(accounts);
+			} else {
+				return next(err);
+			}
+		});
+	});
 	return router;
 };
 

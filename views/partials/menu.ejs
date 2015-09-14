@@ -22,7 +22,15 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/logout">Sign Out</a></li>
 				</ul>				
-				<p class="navbar-text navbar-right">Welcome <a href="/user/profile" class="navbar-link"><% include display-username %></a></p>
+				<p class="navbar-text navbar-right">Welcome 
+					<a href="/user/profile" class="navbar-link">
+					<% if ( user.displayname ) {%> 
+						<%- user.displayname %> 
+					<%} else  {%> 
+						<%- user.username %> 
+					<%}%>
+					</a>
+				</p>
 			<% }%>
 		</div>
 	</div>

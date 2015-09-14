@@ -1,9 +1,16 @@
 {
-  "name": "server2",
+  "name": "NLOrgaMVC",
   "version": "0.0.1",
   "ignore": [
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+  "devDependencies": {
+    "backbone": "~1.2.3",
+    "underscore": "~1.8.3",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "bootstrap-checkbox": "~1.2.8"
+  }
 }

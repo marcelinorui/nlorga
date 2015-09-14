@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="col-lg-3">		
+		<span><b>Page <%- paginator.currentPage %> of <%- paginator.pageCount %></b></span>
+	</div>	
+	<% if (paginator.pageCount > 1) { %>
+	<div class="col-lg-6 text-center">		
+		<nav>
+			<ul class="pagination">
+				<% if (paginator.currentPage > 1) { %>
+					<li><a href="/?page=1" data-pager="1">&laquo;</a></li>
+				<% } %>
+				<% var i = 1;
+				if (paginator.currentPage > 5) {
+					i = +paginator.currentPage - 4;
+				} %>
+				<% if (i !== 1) { %>
+					<li class="disabled"><a href="#">...</a></li>
+				<% } %>
+				<% for (i; i<=paginator.pageCount; i++) { %>
+					<% if (paginator.currentPage == i) { %>
+						<li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+					<% } else { %>
+						<li><a href="#" data-pager="<%= i %>"><%= i %></a></li>
+					<% } %>
+					<% if (i == (+paginator.currentPage + 4)) { %>
+						<li class="disabled"><a href="#">...</a></li>
+					<% break; } %>
+				<% } %>
+				<% if (paginator.currentPage != paginator.pageCount) { %>
+					<li><a href="#" data-pager="next">&raquo;</a></li>
+				<% } %>
+			</ul>
+		</nav>		
+	</div>		
+	<div class="col-lg-3">
+		<div class="row">
+			<label class="col-lg-offset-4 col-lg-3"> Items:</label>
+			<div class="col-lg-5">
+				<select class="form-control ">
+					<option value="10" <%- paginator.itemsPerPage == 10 ? "selected" : "" %> >10</option>
+					<option value="25" <%- paginator.itemsPerPage == 25 ? "selected" : "" %> >25</option>
+					<option value="50" <%- paginator.itemsPerPage == 50 ? "selected" : "" %> >50</option>
+					<option value="100" <%- paginator.itemsPerPage == 100 ? "selected" : "" %> >100</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<% } %>
+</div>

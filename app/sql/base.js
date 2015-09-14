@@ -29,6 +29,7 @@ Base.prototype.paginateQuery = function( table , columns , where , order , param
     
     if (!currentPage){ currentPage = 1;}
     if (!itemsPerPage){ itemsPerPage = 10;}
+    else{itemsPerPage = parseInt(itemsPerPage,10);}
     
     var startIndex = (currentPage-1)*itemsPerPage;
     var myFrom = ' FROM '+ table + where + order

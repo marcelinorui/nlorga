@@ -1,0 +1,238 @@
+<% include ./../partials/header %>
+<div class="row">
+<div class="col-lg-12">
+	<% /* <div class="row">
+			<div class="col-lg-3">
+				<label> </label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="col-lg-3">
+				<label> </label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="col-lg-3">
+				<label> </label>
+				<input type="text" class="form-control">
+			</div>
+	</div>
+	<br> 
+	<div class="row">
+		<div class="col-lg-offset-8 col-lg-4">
+			<div class="btn-group pull-right">
+				<button class="btn btn-default">Clear</button>
+				<button type="submit" class="btn btn-default">Search</button>
+			</div>	
+		</div>
+	</div>
+	<hr>
+	*/%>
+	<div class="mytable">
+	<table class="table table-striped table-hover" >
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Account</th>
+				<th>Name</th>
+				<th>Commander</th>
+				<th>Admin</th>
+				<th>Created</th>
+				<th>
+					<div class="btn-group pull-right">
+						<a href="/admin/account/create" role="button" class="btn btn-primary btn-sm">
+							<span class="glyphicon glyphicon-plus"></span> New
+						</a>
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>			
+		</tbody>		
+		<tfoot>		
+		</tfoot>		 
+	</table>
+	</div>
+</div>
+</div>
+<% include ./../partials/end-body %>
+
+<script type="text/html" id="pager">
+<div class="row">
+	<div class="col-lg-3">		
+		<span><b>Page <%%- currentPage %> of <%%- pageCount %></b></span>
+	</div>	
+	
+	<div class="col-lg-6 text-center">	
+		<%% if (pageCount > 1) { %>	
+		<nav>
+			<ul class="pagination">
+				<%% if (currentPage > 1) { %>
+					<li><a href="#" data-pager='<%%- parseInt(currentPage,10)-1 %>'>&laquo;</a></li>
+				<%% } %>
+				<%% var i = 1;
+				if (currentPage > 5) {
+					i = +currentPage - 4;
+				} %>
+				<%% if (i !== 1) { %>
+					<li class="disabled"><a href="#">...</a></li>
+				<%% } %>
+				<%% for (i; i<=pageCount; i++) { %>
+					<%% if (currentPage == i) { %>
+						<li class="active"><span><%%= i %> <span class="sr-only">(current)</span></span></li>
+					<%% } else { %>
+						<li><a href="#" data-pager='<%%= i %>'><%%= i %></a></li>
+					<%% } %>
+					<%% if (i == (+currentPage + 4)) { %>
+						<li class="disabled"><a href="#">...</a></li>
+					<%% break; } %>
+				<%% } %>
+				<%% if (currentPage != pageCount) { %>
+					<li><a href="#" data-pager='<%%- parseInt(currentPage,10)+1 %>'>&raquo;</a></li>
+				<%% } %>
+			</ul>
+		</nav>	
+		<%% } %>	
+	</div>	
+	<div class="col-lg-3">
+		<div class="row">
+			<label class="col-lg-offset-4 col-lg-3"> Items:</label>
+			<div class="col-lg-5">
+				<select class="form-control">
+					<option value="10" <%%- itemsPerPage == 10 ? "selected" : "" %> >10</option>
+					<option value="25" <%%- itemsPerPage == 25 ? "selected" : "" %> >25</option>
+					<option value="50" <%%- itemsPerPage == 50 ? "selected" : "" %> >50</option>
+					<option value="100" <%%- itemsPerPage == 100 ? "selected" : "" %> >100</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+</script>
+
+<script type="text/html" id="data">
+	<%% for(var i = 0; i < obj.length; i++ ){ %>
+		<tr <%% if (obj[i].enddate.substring(0,10) != '9999-12-31'){%>class="text-strikeout"<%% }%> >
+			<td><%%- obj[i].idlogin %></td>
+			<td><%%- obj[i].username %></td>
+			<td><%%- obj[i].displayname %></td>
+			<td>				 
+				<%% if (obj[i].hascommanderTag == 1) {%>
+					<span class="glyphicon glyphicon-ok text-success"></span>
+				<%% } %>						
+			</td>
+			<td>
+				<%% if (obj[i].isAdmin == 1) {%>
+					<span class="glyphicon glyphicon-ok text-success"></span>
+				<%% } %>
+			</td>
+			<td><%%- obj[i].createddate.substring(0,10) %></td>
+			<td>
+				<div class="btn-group pull-right">
+					<a href="/admin/account/<%%- obj[i].idlogin %>/edit" role="button" class="btn btn-success btn-sm" >
+						<span class="glyphicon glyphicon-search"></span> Edit
+					</a>
+				</div>													
+			</td>					
+		</tr>
+	<%% }%> 
+</script>
+
+<script>
+	var mytable = null;
+	$(function(){
+		var NL = NL || {};
+		NL.View = NL.View || {};
+		NL.Model = NL.Model || {};
+		NL.Collection = NL.Collection || {};
+		
+		NL.Collection.Pager = Backbone.Collection.extend({
+			initialize:function(options){
+				this.on('collection:data-fetched',this.updatePager,this);				
+			},
+			parse: function(response){
+				var pager ={
+					total : response.total,
+					currentPage : response.currentPage,
+					itemsPerPage: response.itemsPerPage,
+					pageCount:response.pageCount
+				};
+				this.trigger('collection:data-fetched',pager);
+				return response.data;
+			},
+			changeItemsPerPage:function(itemsPerPage){
+				var self = this;
+				this.pager.itemsPerPage = itemsPerPage;
+				this.fetch().done(function(){self.trigger('collection:updated',self);});	
+			},
+			goToPage:function(currentPage){
+				var self = this;
+				this.pager.currentPage = currentPage;
+				this.fetch().done(function(){self.trigger('collection:updated',self);});	
+			},
+			fetch: function(options) {
+            	options || (options = {data: {}});
+            	options.data.currentPage = this.pager.currentPage;
+				options.data.itemsPerPage = this.pager.itemsPerPage;
+				return Backbone.Collection.prototype.fetch.call(this, options);
+          	},
+			 updatePager:function(pager){
+				 this.pager = {
+					total : pager.total,
+					currentPage : pager.currentPage,
+					itemsPerPage: pager.itemsPerPage,
+					pageCount:pager.pageCount
+				 };				 
+			 }
+		});	
+		
+		
+		NL.View.PagedTable = Backbone.View.extend({
+			defaults:{
+				bodytemplate: _.template($('#data').html()),
+				footertemplate: _.template($('#pager').html())
+			},
+			events:{
+				'click ul.pagination li a':'pagerClick',
+				'change tfoot select':'itemsPerPageChange'
+			},
+			initialize:function(options){
+				this.collection = new NL.Collection.Pager(options.table.data);
+				this.collection.updatePager(options.table);
+				this.collection.url = options.url;
+				
+				this.$table = this.$el.find('table');
+				this.$header = this.$table.find('thead');
+				this.$body = this.$table.find('tbody');
+				this.$footer = this.$table.find('tfoot');
+				
+				this.columns = this.$header.find('th').length; 				
+				this.collection.on('collection:updated',this.render,this);
+				this.render(this.collection);				
+			},
+			render:function(){
+				this.$body.html(this.defaults.bodytemplate(this.collection.toJSON()));
+				this.$footer.html('<tr><td colspan="'+ this.columns +'">' + this.defaults.footertemplate(this.collection.pager)+'</td></tr>');
+			},
+			pagerClick:function(e,self){
+				e.stopPropagation();
+				var $click = $(e.currentTarget);
+				var pagerData = $click.attr('data-pager');
+				if (pagerData){
+					this.collection.goToPage(pagerData);
+				}
+			},
+			itemsPerPageChange:function(e,self){
+				e.stopPropagation();
+				this.collection.changeItemsPerPage($(e.currentTarget).find('option:selected').attr('value'));
+			}			
+		});
+		
+		mytable = new NL.View.PagedTable({
+			el: '.mytable',
+			url: '/api/admin/accounts',
+			table: <%- JSON.stringify(accounts) %>
+		});
+				
+	});	
+</script>
+
+<% include ./../partials/end-footer %>
