@@ -1,0 +1,14 @@
+<tr>
+	<td><%- obj[i].idorganization %></td>
+	<td><%- obj[i].title %></td>
+	<td><%- obj[i].status %></td>
+	<td><%- obj[i].description %></td>
+	<td><%- obj[i].createddate.substring(0,10) %>
+	<td>
+		<span class="pull-right">
+			<a href="/admin/organization/<%-obj[i].idorganization%>/edit" role="button" class="btn btn-success btn-sm">
+				<span class="glyphicon glyphicon-search"></span> Edit
+			</a>
+		</span>
+	</td>					
+</tr>

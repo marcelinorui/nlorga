@@ -20,7 +20,10 @@ module.exports = function (app, db, config) {
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
-  app.set('views', [config.root + '/views', config.root + '/views/admin', config.root + '/views/user']);
+  app.set('views', [
+    config.root + '/app/views', 
+    config.root + '/app/views/admin', 
+    config.root + '/app/views/user']);
   app.set('view engine', 'ejs');
   
   app.use(logger('dev'));

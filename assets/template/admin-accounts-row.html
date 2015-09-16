@@ -1,0 +1,23 @@
+<tr <% if (obj.enddate.substring(0,10) != '9999-12-31'){%>class="text-strikeout"<% }%> >
+	<td><%- obj.idlogin %></td>
+	<td><%- obj.username %></td>
+	<td><%- obj.displayname %></td>
+	<td>				 
+		<% if (obj.hascommanderTag == 1) {%>
+			<span class="glyphicon glyphicon-ok text-success"></span>
+		<% } %>						
+	</td>
+	<td>
+		<% if (obj.isAdmin == 1) {%>
+			<span class="glyphicon glyphicon-ok text-success"></span>
+		<% } %>
+	</td>
+	<td><%- obj.createddate.substring(0,10) %></td>
+	<td>
+		<div class="btn-group pull-right">
+			<a href="/admin/account/<%- obj.idlogin %>/edit" role="button" class="btn btn-success btn-sm" >
+				<span class="glyphicon glyphicon-search"></span> Edit
+			</a>
+		</div>													
+	</td>					
+</tr>

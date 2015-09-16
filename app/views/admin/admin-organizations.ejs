@@ -25,6 +25,7 @@
 	</div>
 	<hr>
 	*/%>
+	<div class="mytable">
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
@@ -43,41 +44,29 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% for(var i = 0; i < organizations.data.length; i++ ){ %>
-			<tr>
-				<td><%- organizations.data[i].idorganization %></td>
-				<td><%- organizations.data[i].title %></td>
-				<td><%- organizations.data[i].status %></td>
-				<td><%- organizations.data[i].description %></td>
-				<td><%- getDate(organizations.data[i].createddate) %>
-				<td>
-					<span class="pull-right">
-						<a href="/admin/organization/<%-organizations.data[i].idorganization%>/edit" role="button" class="btn btn-success btn-sm">
-							<span class="glyphicon glyphicon-search"></span> Edit
-						</a>
-					</span>
-				</td>					
-			</tr>
-			<% }%> 
+			
 		</tbody>
-		<% if (organizations.data[0]) { %>
+	
 		<tfoot>
-			<tr>
-				<td colspan="<%- (Object.keys(organizations.data[0]).length +1 ) %>">
-					<% var paginator = organizations; %>
-					<% include ./../partials/table-pager %>
-				</td>
-			</tr>
+			
 		</tfoot>
-		<% }%> 
+
+	
 	</table>
 </div>
 <% include ./../partials/end-body %>
 
 <script>
-	
-	
+	var mytable = null;
+	$(function(){				
+		mytable = new NL.View.PagedTable({
+			el: '.mytable',
+			url: '/api/admin/organizations',
+			table: <%- JSON.stringify(organizations) %>
+		});				
+	});	
 </script>
+
 
 
 <% include ./../partials/end-footer %>

@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-lg-3">		
+		<% if ( pageCount > 0) { %>
+		<span><b>Page <%- currentPage %> of <%- pageCount %></b></span>
+		<% } %>
+	</div>	
+	
+	<div class="col-lg-6 text-center">	
+		<% if (pageCount > 1) { %>	
+		<nav>
+			<ul class="pagination">
+				<% if (currentPage > 1) { %>
+					<li><a href="#" data-pager='<%- parseInt(currentPage,10)-1 %>'>&laquo;</a></li>
+				<% } %>
+				<% var i = 1;
+				if (currentPage > 5) {
+					i = +currentPage - 4;
+				} %>
+				<% if (i !== 1) { %>
+					<li class="disabled"><a href="#">...</a></li>
+				<% } %>
+				<% for (i; i<=pageCount; i++) { %>
+					<% if (currentPage == i) { %>
+						<li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+					<% } else { %>
+						<li><a href="#" data-pager='<%= i %>'><%= i %></a></li>
+					<% } %>
+					<% if (i == (+currentPage + 4)) { %>
+						<li class="disabled"><a href="#">...</a></li>
+					<% break; } %>
+				<% } %>
+				<% if (currentPage != pageCount) { %>
+					<li><a href="#" data-pager='<%- parseInt(currentPage,10)+1 %>'>&raquo;</a></li>
+				<% } %>
+			</ul>
+		</nav>	
+		<% } %>	
+	</div>	
+	<div class="col-lg-3">
+		<% if ( pageCount > 0) { %>
+		<div class="row">
+			<label class="col-lg-offset-4 col-lg-3"> Items:</label>
+			<div class="col-lg-5">
+				<select class="form-control">
+					<option value="10" <%- itemsPerPage == 10 ? "selected" : "" %> >10</option>
+					<option value="25" <%- itemsPerPage == 25 ? "selected" : "" %> >25</option>
+					<option value="50" <%- itemsPerPage == 50 ? "selected" : "" %> >50</option>
+					<option value="100" <%- itemsPerPage == 100 ? "selected" : "" %> >100</option>
+				</select>
+			</div>
+		</div>
+		<% } %>	
+	</div>
+</div>

@@ -1,73 +1,181 @@
-'use strict';
-
-var request = require('request');
-
 module.exports = function (grunt) {
-  // show elapsed time at the end
-  require('time-grunt')(grunt);
-  // load all grunt tasks
-  require('load-grunt-tasks')(grunt);
+    var css_path = 'assets/css';
+    var js_path = 'assets/script';
+    var less_path = 'assets/less';
+    var template_path = 'assets/template/';
+    var banner = '//\r\n' +
+        '/** \r\n' +
+        ' * @fileOverview <%= pkg.description %> \r\n' +
+        ' * @version <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> \r\n' +
+        ' * @author <%= pkg.author.name %> \r\n' +
+        ' */ \r\n';
 
-  var reloadPort = 35729, files;
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        css_path: css_path,
+        less_path:less_path,
+        js_path: js_path,
+        template_path: template_path,
+        js_template_path: js_path + '/template',
+        js_model_path: js_path + '/model',
+        js_collection_path: js_path + '/collection',
+        js_view_path: js_path + '/view',
+        js_router_path: js_path + '/router',
+        js_mixin_path: js_path + '/mixin',
+        banner : banner,
+        clean: {
+            css: ['<%= css_path %>/*.css',
+                '<%= css_path %>/<%= pkg.name %>.css',
+                '<%= css_path %>/nl.css',
+                '<%= css_path %>/toastr.css',
+                '<%= css_path %>/bootstrap.css'],
+            js: [
+                '<%=js_template_path %>/template.js',
+                '<%=js_path %>/<%= pkg.name %>.js',
+                '<%=js_path%>/<%= pkg.name%>.min.js',
+                '<%=js_path%>/<%= pkg.name%>.min.js.map'
+            ]
+        },
+        jshint: {
+            files: ['Gruntfile.js',
+                '<%= js_model_path %>/*.js',
+                '<%= js_collection_path %>/*.js',
+                '<%= js_view_path %>/*.js',
+                '<%= js_router_path %>/*.js'
+            ]
+        },
+        concat: {
+            options: {
+                sourceMap: false/*,
+                banner: '<%= banner %>'*/
+            },
+            js: {
+                files: {
+                     '<%= js_path %>/<%= pkg.name %>.js':['assets/lib/jquery/dist/jquery.js',
+                                                        'assets/lib/bootstrap/dist/js/bootsrap.js',
+                                                        'assets/lib/bootstrap-checkbox/dist/js/bootstrap-checkbox.js',
+                                                        'assets/lib/toastr/toastr.js',
+                                                        'assets/lib/underscore/underscore.js',
+                                                        'assets/lib/backbone/backbone.js',
+                                                        '<%= js_template_path %>/template.js',
+                                                        '<%= js_template_path %>/Start.js',
+                                                        '<%= js_model_path %>/*.js',
+                                                        '<%= js_collection_path %>/*.js',
+                                                        '<%= js_router_path %>/*.js',
+                                                        '<%= js_view_path %>/*.js'],
+                    'public/js/<%= pkg.name %>.js':['<%= js_path %>/<%= pkg.name %>.js']
+                }                                                        
+            },
+            css: {
+                files:{
+                    '<%= css_path %>/<%= pkg.name %>.css' :[ '<%= css_path %>/nl.css','<%= css_path %>/toastr.css','<%= css_path %>/bootstrap.css'],
+                    'public/css/<%= pkg.name %>.css':['<%= css_path %>/<%= pkg.name %>.css']
+                    }
+                }
+            
+        },
+        jst: {
+            dev: {
+                options: {
+                    namespace: 'NL.Template',
+                    prettify: true,
+                    amd: false,
+                    processName: function (filename) {
+                        return filename.replace(template_path, '')
+                            .replace('.html', '')
+                            .replace('.htm', '');
+                    },
+                    processContent: function (src) {
+                        return src.replace(/(^\s+|\s+$)/gm, '');
+                    }
+                },
+                files: {
+                    '<%= js_template_path %>/template.js': ["<%= template_path %>/*.htm",
+                        "<%= template_path %>/*.html"]
+                }
+            }
+        },
+        uglify: {
+            options: {
+                mangle: true,
+                compress: {
+                    warnings: false
+                }
+            },
+            dev: {
+                files: {
+                    '<%=js_path%>/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js'],
+                    'public/js/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js']
+                }
+            }
+        },
+        cssmin: {
+            options: {
+                banner: '// My minified css file'
 
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    develop: {
-      server: {
-        file: 'app.js'
-      }
-    },
-    watch: {
-      options: {
-        nospawn: true,
-        livereload: reloadPort
-      },
-      js: {
-        files: [
-          'app.js',
-          'app/**/*.js',
-          'config/*.js'
-        ],
-        tasks: ['develop', 'delayed-livereload']
-      },
-      css: {
-        files: [
-          'public/css/*.css'
-        ],
-        options: {
-          livereload: reloadPort
+            },
+            dev: {
+                options: {
+                    report: 'min',
+                    keepSpecialComments: '*'
+
+                },
+                files: {
+                    //"<%= css_path %>/<%= pkg.name %>.min.css": "<%= css_path %>/<%= pkg.name %>.css",
+                    'public/css/<%= pkg.name %>.min.css':'<%= css_path %>/<%= pkg.name %>.css'
+                }
+            }
+        },
+        less: {
+            development: {
+                options: {
+                    //banner: '<%= banner %>',
+                    smarttabs: true,
+                    optimization: 2
+                },
+                files: {
+                    '<%= css_path %>/nl.css': '<%= less_path %>/nl.less',
+                    '<%= css_path %>/toastr.css': 'assets/lib/toastr/toastr.less',
+                    '<%= css_path %>/bootstrap.css': 'assets/lib/bootstrap/less/bootstrap.less'
+                }
+            }
+        },
+        watch: {
+            styles: {
+                files: ['<%= less_path %>/*.less'],
+                tasks: ['build-styles'],
+                options: {
+                    livereload: true,
+                    nospawn: true
+                }
+            },
+            js: {
+                files: ['gruntfile.js',
+                    '<%=js_path%>/**/*.js',
+                    '<%= template_path %>/*.html',
+                    '<%= template_path %>/*.htm'],
+                tasks: ['build-js'],
+                options: {
+                    livereload: true,
+                    nospawn: true
+                }
+            }
         }
-      },
-      views: {
-        files: [
-          'views/*.ejs',
-          'views/**/*.ejs'
-        ],
-        options: { livereload: reloadPort }
-      }
-    }
-  });
+    });
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-jst');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-  grunt.config.requires('watch.js.files');
-  files = grunt.config('watch.js.files');
-  files = grunt.file.expand(files);
+    grunt.registerTask('build-styles', ['clean:css', 'less:development', 'concat:css']);
+    grunt.registerTask('build-js', ['clean:js', 'jst:dev', 'jshint', 'concat:js', 'uglify:dev']);
+    grunt.registerTask('build',['clean:css', 'less:development', 'concat:css','cssmin:dev','clean:js', 'jst:dev', 'jshint', 'concat:js', 'uglify:dev']);
+    grunt.registerTask('watch-styles', ['watch:styles']);
+    grunt.registerTask('watch-js', ['watch:js']);
+    grunt.registerTask('default', ['watch']);
 
-  grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
-    var done = this.async();
-    setTimeout(function () {
-      request.get('http://localhost:' + reloadPort + '/changed?files=' + files.join(','),  function(err, res) {
-          var reloaded = !err && res.statusCode === 200;
-          if (reloaded)
-            grunt.log.ok('Delayed live reload successful.');
-          else
-            grunt.log.error('Unable to make a delayed live reload.');
-          done(reloaded);
-        });
-    }, 500);
-  });
-
-  grunt.registerTask('default', [
-    'develop',
-    'watch'
-  ]);
 };
