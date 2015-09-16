@@ -1,6 +1,6 @@
 <% include ./../partials/header %>
 <div class="row">
-<div class="col-lg-offset-2 col-lg-8">
+<div class="col-lg-offset-1 col-lg-10">
 	<div class="title">
 		<h2>Organization <b><%- organization.title %></b></h2>
 	</div>
@@ -73,7 +73,12 @@
 					<span class="pull-right"><button type="submit" class="btn btn-success">Create Partys</button></span>
 			<% } %>
 			<% if ( organization.idstatus == 4) { %>
-				<span class="pull-right"><button type="submit" class="btn btn-success">Show Partys </button>	</span>
+				<span class="pull-right">
+				<div class="btn-group">
+				<button type="submit" class="btn btn-success">Remake Partys </button>	
+				<button type="submit" class="btn btn-success">Show Partys </button>
+				</div>
+				</span>
 			<% } %>
 			<% if ( organization.idstatus == 5) { %>			
 				<span class="pull-right"><button type="submit" class="btn btn-success">Close Organization</button>	</span>
@@ -83,9 +88,170 @@
 	</div>	
 	<hr>
 	<div class="row">
-	<div class="col-lg-12">
-		Not yet implemented
-	</div>
+		<% if ( organization.idstatus == 2 || organization.idstatus == 3) { %>
+		<div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div><div class="col-lg-4">
+			user 1
+		</div>
+		<% } %>
+		<% if ( organization.idstatus == 4) { %>
+		<div class="col-lg-4">
+			<ul class="list-group">
+				<li class="list-group-item active">Party 1</li>
+				<li class="list-group-item active">Location</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item disabled"> /join </li>
+			<ul>
+		</div><div class="col-lg-4">
+			<ul class="list-group">
+				<li class="list-group-item active">Party 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item disabled"> /join </li>
+			<ul>
+		</div><div class="col-lg-4">
+			<ul class="list-group">
+				<li class="list-group-item active">Party 1</li>
+				<li class="list-group-item"> <span>user 1</span></li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item disabled"> /join </li>
+			<ul>
+		</div><div class="col-lg-4">
+			<ul class="list-group">
+				<li class="list-group-item active">Party 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item disabled"> /join </li>
+			<ul>
+		</div><div class="col-lg-4">
+			<ul class="list-group">
+				<li class="list-group-item active">Party 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item"> user 1</li>
+				<li class="list-group-item disabled"> /join </li>
+			<ul>
+		</div>
+		<% } %>
+		
 	</div>
 	<hr>
 	<div class="row">
