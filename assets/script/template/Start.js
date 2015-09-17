@@ -22,5 +22,5 @@ toastr.options = {
 };
 
 $(function(){	
-	$(':checkbox').checkboxpicker();
+	$('[data-style="btn-group-sm"]:checkbox').checkboxpicker();
 });

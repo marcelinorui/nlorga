@@ -12,7 +12,6 @@ var passport = require('./authentication.js');
 var flash = require('connect-flash');
 var passport = require('passport');
 var ErrorResponse = require('./../app/response/error-response.js');
-var moment = require('moment');
 
 module.exports = function (app, db, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -47,7 +46,7 @@ module.exports = function (app, db, config) {
   app.use(passport.session());
 
   app.locals.getDate = function(dateObj){
-    return moment(dateObj).format('YYYY-MM-DD');
+    return dateObj.substring(0,10);
   };
 
   app.use('/', require('./../app/controllers/base.js')(passport));	

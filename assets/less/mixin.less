@@ -1,0 +1,15 @@
+.image_icon(@name) {
+    span.@{name}-icon{
+        background-image: url("@{imageurl}/@{name}.png");
+        background-size: @icon-size;
+        display: inline-block;
+        width: @icon-size;
+        height: @icon-size;
+        
+        &.big{
+            width: @icon-size*2;
+            height: @icon-size*2;
+            background-size: @icon-size*2;
+        }
+    }
+}

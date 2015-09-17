@@ -22,7 +22,6 @@ module.exports = function (grunt) {
         js_view_path: js_path + '/view',
         js_router_path: js_path + '/router',
         js_mixin_path: js_path + '/mixin',
-        banner : banner,
         clean: {
             css: ['<%= css_path %>/*.css',
                 '<%= css_path %>/<%= pkg.name %>.css',
@@ -37,22 +36,17 @@ module.exports = function (grunt) {
             ]
         },
         jshint: {
-            files: ['Gruntfile.js',
-                '<%= js_model_path %>/*.js',
-                '<%= js_collection_path %>/*.js',
-                '<%= js_view_path %>/*.js',
-                '<%= js_router_path %>/*.js'
-            ]
+            files: ['Gruntfile.js','<%= js_model_path %>/*.js','<%= js_collection_path %>/*.js','<%= js_view_path %>/*.js','<%= js_router_path %>/*.js']
         },
         concat: {
             options: {
-                sourceMap: false/*,
-                banner: '<%= banner %>'*/
+                sourceMap: false,
+                banner: '<%= banner %>'
             },
             js: {
                 files: {
                      '<%= js_path %>/<%= pkg.name %>.js':['assets/lib/jquery/dist/jquery.js',
-                                                        'assets/lib/bootstrap/dist/js/bootsrap.js',
+                                                        'assets/lib/bootstrap/dist/js/bootstrap.js',
                                                         'assets/lib/bootstrap-checkbox/dist/js/bootstrap-checkbox.js',
                                                         'assets/lib/toastr/toastr.js',
                                                         'assets/lib/underscore/underscore.js',
@@ -90,19 +84,27 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    '<%= js_template_path %>/template.js': ["<%= template_path %>/*.htm",
-                        "<%= template_path %>/*.html"]
+                    '<%= js_template_path %>/template.js': ["<%= template_path %>/*.htm","<%= template_path %>/*.html"]
                 }
             }
         },
         uglify: {
-            options: {
+           
+            dev: {
+                 options: {
                 mangle: true,
                 compress: {
-                    warnings: false
-                }
+                    dead_code: true, // jshint ignore:line
+                    properties: true,
+                    drop_debugger: true,
+                    hoist_funs:true
+                },
+                output: {
+                    ascii_only: true // jshint ignore:line
+                },
+                report: 'min',
+                preserveComments: 'some',
             },
-            dev: {
                 files: {
                     '<%=js_path%>/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js'],
                     'public/js/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js']
@@ -111,7 +113,7 @@ module.exports = function (grunt) {
         },
         cssmin: {
             options: {
-                banner: '// My minified css file'
+                banner: '<%= banner %>'
 
             },
             dev: {
@@ -129,7 +131,7 @@ module.exports = function (grunt) {
         less: {
             development: {
                 options: {
-                    //banner: '<%= banner %>',
+                    banner: '<%= banner %>',
                     smarttabs: true,
                     optimization: 2
                 },

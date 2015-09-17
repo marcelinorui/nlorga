@@ -62,6 +62,7 @@
 		mytable = new NL.View.PagedTable({
 			el: '.mytable',
 			url: '/api/admin/organizations',
+			bodyTemplate: NL.Template['admin-organizations-row'],
 			table: <%- JSON.stringify(organizations) %>
 		});				
 	});	

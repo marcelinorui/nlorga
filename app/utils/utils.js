@@ -1,8 +1,9 @@
-var hash =require('password-hasher');
+var hash = require('password-hasher'),
+    _ = require('lodash');
 
 var utils = {
-    createHashAndSalt : function(password){
-        return hash.createHashAndSalt('ssha512',password,128);
+    createHashAndSalt: function (password) {
+        return hash.createHashAndSalt('ssha512', password, 128);
     },
     shuffleList: function shuffleList(list) {
         var randId = 0;
@@ -37,14 +38,29 @@ var utils = {
         }
         return groups;
     },
-    getProfession:function(list, profession, groupSize){
-        var output = [];
-        for(var i = 0; i < list.length; i++){
-            if (list[i]['profession'] == profession){
-                output.push(list[i]);
-            }    
-        }                
-        return this.makeGroups(output,groupSize);        
+    makePartys: function (data, maxGroupSize, idorganization) {
+        var groups = [];
+        var numGroups = Math.ceil(data.registrys.length / maxGroupSize);
+        for (var i = 0, g = 0; i < data.registrys.length; i++ , g = i % numGroups) {
+            if (!groups[g]) {
+                groups.push([]);
+            }
+            groups[g].push(data.registrys[i]);
+        }
+        
+        for (var i = 0; i < groups.length; i++) {
+            var idpartyname = data.partynames[i].idpartyname;
+            for (var j = 0; j < groups[i].length; j++) {
+                groups[i][j].idpartyname = idpartyname;
+                groups[i][j].createddate = new Date();
+                groups[i][j] = [
+                    idorganization,
+                    groups[i][j].idpartyname,
+                    groups[i][j].idregistry,
+                    groups[i][j].createddate];
+            }
+        }
+        return _.flatten(groups);
     }
 };
 

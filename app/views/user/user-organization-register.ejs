@@ -1,0 +1,68 @@
+<% include ./../partials/header %>
+
+<%- JSON.stringify(userregistry) %>
+<form action="post" method="/user/organization/<%- userregistry.user.idorganization %>/register">
+<div class="row">
+	<%- userregistry.user.title %>
+	<%- userregistry.user.description %>
+	user data here:
+	<%- userregistry.user.username %>
+</div>
+<div class="form-group">
+	<div class="col-lg-3">
+		<div class="profession-select">
+			
+			<% for(var i = 0; i < userregistry.professions.length; i++ ){ %>
+				
+				<span class="icon <%- userregistry.professions[i].name %>-icon big" data-input="<%- userregistry.professions[i].idprofession %>" ><input name="profession" value="<%- userregistry.professions[i].idprofession %>" type="radio" /></span>
+				
+			<% } %>
+			
+		</div>		
+	</div>
+	<% if( userregistry.user.pickbanner == true ) { %>
+	<div class="col-lg-3">
+		<span class="banner-icon" ></span>
+		<input type="checkbox" name="pickbanner" />
+	</div>
+	<% } %>
+	<% if( userregistry.user.pickfood  == true ) { %>
+	<div class="col-lg-3">
+		<span class="food-icon"  ></span>
+		<input type="checkbox" name="pickfood" />
+	</div>
+	<% } %>
+	<% if( userregistry.user.pickcommander  == false ) { %>
+	<div class="col-lg-3">
+		<span class="blue-icon"></span><input type="radio" name="pickcommander" value="blue" />
+		<span class="yellow-icon"></span><input type="radio" name="pickcommander" value="yellow" />
+		<span class="purple-icon"></span><input type="radio" name="pickcommander" value="purple" />
+		<span class="red-icon"></span><input type="radio" name="pickcommander" value="red" />
+	</div>
+	<% } %>
+	<div class="col-lg-offset-9 col-lg-3">
+	<span class="pull-right">
+		<button type="submit" class="btn btn-primary">Save</button>
+		</span>
+	</div>
+</div>
+</form>
+<% include ./../partials/end-body %>
+
+<script>
+
+	$(function(){				
+		$('.icon').on('click',function(e){
+			$('.icon.selected').removeClass('selected');
+			$('.profession-select input[type="radio"]').removeAttr('checked');
+			var $target = $(e.currentTarget); 
+			$target.addClass("selected");
+			var val = $target.attr('data-input');
+			$('.profession-select input[type="radio"][value="'+val+'"]').attr('checked','checked');
+		});		
+	});	
+</script>
+
+
+
+<% include ./../partials/end-footer %>

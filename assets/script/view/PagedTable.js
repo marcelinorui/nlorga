@@ -1,13 +1,14 @@
 NL.View.PagedTable = NL.View.PagedTable || Backbone.View.extend({
-	defaults: {
-		bodytemplate: NL.Template['admin-accounts-row'],
-		footertemplate: NL.Template['pager-template']
-	},
+	bodyTemplate: null,
+	footerTemplate: NL.Template['pager-template'],
 	events: {
 		'click ul.pagination li a': 'pagerClick',
 		'change tfoot select': 'itemsPerPageChange'
 	},
 	initialize: function (options) {
+		this.bodyTemplate = options.bodyTemplate;
+		this.footerTemplate = options.footerTemplate || this.footerTemplate;
+		
 		this.collection = new NL.Collection.Pager(options.table.data);
 		this.collection.updatePager(options.table.pager);
 		this.collection.url = options.url;
@@ -24,9 +25,9 @@ NL.View.PagedTable = NL.View.PagedTable || Backbone.View.extend({
 		this.$body.html('');
 		var obj = this.collection.toJSON();
 		for (var i = 0; i < obj.length; i++) {
-			this.$body.append(this.defaults.bodytemplate(obj[i]));
+			this.$body.append(this.bodyTemplate(obj[i]));
 		}
-		this.$footer.html('<tr><td colspan="' + this.columns + '">' + this.defaults.footertemplate(this.collection.pager) + '</td></tr>');
+		this.$footer.html('<tr><td colspan="' + this.columns + '">' + this.footerTemplate(this.collection.pager) + '</td></tr>');
 	},
 	pagerClick: function (e, self) {
 		e.stopPropagation();

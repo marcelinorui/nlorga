@@ -31,6 +31,14 @@ function apiAdmin(passport) {
 			}
 		});
 	});
+	router.get('/organizations', isAdminAuthenticated, function(req,res,next){
+	db.Organization.listOrganizations('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, organizations){
+			if(!err){
+				res.status(200).json(organizations);
+			}
+			return next(err);
+		});
+	});
 	return router;
 };
 

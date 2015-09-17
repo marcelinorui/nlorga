@@ -75,6 +75,19 @@ function user(passport) {
 		function (req, res, next) {
 			res.redirect('/user/profile');
 		});
+		
+	router.get('/organization/:id/register', isUserAuthenticated,function (req, res, next) {
+		db.Organization.getUserOrganizationConfiguration(req.params.id,req.user.idlogin,function(err,userregistry){
+			if(!err){
+				req.session.userregistry = userregistry;			
+			} 
+			return next(err);
+		});
+	},
+	function (req, res) {
+		var Response = require('./../response/user-organization-register-response.js');
+		res.render('user-organization-register', new Response(req));
+	});
 
 	router.get('/changePassword', isUserAuthenticated,
 		function (req, res) {

@@ -9,3 +9,89 @@
 .text-strikeout{
 	text-decoration: line-through;
 }
+
+.image_icon(guardian);
+.image_icon(warrior);
+.image_icon(revenant);
+.image_icon(thief);
+.image_icon(ranger);
+.image_icon(engineer);
+.image_icon(elementalist);
+.image_icon(mesmer);
+.image_icon(necromancer);
+.image_icon(banner);
+.image_icon(red);
+.image_icon(purple);
+.image_icon(yellow);
+.image_icon(blue);
+.image_icon(food);
+
+.statistic{
+	display: flex;
+	justify-content: center;
+	
+	.counter {
+		line-height: 20px;		
+		margin-left: 5px;
+		margin-right: 15px;
+		margin-bottom:10px;
+		vertical-align: top;
+		font-weight: bold;
+	}
+	margin-bottom:10px;
+}
+
+.list-group-item {
+	span{
+		&.no-icon{
+	 		display: inline-block;
+        	width: @icon-size;
+        	height: @icon-size;
+			padding:0;
+		}
+	
+		&.user{
+			padding:0;
+			float:right;
+		}
+	}
+	
+	&.player{
+		cursor:pointer;		
+		&:hover{
+		background-color: yellow;	
+		}
+		.span{
+			cursor:pointer;	
+		}
+	}	
+}
+
+.profession-select {
+	cursor:pointer;
+	
+	span.icon{
+		margin:10px;
+		padding:9px;
+		border: white solid 2px;
+		
+		&.selected{
+			background-color: blue;
+			&:hover{
+				background-color: blue;
+			}
+		}
+			
+		&:hover{
+			background-color: yellow;	
+		}
+			
+	}
+
+	
+	
+	input[type="radio"]{
+		display:none!important;
+	}
+}
+

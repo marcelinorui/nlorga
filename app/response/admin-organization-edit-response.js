@@ -3,14 +3,13 @@ var BaseResponse = require('./base-response.js'),
 
 function Response(request){
 	BaseResponse.apply(this, arguments);
-	this.organization = request.session.organization || null;	
-	this.partyconfiguration = request.session.partyconfiguration || null;
+	this.organization = request.session.organization.organization || null;	
+	this.partyconfiguration = request.session.organization.partyconfiguration || null;
+	this.registrys = request.session.organization.registrys ||  null;
+	this.partys = request.session.organization.partys ||  null;
 	if ( request.session.organization ){
 		request.session.organization = null;
-	}
-	if ( request.session.partyconfiguration ){
-		request.session.partyconfiguration = null;
-	}		
+	}	
 }
 
 util.inherits(Response, BaseResponse);
