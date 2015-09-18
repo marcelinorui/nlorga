@@ -1,0 +1,12 @@
+<div class="col-lg-4">
+	<p class="text-center"><b><%- title %></b></p>
+	<p class="text-center"><%- configuration%></p>
+	<div class="text-center">
+	<% if ( idstatus == 2 ) {%>
+		<span><a href="/user/organization/<%-idorganization%>/register" role="button" class="btn btn-primary">Register</button></a></span>
+	<% }%>
+	<% if ( idstatus == 3 || idstatus == 4 || idstatus == 5 ) {%>
+		<span><a href="/user/organization/<%-idorganization%>/view" role="button" class="btn btn-primary">View</button></a></span>
+	<% }%>
+	</div>
+</div>

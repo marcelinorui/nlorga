@@ -112,16 +112,16 @@
 	</div>
 	<% } %>	
 	<hr>
-	<div class="statistic">
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-		<span class="text-center"><span class="guardian-icon"></span><span class="counter">99</span></span>
-	</div>	
+	<% if( statistic ) { %>
+	<div class="row centered">
+		<% for(var i = 0 ; i < statistic.length; i ++){ %>
+			<div class="col-lg-1">
+				<span class="<%-statistic[i].name%>-icon"></span>
+				<label class="counter"><%-statistic[i].value%></label>
+			</div>
+		<% } %>
+	</div>
+	<% } %>	
 	<div class="row" id="show">
 		<% if (organization.idstatus == 2 || organization.idstatus == 3 ){ %>
 			<% include admin-organization-registry-view %>

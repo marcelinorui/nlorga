@@ -1,0 +1,242 @@
+.pagination {
+  margin-top: 0!important;
+}
+.toast-top-full-width {
+  top: 57px!important;
+}
+.text-strikeout {
+  text-decoration: line-through;
+}
+.centered {
+  text-align: center;
+  font-size: 0;
+}
+.centered > div {
+  float: none;
+  display: inline-block;
+  text-align: left;
+  font-size: 13px;
+}
+label.counter {
+  vertical-align: middle;
+  margin-bottom: 10px;
+}
+.list-group-item span.no-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+}
+.list-group-item span.user {
+  padding: 0;
+  float: right;
+}
+.player {
+  cursor: pointer;
+}
+.player:hover {
+  background-color: yellow;
+}
+.player .span {
+  cursor: pointer;
+}
+.profession-select {
+  cursor: pointer;
+}
+.profession-select span.icon {
+  margin: 10px;
+  padding: 9px;
+  border: white solid 2px;
+}
+.profession-select span.icon.selected {
+  background-color: blue;
+}
+.profession-select span.icon.selected:hover {
+  background-color: blue;
+}
+.profession-select span.icon:hover {
+  background-color: yellow;
+}
+.profession-select input[type="radio"] {
+  display: none!important;
+}
+span.guardian-icon {
+  background-image: url("/img/guardian.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.guardian-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.warrior-icon {
+  background-image: url("/img/warrior.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.warrior-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.revenant-icon {
+  background-image: url("/img/revenant.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.revenant-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.thief-icon {
+  background-image: url("/img/thief.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.thief-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.ranger-icon {
+  background-image: url("/img/ranger.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.ranger-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.engineer-icon {
+  background-image: url("/img/engineer.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.engineer-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.elementalist-icon {
+  background-image: url("/img/elementalist.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.elementalist-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.mesmer-icon {
+  background-image: url("/img/mesmer.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.mesmer-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.necromancer-icon {
+  background-image: url("/img/necromancer.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.necromancer-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.banner-icon {
+  background-image: url("/img/banner.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.banner-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.red-icon {
+  background-image: url("/img/red.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.red-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.purple-icon {
+  background-image: url("/img/purple.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.purple-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.yellow-icon {
+  background-image: url("/img/yellow.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.yellow-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.blue-icon {
+  background-image: url("/img/blue.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.blue-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}
+span.food-icon {
+  background-image: url("/img/food.png");
+  background-size: 18px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+span.food-icon.big {
+  width: 36px;
+  height: 36px;
+  background-size: 36px;
+}

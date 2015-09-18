@@ -12,18 +12,20 @@ var isUserAuthenticated = function (req, res, next) {
 
 function user(passport) {
 	var router = express.Router();
+	
+	router.use(isUserAuthenticated);
 
-	router.get('/', isUserAuthenticated, function (req, res) {
+	router.get('/', function (req, res) {
 		var Response = require('./../response/user-index-response.js');
 		res.render('user-index', new Response(req));
 	});
 
-	router.get('/index', isUserAuthenticated, function (req, res) {
+	router.get('/index', function (req, res) {
 		var Response = require('./../response/user-index-response.js');
 		res.render('user-index', new Response(req));
 	});
 
-	router.get('/profile', isUserAuthenticated,
+	router.get('/profile',
 		function (req, res, next) {
 			db.User.getUserProfile(req.user.idlogin, function (err, profile) {
 				if (!err) {
@@ -37,7 +39,7 @@ function user(passport) {
 			res.render('user-profile', new Response(req));
 		});
 
-	router.post('/profile', isUserAuthenticated,
+	router.post('/profile',
 		function (req, res, next) {
 			db.Profession.getAllProfessions(function (err, professions) {
 				if (err) {
@@ -76,7 +78,7 @@ function user(passport) {
 			res.redirect('/user/profile');
 		});
 		
-	router.get('/organization/:id/register', isUserAuthenticated,function (req, res, next) {
+	router.get('/organization/:id/register',function (req, res, next) {
 		db.Organization.getUserOrganizationConfiguration(req.params.id,req.user.idlogin,function(err,userregistry){
 			if(!err){
 				req.session.userregistry = userregistry;			
@@ -89,13 +91,13 @@ function user(passport) {
 		res.render('user-organization-register', new Response(req));
 	});
 
-	router.get('/changePassword', isUserAuthenticated,
+	router.get('/changePassword',
 		function (req, res) {
 			var Response = require('./../response/user-change-password-response.js');
 			res.render('user-change-password', new Response(req));
 		});
 
-	router.post('/changePassword', isUserAuthenticated,
+	router.post('/changePassword',
 		function (req, res, next) {
 			var obj = {
 				password1:req.body['password1'], 

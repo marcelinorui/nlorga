@@ -84,6 +84,15 @@ Base.prototype.getTable = function (tables, fields, idx) {
     return out;
 };
 
+Base.prototype.getTables = function (tables, fields) {
+    var out = [];
+    for (var i = 0; i < tables.length; i++) {
+        var table = this.getTable(tables, fields, i);
+        out.push(table);
+    }
+    return out;
+};
+
 Base.prototype.getRow = function (row, fields, pos) {
     var rowObj = {};
     for (var f = 0; f < fields[pos].length; f++) {
@@ -95,41 +104,57 @@ Base.prototype.getRow = function (row, fields, pos) {
     }
     return rowObj;
 };
-/*
-Base.prototype.processGetFieldsJSON = function (sql, params, err, rows, fields, res) {
-    if (!err) {
-        var out = this.getFields(rows, fields);
-        res.status(200).json(out);
-        return;
-    } else {
-        this.processError(sql, params, err, rows, fields, res);
-    }
+
+Base.prototype.executeQuerySingle = function(sql,params,callback){
+	var query = mysql.format(sql,params);
+    var self = this;
+	this.db.query(query, function (err, rows, fields) {
+        if(!err){
+            var data = self.getSingle(rows,fields);
+            callback(err,data);
+        } else {
+            callback(err,null);
+        }  
+    });
 };
 
-Base.prototype.processGetFieldJSON = function (sql, params, err, rows, fields, res) {
-    if (!err) {
-        var out = this.getFields(rows, fields);
-        res.status(200).json(out[0]);
-    } else {
-        this.processError(sql, params, err, rows, fields, res);
-    }
+Base.prototype.executeQueryFirstRow = function(sql,params,callback){
+	var query = mysql.format(sql,params);
+    var self = this;
+	this.db.query(query, function (err, rows, fields) {
+        if(!err){
+            var data = self.getFirstRow(rows,fields);
+            callback(err,data);
+        } else {
+            callback(err,null);
+        }  
+    });
 };
 
-Base.prototype.processPutJSON = function (sql, params, err, rows, fields, res) {
-    if (!err) {
-        var out = "ok";
-        res.status(200).json(out);
-    }
-    else {
-        this.processError(sql, params, err, rows, fields, res);
-    }
+Base.prototype.executeQueryTables = function(sql,params,callback){
+    var query = mysql.format(sql,params);
+    var self = this;
+	this.db.query(query, function (err, rows, fields) {
+        if(!err){
+            var data = self.getTables(rows,fields);
+            callback(err,data);
+        } else {
+            callback(err,null);
+        }  
+    });
 };
 
-Base.prototype.processErrorJSON = function (sql, params, err, rows, fields, res) {
-    console.log('Error while performing Query.\r\n' + err);
-    console.log('SQL ', JSON.stringify({ sql: sql, params: params }));
-    res.status(500).json({ error: err });
-}
-*/
+Base.prototype.executeQueryTable = function(sql,params,callback){
+    var query = mysql.format(sql,params);
+    var self = this;
+	this.db.query(query, function (err, rows, fields) {
+        if(!err){
+            var data = self.getTable(rows,fields);
+            callback(err,data);
+        } else {
+            callback(err,null);
+        }  
+    });
+};
 
 module.exports = Base;

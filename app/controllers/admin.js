@@ -19,13 +19,15 @@ function isAdminAuthenticated(req, res, next) {
 
 function admin(passport) {
 	var router = express.Router();
-
-	router.get('/', isAdminAuthenticated, function (req, res, next) {
+	
+	router.use(isAdminAuthenticated);
+	
+	router.get('/', function (req, res, next) {
 		var Response = require('./../response/admin-accounts-response.js');
 		res.render('admin', new Response(req));
 	});
 
-	router.get('/accounts', isAdminAuthenticated, function (req, res, next) {
+	router.get('/accounts',  function (req, res, next) {
 		db.Account.listAccounts('', '', null, null, null, function (err, accounts) {
 			if (!err) {
 				req.session.accounts = accounts;
@@ -37,7 +39,7 @@ function admin(passport) {
 		res.render('admin-accounts', new Response(req))
 	});
 
-	router.get('/account/:id/edit', isAdminAuthenticated, function (req, res, next) {
+	router.get('/account/:id/edit',  function (req, res, next) {
 		db.Account.getAccount(req.params.id, function (err, account) {
 			if (!err) {
 				req.session.account = account;
@@ -49,7 +51,7 @@ function admin(passport) {
 		res.render('admin-account-edit', new Response(req));
 	});
 
-	router.post('/account/:id/edit', isAdminAuthenticated, function (req, res, next) {
+	router.post('/account/:id/edit',  function (req, res, next) {
 		var account = {
 			idlogin: req.params.id,
 			username: req.body.username,
@@ -76,7 +78,7 @@ function admin(passport) {
 		res.redirect('/admin/account/' + req.params.id + '/edit');
 	});
 
-	router.get('/account/create', isAdminAuthenticated, function (req, res, next) {
+	router.get('/account/create', function (req, res, next) {
 		var Response = require('./../response/admin-account-create-response.js');
 		res.render('admin-account-create', new Response(req));
 	});
@@ -109,7 +111,7 @@ function admin(passport) {
 		res.redirect('/admin/accounts');
 	});
 
-	router.get('/organizations', isAdminAuthenticated, function (req, res, next) {
+	router.get('/organizations',  function (req, res, next) {
 		db.Organization.listOrganizations('', '', null, null, null, function (err, organizations) {
 			if (!err) {
 				req.session.organizations = organizations;
@@ -121,7 +123,7 @@ function admin(passport) {
 		res.render('admin-organizations', new Response(req))
 	});
 
-	router.get('/organization/create', isAdminAuthenticated, function (req, res, next) {
+	router.get('/organization/create',  function (req, res, next) {
 
 		db.Configuration.getActivePartyConfiguration(function (err, partyconfiguration) {
 			if (!err) {
@@ -135,7 +137,7 @@ function admin(passport) {
 			res.render('admin-organization-create', new Response(req))
 		});
 
-	router.post('/organization/create', isAdminAuthenticated, function (req, res, next) {
+	router.post('/organization/create',  function (req, res, next) {
 		var idpartyconfiguration = req.body['partyconfiguration'];
 		var title = req.body['title'];
 		db.Organization.createOrganization(idpartyconfiguration, title, function (err, idorganization) {
@@ -149,7 +151,7 @@ function admin(passport) {
 		req.session.idorganization = null;
 	});
 
-	router.get('/organization/:id/edit', isAdminAuthenticated, function (req, res, next) {
+	router.get('/organization/:id/edit',  function (req, res, next) {
 		var idorganization = req.params.id;
 		db.Organization.getOrganization(idorganization, function (err, organization) {
 			if (!err) {
@@ -165,7 +167,7 @@ function admin(passport) {
 			res.render('admin-organization-edit', new Response(req))
 		});
 
-	router.post('/organization/:id/edit', isAdminAuthenticated, function (req, res, next) {
+	router.post('/organization/:id/edit',  function (req, res, next) {
 		var idorganization = req.params.id;
 		var title = req.body['title'];
 		var idpartyconfiguration = req.body['idpartyconfiguration'];
@@ -186,7 +188,7 @@ function admin(passport) {
 			res.redirect('/admin/organization/' + req.params.id + '/edit');
 		});
 
-	router.post('/organization/:id/status/:idstatus', isAdminAuthenticated, function (req, res, next) {
+	router.post('/organization/:id/status/:idstatus',  function (req, res, next) {
 		if (req.params.idstatus == -1) {
 			db.Organization.resetOrganization(req.params.id, function (err, ok) {
 				if (!err) {
@@ -263,21 +265,21 @@ function admin(passport) {
 			res.redirect('/admin/organization/' + req.params.id + '/edit');
 		});
 
-	router.get('/configurations', isAdminAuthenticated, function (req, res, next) {
+	router.get('/configurations',  function (req, res, next) {
 		next();
 	}, function (req, res, next) {
 		var Response = require('./../response/admin-configurations-response.js');
 		res.render('admin-configurations', new Response(req))
 	});
 
-	router.get('/configuration/:id/edit', isAdminAuthenticated, function (req, res, next) {
+	router.get('/configuration/:id/edit',  function (req, res, next) {
 		next();
 	}, function (req, res, next) {
 		var Response = require('./../response/admin-configuration-edit-response.js');
 		res.render('admin-configuration-edit', new Response(req))
 	});
 
-	router.get('/configuration/create', isAdminAuthenticated, function (req, res, next) {
+	router.get('/configuration/create',  function (req, res, next) {
 		var Response = require('./../response/admin-configuration-create-response.js');
 		res.render('admin-configurations-create', new Response(req))
 	});

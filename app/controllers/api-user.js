@@ -12,7 +12,9 @@ var isUserAuthenticated = function (req, res, next) {
 function api(passport) {
 	var router = express.Router();
 	
-	router.get('/', isUserAuthenticated, function (req, res) {
+	router.use(isUserAuthenticated);
+	
+	router.get('/', function (req, res) {
 		res.status(200).json('ok');
 	});
 	
