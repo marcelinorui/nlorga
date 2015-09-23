@@ -15766,7 +15766,7 @@ this["NL"]["Template"]["tequatl-zerg-jobs"] = function(obj) {obj || (obj = {});v
 
 this["NL"]["Template"]["user-index"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="col-lg-4"><p class="text-center"><b>' +__e( title ) +'</b></p><p class="text-center">' +__e( configuration) +'</p><div class="text-center"><span><a href="/user/organization/' +__e(idorganization) +'/view" role="button" class="btn btn-primary">View</a></span></div></div>';}return __p};
 
-this["NL"]["Template"]["user-organization-register"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-12"><h3 class="text-center"><b>' +((__t = ( obj.user.title )) == null ? '' : __t) +'</b></h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.description ) +'</h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.displayname != '' ? obj.user.displayname : obj.user.username ) +'</h3></div></div><div class="row centered">'; if (obj.user.idstatus == 2) { ;__p += '<div class="col-lg-6"><div class="radio-select profession">'; for(var i = 0; i < obj.userprofessions.length; i++ ){ ;if(registry.get("idprofession") ==  obj.userprofessions[i].idprofession){;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big selected" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" checked /></span>';} else {;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" /></span>'; } ; } ;__p += '</div></div>'; if( obj.user.pickbanner == true ) { ;__p += '<div class="col-lg-2"><div class="check-select banner">'; if(registry.get("havebanner") == true) {;__p += '<span class="icon banner-icon big selected" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" checked /></span>';} else {;__p += '<span class="icon banner-icon big" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickfood  == true ) { ;__p += '<div class="col-lg-2"><div class="check-select food">'; if(registry.get("havefood") == true) {;__p += '<span class="icon food-icon big selected" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" checked /></span>';}else{;__p += '<span class="icon food-icon big" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickcommander  == 1 ) { ;__p += '<div class="col-lg-2"><div class="radio-select commander">'; var comm = ["blue","yellow","purple","red"]; ; for (var i = 0 ; i< comm.length; i++){ ;if( registry.get("haveTag") == comm[i]){;__p += '<span class="icon ' +__e( comm[i]) +'-icon big selected" data-input="' +__e( comm[i]) +'"><input type="radio" name="commandertag" value="' +__e( comm[i]) +'" checked/></span>';}else{;__p += '<span class="icon ' +__e( comm[i]) +'-icon big" data-input="' +__e( comm[i]) +'"><input type="radio" name="commandertag" value="' +__e( comm[i]) +'" /></span>';}; };__p += '<span class="icon no-commander-icon big" data-input="" ><input type="radio" name="commandertag" value="" /></span></div></div>'; } ;__p += '<div class="col-lg-12"><span class="pull-right"><button class="btn btn-primary">Save</button></span></div>'; } else {;__p += '<div class="col-lg-2"><div class="profession"><span class="icon ' +__e( registry.get('name') ) +'-icon big"></span></div></div>'; if( user.pickbanner === true && registry.get('havebanner') === true) { ;__p += '<div class="col-lg-2"><div class="banner"><span class="icon banner-icon big"></span></div></div>'; } ; if( user.pickfood === true && registry.get('havefood') === true) { ;__p += '<div class="col-lg-2"><div class="food"><span class="icon food-icon big"></span></div></div>'; } ;};__p += '</div>';}return __p};
+this["NL"]["Template"]["user-organization-register"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-12"><h3 class="text-center"><b>' +((__t = ( obj.user.title )) == null ? '' : __t) +'</b></h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.description ) +'</h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.displayname != '' ? obj.user.displayname : obj.user.username ) +'</h3></div></div><div class="row centered">'; if (obj.user.idstatus == 2) { ;__p += '<div class="col-lg-6"><div class="radio-select profession">'; for(var i = 0; i < obj.userprofessions.length; i++ ){ ;if(registry.idprofession ==  obj.userprofessions[i].idprofession){;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big selected" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" checked /></span>';} else {;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" /></span>'; } ; } ;__p += '</div></div>'; if( obj.user.pickbanner == true ) { ;__p += '<div class="col-lg-2"><div class="check-select banner">'; if(registry.havebanner == true) {;__p += '<span class="icon banner-icon big selected" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" checked /></span>';} else {;__p += '<span class="icon banner-icon big" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickfood  == true ) { ;__p += '<div class="col-lg-2"><div class="check-select food">'; if(registry.havefood == true) {;__p += '<span class="icon food-icon big selected" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" checked /></span>';}else{;__p += '<span class="icon food-icon big" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickcommander  == 1 ) { ;__p += '<div class="col-lg-2"><div class="radio-select commander">'; var comm = ["blue","yellow","purple","red"]; ; for (var i = 0 ; i< comm.length; i++){ ;if( registry.haveTag == comm[i]){;__p += '<span class="icon ' +__e( comm[i]) +'-icon big selected" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" checked/></span>';}else{;__p += '<span class="icon ' +__e( comm[i]) +'-icon big" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" /></span>';}; };__p += '<span class="icon no-commander-icon big" data-input="" ><input type="radio" name="havetag" value="" /></span></div></div>'; } ;__p += '<div class="col-lg-12"><span class="pull-right"><button class="btn btn-primary">Save</button></span></div>'; } else {;__p += '<div class="col-lg-2"><div class="profession"><span class="icon ' +__e( registry.name ) +'-icon big"></span></div></div>'; if( user.pickbanner === true && registry.havebanner === true) { ;__p += '<div class="col-lg-2"><div class="banner"><span class="icon banner-icon big"></span></div></div>'; } ; if( user.pickfood === true && registry.havefood === true) { ;__p += '<div class="col-lg-2"><div class="food"><span class="icon food-icon big"></span></div></div>'; } ;};__p += '</div>';}return __p};
 
 this["NL"]["Template"]["user-organization"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="user-data"></div><div class="registry-data"></div><div class="party-data"></div>';}return __p};
 this.NL.Mixin = this.NL.Mixin || {};
@@ -15833,15 +15833,16 @@ NL.Model.OrganizationStatus = NL.Model.OrganizationStatus || Backbone.Model.exte
 	});
 NL.Model.Registry = NL.Model.Registry || Backbone.Model.extend({
 	defaults:{
+		idorganization:-1,
 		idregistry:null,
 		idprofession:null,
 		havebanner:false,
 		havefood:false,
-		haveTag:'',
+		havetag:'',
 		name:''
 	},
 	idAttribute:'idregistry',
-	url:'/api/user/registry'
+	url:function(){return '/api/user/organization/'+this.get('idorganization')+'/registry';}
 });
 NL.Model.UserIndex = NL.Model.UserIndex || Backbone.Model.extend({
 	url: function(){ return '/api/user/organization'; },
@@ -15986,6 +15987,7 @@ NL.Collection.UserIndex = NL.Collection.UserIndex || Backbone.Collection.extend(
 		return response;
 	}		
 }); 
+
 NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 	statisticTemplate: NL.Template["organization-statistic"],
 	template: NL.Template["organization-party"],
@@ -16074,6 +16076,16 @@ NL.View.OrganizationRegistry = NL.View.OrganizationRegistry || Backbone.View.ext
 		clearInterval(this.options.timeOutHandler);
 		this.options.timeOutHandler = -1;
 	}
+});
+NL.View.OrganizationStatistic = NL.View.OrganizationStatistic || Backbone.View.extend({
+	template:NL.Template['organization-statistic'],
+	initialize:function(options){
+		this.render();
+	},
+	render:function(){
+		this.$el.html('');
+		this.$el.html(this.template(this.collection.toJSON()));	
+	}	
 });
 NL.View.OrganizationUserRegistry = NL.View.OrganizationUserRegistry || Backbone.View.extend({
 	template: NL.Template['user-organization-register'],
@@ -16236,7 +16248,8 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 		organization: {},
 		registry: [],
 		partys: [],
-		statistic: []
+		statistic: [],
+		useroptions:{}
 	},
 	template: NL.Template["user-organization"],
 	initialize: function (options) {
@@ -16265,9 +16278,20 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 		clearInterval(this.options.timeOutHandler);
 		this.options.timeOutHandler = -1;
 	},
+	userModel:function(){
+		if(this.options.useroptions.registry){
+			return this.options.useroptions.registry;
+		}else{
+			return {idorganization: this.options.organization.idorganization};
+		}	
+	},
 	showUserView: function (save) {
 		this.userView = this.userView || new NL.View.UserOrganizationData({
-			el:'.user-data'			
+			el:'.user-data',
+			userprofessions: this.options.useroptions.userprofessions,
+			user: this.options.useroptions.user,
+			savebutton:save,
+			model: new NL.Model.Registry(this.userModel())		
 		});
 		this.userView.showSave(save);
 	},
@@ -16331,10 +16355,76 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 	}
 });
 NL.View.UserOrganizationData = NL.View.UserOrganizationData || Backbone.View.extend({
+	defaults:{
+		userprofessions:[],
+		user:{},
+		savebutton:false
+	},
+	template: NL.Template['user-organization-register'],
+	events: {
+		'click .radio-select span': 'radioChange',
+		'click .check-select span': 'checkboxChange',
+		'click button':'buttonClick'		
+	},
 	initialize:function(options){
-		
+		this.options = _.extend(this.defaults, options);
+		this.on('input:change',this.inputChange);
+		this.render();
 	},
 	showSave:function(save){
-		
+		this.options.savebutton = save;
+		this.render();
+	},
+	render:function(){
+		var rend = _.extend(this.options, {registry: this.model.toJSON()});
+		this.$el.html(this.template(rend));
+	},
+	radioChange: function (e) {
+		var $parent = $(e.currentTarget).parent();
+			$parent.find('.icon.selected')
+					.removeClass('selected');
+		$parent.find('input[type="radio"]')
+				.removeAttr('checked');
+		var $target = $(e.currentTarget);
+		$target.addClass("selected");
+		var val = $target.attr('data-input');
+		var $input = $parent.find('input[type="radio"][value="' + val + '"]');
+		$input.attr('checked', 'checked');
+		this.trigger('input:change', { name: $input.attr('name'), value: val });
+	},
+	checkboxChange: function (e) {
+		var $target = this.$(e.currentTarget);
+		var val = $target.attr('data-input');
+		var $input = $target.parent()
+			.find('input[type="checkbox"][value="' + val + '"]');
+		if ($target.hasClass('selected')) {
+			$input.removeAttr('checked');
+			$target.removeClass('selected');
+			this.trigger('input:change', { name: $input.attr('name'), value: '' });
+		} else {
+			$input.attr('checked', 'checked');
+			$target.addClass('selected')	;
+			this.trigger('input:change', { name: $input.attr('name'), value: val });
+		}		
+	},	
+	inputChange: function (obj) {
+		var value = obj.value;
+		if ( obj.name == 'havebanner' || obj.name == 'havefood'){
+			value = obj.value == 'ok' ? true : false;
+		}
+		if(obj.name == 'idprofession'){
+			value = Number(value);
+		}
+		this.model.set(obj.name,value);
+	},
+	buttonClick: function(){
+		var self = this;
+		this.model.save(null,{success:function(){ 
+			toastr.success('Registration was successfull.');
+			} 
+		}).done(function(){
+			self.trigger('userregistry:save', self.model.toJSON());	
+		});
+				
 	}
 });

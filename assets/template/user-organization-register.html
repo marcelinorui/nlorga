@@ -14,7 +14,7 @@
 	<div class="col-lg-6">
 		<div class="radio-select profession">
 			<% for(var i = 0; i < obj.userprofessions.length; i++ ){ %>
-				<%if(registry.get("idprofession") ==  obj.userprofessions[i].idprofession){%>
+				<%if(registry.idprofession ==  obj.userprofessions[i].idprofession){%>
 					<span class="icon <%- obj.userprofessions[i].name %>-icon big selected" data-input="<%- obj.userprofessions[i].idprofession %>" >
 					<input name="idprofession" value="<%- obj.userprofessions[i].idprofession %>" type="radio" checked /></span>
 				<%} else {%>
@@ -27,7 +27,7 @@
 	<% if( obj.user.pickbanner == true ) { %>
 	<div class="col-lg-2">
 		<div class="check-select banner">
-			<% if(registry.get("havebanner") == true) {%>
+			<% if(registry.havebanner == true) {%>
 				<span class="icon banner-icon big selected" data-input="ok" >
 				<input type="checkbox" name="havebanner" value="ok" checked /></span>
 			<%} else {%>
@@ -40,7 +40,7 @@
 	<% if( obj.user.pickfood  == true ) { %>
 	<div class="col-lg-2">
 		<div class="check-select food">
-			<% if(registry.get("havefood") == true) {%>
+			<% if(registry.havefood == true) {%>
 				<span class="icon food-icon big selected" data-input="ok" >
 				<input type="checkbox" name="havefood"  value="ok" checked /></span>
 			<%}else{%>
@@ -55,16 +55,16 @@
 		<div class="radio-select commander">
 			<% var comm = ["blue","yellow","purple","red"]; %>
 			<% for (var i = 0 ; i< comm.length; i++){ %>
-				<%if( registry.get("haveTag") == comm[i]){%>
+				<%if( registry.haveTag == comm[i]){%>
 					<span class="icon <%- comm[i]%>-icon big selected" data-input="<%- comm[i]%>">
-					<input type="radio" name="commandertag" value="<%- comm[i]%>" checked/></span>
+					<input type="radio" name="havetag" value="<%- comm[i]%>" checked/></span>
 				<%}else{%>
 					<span class="icon <%- comm[i]%>-icon big" data-input="<%- comm[i]%>">
-					<input type="radio" name="commandertag" value="<%- comm[i]%>" /></span>
+					<input type="radio" name="havetag" value="<%- comm[i]%>" /></span>
 				<%}%>
 			<% }%>
 			<span class="icon no-commander-icon big" data-input="" >
-			<input type="radio" name="commandertag" value="" /></span>
+			<input type="radio" name="havetag" value="" /></span>
 		</div>
 	</div>
 	<% } %>
@@ -76,17 +76,17 @@
 <% } else {%>	
 <div class="col-lg-2">
 	<div class="profession">
-		<span class="icon <%- registry.get('name') %>-icon big"></span>	
+		<span class="icon <%- registry.name %>-icon big"></span>	
 	</div>
 </div>
-<% if( user.pickbanner === true && registry.get('havebanner') === true) { %>
+<% if( user.pickbanner === true && registry.havebanner === true) { %>
 	<div class="col-lg-2">
 		<div class="banner">
 			<span class="icon banner-icon big"></span>
 		</div>
 	</div>
 <% } %>
-<% if( user.pickfood === true && registry.get('havefood') === true) { %>
+<% if( user.pickfood === true && registry.havefood === true) { %>
 	<div class="col-lg-2">
 		<div class="food">
 			<span class="icon food-icon big"></span>

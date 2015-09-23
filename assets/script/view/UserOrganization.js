@@ -4,7 +4,8 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 		organization: {},
 		registry: [],
 		partys: [],
-		statistic: []
+		statistic: [],
+		useroptions:{}
 	},
 	template: NL.Template["user-organization"],
 	initialize: function (options) {
@@ -33,9 +34,20 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 		clearInterval(this.options.timeOutHandler);
 		this.options.timeOutHandler = -1;
 	},
+	userModel:function(){
+		if(this.options.useroptions.registry){
+			return this.options.useroptions.registry;
+		}else{
+			return {idorganization: this.options.organization.idorganization};
+		}	
+	},
 	showUserView: function (save) {
 		this.userView = this.userView || new NL.View.UserOrganizationData({
-			el:'.user-data'			
+			el:'.user-data',
+			userprofessions: this.options.useroptions.userprofessions,
+			user: this.options.useroptions.user,
+			savebutton:save,
+			model: new NL.Model.Registry(this.userModel())		
 		});
 		this.userView.showSave(save);
 	},

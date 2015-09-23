@@ -57,8 +57,8 @@ function api(passport) {
 	});
 	
 	
-	router.put('/registry',function(req,res){
-		var idorganization = req.body['idorganization'];
+	router.put('/organization/:id/registry',function(req,res){
+		var idorganization = req.params.id;
 		var idlogin = req.user.idlogin;
 		var idprofession = req.body['idprofession'] || 0;
 		var havefood = req.body['havefood'] || 0;
@@ -72,8 +72,8 @@ function api(passport) {
 		});
 	});
 	
-	router.post('/registry',function(req,res){
-		var idorganization = req.body['idorganization'];
+	router.post('/organization/:id/registry',function(req,res){
+		var idorganization =req.params.id;
 		var idlogin = req.user.idlogin;
 		var idprofession = req.body['idprofession'];
 		var havefood = req.body['havefood'];
