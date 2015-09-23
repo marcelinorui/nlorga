@@ -11,7 +11,6 @@ var methodOverride = require('method-override');
 var passport = require('./authentication.js');
 var flash = require('connect-flash');
 var passport = require('passport');
-var ErrorResponse = require('./../app/response/error-response.js');
 
 module.exports = function (app, db, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -45,14 +44,10 @@ module.exports = function (app, db, config) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.locals.getDate = function(dateObj){
-    return dateObj.substring(0,10);
-  };
-
   app.use('/', require('./../app/controllers/base.js')(passport));	
   app.use('/user', require('./../app/controllers/user.js')(passport));
   app.use('/admin', require('./../app/controllers/admin.js')(passport));
-  //app.use('/api/user', require('./app/controllers/api-user.js')(passport));
+  app.use('/api/user', require('./../app/controllers/api-user.js')(passport));
   app.use('/api/admin', require('./../app/controllers/api-admin.js')(passport));
  
 
@@ -64,15 +59,15 @@ module.exports = function (app, db, config) {
 
   if (app.locals.ENV_DEVELOPMENT) {
     app.use(function (err, req, res, next) {
-      var errResponse = new ErrorResponse(req,err);
+       var Response = new (require('./../app/response/error-response.js'))(req,err);
       res.status(err.status || 500);
-      res.render('error', errResponse);
+      res.render('error', Response);
     });
   } else {
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
-      var errResponse = new ErrorResponse(req,err);
-      res.render('error', errResponse);
+      var Response = new (require('./../app/response/error-response.js'))(req,err);
+      res.render('error', Response);
     });
   }
 };

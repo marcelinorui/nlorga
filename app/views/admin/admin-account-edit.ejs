@@ -47,13 +47,13 @@
 						<label class="control-label">Created At</label>
 					</div>
 					<div class="col-sm-3">
-						<span class="form-control-static"><%- getDate(account.createddate) %></span>
+						<span class="form-control-static"><%- account.createddate.toISOString().substring(0,10) %></span>
 					</div>
 					<div class="col-sm-3">
 						<label class="control-label">Updated At</label>
 					</div>
 					<div class="col-sm-3">
-						<span class="form-control-static"><%- getDate(account.updateddate) %></span>
+						<span class="form-control-static"><%- account.updateddate.toISOString().substring(0,10) %></span>
 					</div>
 				</div>
 				<hr>
@@ -63,16 +63,16 @@
 					</div>
 					<div class="col-sm-3">
 						<input type="checkbox" id="forDelete" name="forDelete" data-style="btn-group-sm" 
-						<% if (getDate(account.enddate) != '9999-12-31') {%> 
+						<% if ( account.enddate.toISOString().substring(0,10) != '9999-12-31') {%> 
 						checked							
 						<% } %> />
 					</div>
-					<% if (getDate(account.enddate) != '9999-12-31') {%>
+					<% if (account.enddate.toISOString().substring(0,10) != '9999-12-31') {%>
 					<div class="col-sm-3">
 						<label class="control-label">Removed At</label>
 					</div>
 					<div class="col-sm-3">
-						<span class="form-control-static"><%- getDate(account.enddate) %></span>
+						<span class="form-control-static"><%- account.enddate.toISOString().substring(0,10) %></span>
 					</div>
 					<% } %> 
 				</div>

@@ -47,7 +47,7 @@ var utils = {
             }
             groups[g].push(data.registrys[i]);
         }
-        
+                
         for (var i = 0; i < groups.length; i++) {
             var idpartyname = data.partynames[i].idpartyname;
             for (var j = 0; j < groups[i].length; j++) {

@@ -13,7 +13,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         css_path: css_path,
-        less_path:less_path,
+        less_path: less_path,
         js_path: js_path,
         template_path: template_path,
         js_template_path: js_path + '/template',
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             ]
         },
         jshint: {
-            files: ['Gruntfile.js','<%= js_model_path %>/*.js','<%= js_collection_path %>/*.js','<%= js_view_path %>/*.js','<%= js_router_path %>/*.js']
+            files: ['Gruntfile.js', '<%= js_model_path %>/*.js', '<%= js_collection_path %>/*.js', '<%= js_view_path %>/*.js', '<%= js_router_path %>/*.js']
         },
         concat: {
             options: {
@@ -45,28 +45,30 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                     '<%= js_path %>/<%= pkg.name %>.js':['assets/lib/jquery/dist/jquery.js',
-                                                        'assets/lib/bootstrap/dist/js/bootstrap.js',
-                                                        'assets/lib/bootstrap-checkbox/dist/js/bootstrap-checkbox.js',
-                                                        'assets/lib/toastr/toastr.js',
-                                                        'assets/lib/underscore/underscore.js',
-                                                        'assets/lib/backbone/backbone.js',
-                                                        '<%= js_template_path %>/template.js',
-                                                        '<%= js_template_path %>/Start.js',
-                                                        '<%= js_model_path %>/*.js',
-                                                        '<%= js_collection_path %>/*.js',
-                                                        '<%= js_router_path %>/*.js',
-                                                        '<%= js_view_path %>/*.js'],
-                    'public/js/<%= pkg.name %>.js':['<%= js_path %>/<%= pkg.name %>.js']
-                }                                                        
+                    'public/js/<%= pkg.name %>.js': ['assets/lib/jquery/dist/jquery.js',
+                        'assets/lib/bootstrap/dist/js/bootstrap.js',
+                        'assets/lib/bootstrap-checkbox/dist/js/bootstrap-checkbox.js',
+                        'assets/lib/toastr/toastr.js',
+                        'assets/lib/underscore/underscore.js',
+                        'assets/lib/backbone/backbone.js',
+                        /*'assets/lib/backbone.babysitter/lib/backbone.babysitter.js',
+                        'assets/lib/backbone.wreqr/lib/backbone.wreqr.js',
+                        'assets/lib/marionette/lib/core/backbone.marionette.js',*/
+                        '<%= js_template_path %>/template.js',
+                        '<%= js_template_path %>/Start.js',
+                        '<%= js_model_path %>/*.js',
+                        '<%= js_collection_path %>/*.js',
+                        '<%= js_router_path %>/*.js',
+                        '<%= js_view_path %>/*.js']
+                }
             },
             css: {
-                files:{
-                    '<%= css_path %>/<%= pkg.name %>.css' :[ '<%= css_path %>/nl.css','<%= css_path %>/toastr.css','<%= css_path %>/bootstrap.css'],
-                    'public/css/<%= pkg.name %>.css':['<%= css_path %>/<%= pkg.name %>.css']
-                    }
+                files: {
+                    '<%= css_path %>/<%= pkg.name %>.css': ['<%= css_path %>/nl.css', '<%= css_path %>/toastr.css', '<%= css_path %>/bootstrap.css'],
+                    'public/css/<%= pkg.name %>.css': ['<%= css_path %>/<%= pkg.name %>.css']
                 }
-            
+            }
+
         },
         jst: {
             dev: {
@@ -84,47 +86,46 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    '<%= js_template_path %>/template.js': ["<%= template_path %>/*.htm","<%= template_path %>/*.html"]
+                    '<%= js_template_path %>/template.js': ["<%= template_path %>/*.htm", "<%= template_path %>/*.html"]
                 }
             }
         },
         uglify: {
-           
             dev: {
-                 options: {
-                mangle: true,
-                compress: {
-                    dead_code: true, // jshint ignore:line
-                    properties: true,
-                    drop_debugger: true,
-                    hoist_funs:true
+                options: {
+                    mangle: false,
+                    compress: {
+                        dead_code: true, // jshint ignore:line
+                        properties: true,
+                        drop_debugger: true,
+                        hoist_funs: true
+                    },
+                    beautify: {
+                        quote_style: 1
+                    },
+                    output: {
+                        ascii_only: true // jshint ignore:line
+                    },
+                    report: 'min',
+                    preserveComments: 'some',
                 },
-                output: {
-                    ascii_only: true // jshint ignore:line
-                },
-                report: 'min',
-                preserveComments: 'some',
-            },
                 files: {
-                    '<%=js_path%>/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js'],
-                    'public/js/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js']
+                    'public/js/<%= pkg.name%>.min.js': ['public/js/<%= pkg.name%>.js']
                 }
             }
         },
         cssmin: {
             options: {
                 banner: '<%= banner %>'
-
             },
             dev: {
                 options: {
                     report: 'min',
                     keepSpecialComments: '*'
-
                 },
                 files: {
                     //"<%= css_path %>/<%= pkg.name %>.min.css": "<%= css_path %>/<%= pkg.name %>.css",
-                    'public/css/<%= pkg.name %>.min.css':'<%= css_path %>/<%= pkg.name %>.css'
+                    'public/css/<%= pkg.name %>.min.css': '<%= css_path %>/<%= pkg.name %>.css'
                 }
             }
         },
@@ -175,7 +176,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build-styles', ['clean:css', 'less:development', 'concat:css']);
     grunt.registerTask('build-js', ['clean:js', 'jst:dev', 'jshint', 'concat:js', 'uglify:dev']);
-    grunt.registerTask('build',['clean:css', 'less:development', 'concat:css','cssmin:dev','clean:js', 'jst:dev', 'jshint', 'concat:js', 'uglify:dev']);
+    grunt.registerTask('build', ['clean:css', 'less:development', 'concat:css', 'cssmin:dev', 'clean:js', 'jst:dev', 'jshint', 'concat:js', 'uglify:dev']);
     grunt.registerTask('watch-styles', ['watch:styles']);
     grunt.registerTask('watch-js', ['watch:js']);
     grunt.registerTask('default', ['watch']);

@@ -1,8 +1,11 @@
-<div class="statistic">
-	<% _.each(statistic,function(s){ %>
-	<span class="text-center">
+<br/>
+<div class="row centered">
+	<% _.each(obj,function(s){ %>
+	<div class="col-lg-1">
 		<span class="<%- s.name %>-icon"></span>
-		<span class="counter"><%- s.counter %></span>
-	</span>
+		<span class="counter"><%- s.value %></span>
+	</div>
 	<% }); %>
 </div>
+<br/>
+

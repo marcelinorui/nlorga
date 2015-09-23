@@ -44,41 +44,32 @@ label.counter {
 		
 }
 
-.player{
-		cursor:pointer;		
-		&:hover{
-		background-color: yellow;	
-		}
-		.span{
-			cursor:pointer;	
-		}
-	}
 
-.profession-select {
-	cursor:pointer;
-	
-	span.icon{
-		margin:10px;
-		padding:9px;
-		border: white solid 2px;
-		
-		&.selected{
-			background-color: blue;
-			&:hover{
-				background-color: blue;
-			}
-		}
-			
-		&:hover{
-			background-color: yellow;	
-		}
-			
-	}
-
-	
-	
+.radio-select {
 	input[type="radio"]{
 		display:none!important;
 	}
 }
 
+.radio-select, .check-select{
+	cursor:pointer;	
+	span.icon{
+		border-radius: 10px;
+		&.selected{
+			background-color: #B4DCA9;
+			
+			&:hover{
+				background-color: #B4DCA9!important;	
+			}
+		}			
+		&:hover{
+			background-color: yellow;	
+		}
+	}
+}	
+
+.check-select{
+	input[type="checkbox"]{
+		display:none!important;
+	}
+}

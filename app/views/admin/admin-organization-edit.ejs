@@ -1,11 +1,12 @@
 <% include ./../partials/header %>
 <div class="row">
-<div class="col-lg-offset-1 col-lg-10">
+<div class="col-lg-12">
 	<div class="title">
-		<h2>Organization <b><%- organization.title %></b> <span class="label label-default pull-right"><%- organization.status %></span></h2>
+		<h2>Organization <b><%- organization.title %></b> 
+		<span class="label label-default pull-right"><%- organization.status %></span></h2>
 	</div>
 	<% if ( organization.idstatus == 1 ) {  %>
-	<form action="/admin/organization/<%- organization.idorganization%>/edit" method="post">
+	<form action="/admin/organization/<%- organization.idorganization %>/edit" method="post">
 		<div class="form-group">
 			<label for="username">Title</label>
 			<input type="text" id="title" class="form-control" name="title" placeholder="Title" value="<%- organization.title %>" />
@@ -112,16 +113,7 @@
 	</div>
 	<% } %>	
 	<hr>
-	<% if( statistic ) { %>
-	<div class="row centered">
-		<% for(var i = 0 ; i < statistic.length; i ++){ %>
-			<div class="col-lg-1">
-				<span class="<%-statistic[i].name%>-icon"></span>
-				<label class="counter"><%-statistic[i].value%></label>
-			</div>
-		<% } %>
-	</div>
-	<% } %>	
+	<% include admin-organization-edit-statistic %>	
 	<div class="row" id="show">
 		<% if (organization.idstatus == 2 || organization.idstatus == 3 ){ %>
 			<% include admin-organization-registry-view %>
@@ -141,12 +133,21 @@
 </div>
 
 <% include ./../partials/end-body %>
-<% if (organization.idstatus == 2 || organization.idstatus == 3 ){ %>
+<% if (organization.idstatus == 2 || organization.idstatus == 3 || organization.idstatus == 4){ %>
 <script>
 $(function(){
-	var view = new NL.View.OrganizationAdminView({
+	var view = new NL.View.AdminOrganization({
 		el: '.show',
-		model: <%- JSON.stringify(this) %>,
+		model: { 
+			organization : <%- JSON.stringify(organization) %>,
+			<%if (organization.idstatus == 2 || organization.idstatus == 3){%>
+			registry: <%- JSON.stringify(registry) %>,
+			<% } %>
+			<%if (organization.idstatus == 4){%>
+			partys: <%- JSON.stringify(partys) %>,
+			<% } %>
+			statistic:<%- JSON.stringify(statistic) %>			
+		},
 		url: '/api/admin/organization/<%- organization.idorganization%>/view'
 	}); 
 });

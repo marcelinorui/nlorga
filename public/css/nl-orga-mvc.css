@@ -23,222 +23,279 @@ label.counter {
 }
 .list-group-item span.no-icon {
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   padding: 0;
 }
 .list-group-item span.user {
   padding: 0;
   float: right;
 }
-.player {
+.radio-select input[type="radio"] {
+  display: none!important;
+}
+.radio-select,
+.check-select {
   cursor: pointer;
 }
-.player:hover {
+.radio-select span.icon,
+.check-select span.icon {
+  border-radius: 10px;
+}
+.radio-select span.icon.selected,
+.check-select span.icon.selected {
+  background-color: #B4DCA9;
+}
+.radio-select span.icon.selected:hover,
+.check-select span.icon.selected:hover {
+  background-color: #B4DCA9!important;
+}
+.radio-select span.icon:hover,
+.check-select span.icon:hover {
   background-color: yellow;
 }
-.player .span {
-  cursor: pointer;
-}
-.profession-select {
-  cursor: pointer;
-}
-.profession-select span.icon {
-  margin: 10px;
-  padding: 9px;
-  border: white solid 2px;
-}
-.profession-select span.icon.selected {
-  background-color: blue;
-}
-.profession-select span.icon.selected:hover {
-  background-color: blue;
-}
-.profession-select span.icon:hover {
-  background-color: yellow;
-}
-.profession-select input[type="radio"] {
+.check-select input[type="checkbox"] {
   display: none!important;
 }
 span.guardian-icon {
   background-image: url("/img/guardian.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.guardian-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.warrior-icon {
   background-image: url("/img/warrior.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.warrior-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.revenant-icon {
   background-image: url("/img/revenant.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.revenant-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.thief-icon {
   background-image: url("/img/thief.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.thief-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.ranger-icon {
   background-image: url("/img/ranger.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.ranger-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.engineer-icon {
   background-image: url("/img/engineer.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.engineer-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.elementalist-icon {
   background-image: url("/img/elementalist.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.elementalist-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.mesmer-icon {
   background-image: url("/img/mesmer.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.mesmer-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.necromancer-icon {
   background-image: url("/img/necromancer.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.necromancer-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.banner-icon {
   background-image: url("/img/banner.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.banner-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.red-icon {
   background-image: url("/img/red.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.red-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.purple-icon {
   background-image: url("/img/purple.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.purple-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.yellow-icon {
   background-image: url("/img/yellow.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.yellow-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.blue-icon {
   background-image: url("/img/blue.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.blue-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
+}
+span.no-commander-icon {
+  background-image: url("/img/no-commander.png");
+  background-size: 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+span.no-commander-icon.big {
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 span.food-icon {
   background-image: url("/img/food.png");
-  background-size: 18px;
+  background-size: 20px;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 span.food-icon.big {
-  width: 36px;
-  height: 36px;
-  background-size: 36px;
+  width: 48px;
+  height: 48px;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: 4px;
+  background-position-y: 4px;
 }
 
 .toast-title {

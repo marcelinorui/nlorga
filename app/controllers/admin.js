@@ -19,18 +19,20 @@ function isAdminAuthenticated(req, res, next) {
 
 function admin(passport) {
 	var router = express.Router();
-	
+
 	router.use(isAdminAuthenticated);
-	
+
 	router.get('/', function (req, res, next) {
 		var Response = require('./../response/admin-accounts-response.js');
 		res.render('admin', new Response(req));
 	});
 
-	router.get('/accounts',  function (req, res, next) {
+	router.get('/accounts', function (req, res, next) {
 		db.Account.listAccounts('', '', null, null, null, function (err, accounts) {
 			if (!err) {
 				req.session.accounts = accounts;
+			} else {
+				req.flash('error', 'SQL Error.')
 			}
 			return next(err);
 		});
@@ -39,10 +41,12 @@ function admin(passport) {
 		res.render('admin-accounts', new Response(req))
 	});
 
-	router.get('/account/:id/edit',  function (req, res, next) {
+	router.get('/account/:id/edit', function (req, res, next) {
 		db.Account.getAccount(req.params.id, function (err, account) {
 			if (!err) {
 				req.session.account = account;
+			} else {
+				req.flash('error', 'SQL Error.')
 			}
 			return next(err);
 		})
@@ -51,7 +55,7 @@ function admin(passport) {
 		res.render('admin-account-edit', new Response(req));
 	});
 
-	router.post('/account/:id/edit',  function (req, res, next) {
+	router.post('/account/:id/edit', function (req, res, next) {
 		var account = {
 			idlogin: req.params.id,
 			username: req.body.username,
@@ -71,6 +75,8 @@ function admin(passport) {
 			function (err, ok) {
 				if (!err) {
 					req.flash('success', 'Account changed successfully.');
+				} else {
+					req.flash('error', 'SQL Error.')
 				}
 				return next(err);
 			})
@@ -111,10 +117,12 @@ function admin(passport) {
 		res.redirect('/admin/accounts');
 	});
 
-	router.get('/organizations',  function (req, res, next) {
+	router.get('/organizations', function (req, res, next) {
 		db.Organization.listOrganizations('', '', null, null, null, function (err, organizations) {
 			if (!err) {
 				req.session.organizations = organizations;
+			} else {
+				req.flash('error', 'SQL Error.')
 			}
 			return next(err);
 		});
@@ -123,11 +131,13 @@ function admin(passport) {
 		res.render('admin-organizations', new Response(req))
 	});
 
-	router.get('/organization/create',  function (req, res, next) {
+	router.get('/organization/create', function (req, res, next) {
 
 		db.Configuration.getActivePartyConfiguration(function (err, partyconfiguration) {
 			if (!err) {
 				req.session.partyconfiguration = partyconfiguration;
+			} else {
+				req.flash('error', 'SQL Error.')
 			}
 			return next(err);
 		});
@@ -137,12 +147,14 @@ function admin(passport) {
 			res.render('admin-organization-create', new Response(req))
 		});
 
-	router.post('/organization/create',  function (req, res, next) {
+	router.post('/organization/create', function (req, res, next) {
 		var idpartyconfiguration = req.body['partyconfiguration'];
 		var title = req.body['title'];
 		db.Organization.createOrganization(idpartyconfiguration, title, function (err, idorganization) {
 			if (!err) {
 				req.session.idorganization = idorganization;
+			} else {
+				req.flash('error', 'SQL Error.')
 			}
 			return next(err);
 		});
@@ -151,7 +163,7 @@ function admin(passport) {
 		req.session.idorganization = null;
 	});
 
-	router.get('/organization/:id/edit',  function (req, res, next) {
+	router.get('/organization/:id/edit', function (req, res, next) {
 		var idorganization = req.params.id;
 		db.Organization.getOrganization(idorganization, function (err, organization) {
 			if (!err) {
@@ -161,13 +173,12 @@ function admin(passport) {
 			}
 			return next(err);
 		});
-	},
-		function (req, res, next) {
-			var Response = require('./../response/admin-organization-edit-response.js');
-			res.render('admin-organization-edit', new Response(req))
-		});
+	}, function (req, res, next) {
+		var Response = require('./../response/admin-organization-edit-response.js');
+		res.render('admin-organization-edit', new Response(req))
+	});
 
-	router.post('/organization/:id/edit',  function (req, res, next) {
+	router.post('/organization/:id/edit', function (req, res, next) {
 		var idorganization = req.params.id;
 		var title = req.body['title'];
 		var idpartyconfiguration = req.body['idpartyconfiguration'];
@@ -183,12 +194,11 @@ function admin(passport) {
 				}
 				return next();
 			});
-	},
-		function (req, res, next) {
-			res.redirect('/admin/organization/' + req.params.id + '/edit');
-		});
+	}, function (req, res, next) {
+		res.redirect('/admin/organization/' + req.params.id + '/edit');
+	});
 
-	router.post('/organization/:id/status/:idstatus',  function (req, res, next) {
+	router.post('/organization/:id/status/:idstatus', function (req, res, next) {
 		if (req.params.idstatus == -1) {
 			db.Organization.resetOrganization(req.params.id, function (err, ok) {
 				if (!err) {
@@ -198,93 +208,63 @@ function admin(passport) {
 			});
 		} else
 			if (req.params.idstatus == -2) {
-				var idorganization = req.params.id;
-				var partysize = parseInt(req.body['partysize'], 10);
-				db.Organization.getRegistrysForPartys(idorganization, function (err, data) {
-						if (!err) {							
-							//make the partys						
-							var partys = utils.makePartys(data, partysize, idorganization);
-							//insert the partys into DB
-							db.Organization.cleanPartys(idorganization,function(err,data){
-								if(!err){
-								db.Organization.addPartys(partys, function (err, ok) {
-									if (!err) {
-										req.flash('success','The Partys were remaded.');			
-									} 
-									return next(err);
-									
-									});
-								} else {
-									return next(err);		
-								}
-							});
-						} else {
-							return next(err);
-						}
-					});
+				db.Organization.makeOrganizationPartys(req.params.id, Number(req.body['partysize']), function (err, ok) {
+					if (!err) {
+						req.session.idstatus = idstatus;
+						req.flash('success', 'The Partys were remaded.');
+					}
+					return next(err);
+				});
 			} else {
 				var idstatus = req.params.idstatus;
 				idstatus = idstatus > 5 ? 5 : idstatus;
-				var idorganization = req.params.id;
 				if (idstatus == 3) {
-					db.Organization.getRegistrysForPartys(req.params.id, function (err, data) {
-						if (!err) {							
-							//make the partys						
-							var partys = utils.makePartys(data, parseInt(req.body['partysize'], 10), idorganization);
-							//insert the partys into DB
-							db.Organization.addPartys(partys, function (err, ok) {
+					db.Organization.makeOrganizationPartys(req.params.id, Number(req.body['partysize']), function (err, ok) {
+						if (!err) {
+							db.Organization.moveStatusOrganization(req.params.id, idstatus, function (err, ok) {
 								if (!err) {
-									//moveStatus
-									db.Organization.moveStatusOrganization(req.params.id, idstatus, function (err, ok) {
-										if (!err) {
-											req.session.idstatus = idstatus;
-											req.flash('success', 'The Organization status changed successfuly.');
-										}
-										return next(err);
-									});
-								} else {
-									return next(err);
+									req.session.idstatus = idstatus;
+									req.flash('success', 'The Organization status changed successfuly.');
 								}
+								return next(err);
 							});
-						} else {
-							return next(err);
 						}
+						return next(err);
 					});
 				} else {
 					db.Organization.moveStatusOrganization(req.params.id, idstatus, function (err, ok) {
 						if (!err) {
 							req.session.idstatus = idstatus;
 							req.flash('success', 'The Organization status changed successfuly.');
+						} else {
+							
 						}
 						return next(err);
 					});
 				}
 			}
-	},
-		function (req, res, next) {
-			res.redirect('/admin/organization/' + req.params.id + '/edit');
-		});
+	}, function (req, res, next) {
+		res.redirect('/admin/organization/' + req.params.id + '/edit');
+	});
 
-	router.get('/configurations',  function (req, res, next) {
+	router.get('/configurations', function (req, res, next) {
 		next();
 	}, function (req, res, next) {
 		var Response = require('./../response/admin-configurations-response.js');
 		res.render('admin-configurations', new Response(req))
 	});
 
-	router.get('/configuration/:id/edit',  function (req, res, next) {
+	router.get('/configuration/:id/edit', function (req, res, next) {
 		next();
 	}, function (req, res, next) {
 		var Response = require('./../response/admin-configuration-edit-response.js');
 		res.render('admin-configuration-edit', new Response(req))
 	});
 
-	router.get('/configuration/create',  function (req, res, next) {
+	router.get('/configuration/create', function (req, res, next) {
 		var Response = require('./../response/admin-configuration-create-response.js');
 		res.render('admin-configurations-create', new Response(req))
 	});
-
-
 
 	return router;
 }
