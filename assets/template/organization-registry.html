@@ -1,0 +1,24 @@
+<div class="row">
+<% for (var col = 0; col < 4; col++) {%>	
+	<% var registrys_col = _.select(obj,function(r,idx){ return idx%4 == col; })%>
+	<div class="col-lg-3">
+		<div class="list-group">
+		<% _.each(registrys_col,function(r){ %>
+			<div class="list-group-item">
+				<span class="<%- r.profession%>-icon"></span>
+				<% if( r.haveTag != '' ) { %>
+					<span class="<%- r.commander%>-icon"></span>
+				<% } %>
+				<% if( r.havebanner == true ) { %>
+					<span class="banner-icon"></span>
+				<% } %>
+				<% if( r.havefood == true ) { %>
+					<span class="food-icon"></span>
+				<% } %>				
+				<span class="pull-right"><%- r.displayname != '' ? r.displayname : r.username %></span>
+			</div>
+		<% }); %>
+		</div>
+	</div>
+<% } %>
+</div>

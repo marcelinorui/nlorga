@@ -51,7 +51,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                     '<%= js_path %>/<%= pkg.name %>.js':['assets/lib/jquery/dist/jquery.js',
+                     'public/js/<%= pkg.name %>.js':['assets/lib/jquery/dist/jquery.js',
                                                         'assets/lib/bootstrap/dist/js/bootsrap.js',
                                                         'assets/lib/bootstrap-checkbox/dist/js/bootstrap-checkbox.js',
                                                         'assets/lib/toastr/toastr.js',
@@ -62,14 +62,12 @@ module.exports = function (grunt) {
                                                         '<%= js_model_path %>/*.js',
                                                         '<%= js_collection_path %>/*.js',
                                                         '<%= js_router_path %>/*.js',
-                                                        '<%= js_view_path %>/*.js'],
-                    'public/js/<%= pkg.name %>.js':['<%= js_path %>/<%= pkg.name %>.js']
+                                                        '<%= js_view_path %>/*.js']
                 }                                                        
             },
             css: {
                 files:{
-                    '<%= css_path %>/<%= pkg.name %>.css' :[ '<%= css_path %>/nl.css','<%= css_path %>/toastr.css','<%= css_path %>/bootstrap.css'],
-                    'public/css/<%= pkg.name %>.css':['<%= css_path %>/<%= pkg.name %>.css']
+                    'public/css/<%= pkg.name %>.css' :[ '<%= css_path %>/nl.css','<%= css_path %>/toastr.css','<%= css_path %>/bootstrap.css'],
                     }
                 }
             
@@ -104,8 +102,7 @@ module.exports = function (grunt) {
             },
             dev: {
                 files: {
-                    '<%=js_path%>/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js'],
-                    'public/js/<%= pkg.name%>.min.js': ['<%=js_path%>/<%= pkg.name%>.js']
+                    'public/js/<%= pkg.name%>.min.js': ['public/js//<%= pkg.name%>.js']
                 }
             }
         },

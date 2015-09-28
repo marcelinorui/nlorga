@@ -1,0 +1,12 @@
+<%if( foodusername || bannerusername){%>
+<div class="row">
+	<div class="col-lg-12">
+		<%if(foodusername){%>
+			<p><span class="food-icon big"></span> Food will be provided by <b><%= foodusername %></b> </p>
+		<%}%>
+		<%if(bannerusername){%>
+			<p><span class="banner-icon big"></span> Banner will be provided by <b><%= bannerusername %></b></p>
+		<%}%>
+	</div>
+</div>	
+<%}%>
