@@ -2,7 +2,6 @@ var express = require('express'),
 		 db = require('./../models/index.js');
 		 
 function isAdminAuthenticated(req, res, next) {
-	return next();
 	if (req.isAuthenticated()) {
 		if (req.user.isAdmin === true) {
 			return next();

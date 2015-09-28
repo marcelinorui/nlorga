@@ -11574,13 +11574,16 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /*!
+<<<<<<< HEAD
  * Bootstrap-checkbox v1.2.8 (http://vsn4ik.github.io/bootstrap-checkbox)
+=======
+ * Bootstrap-checkbox v1.2.14 (http://vsn4ik.github.io/bootstrap-checkbox)
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
  * Copyright 2013-2015 Vasily A. (https://github.com/vsn4ik)
- * Licensed under MIT (https://github.com/vsn4ik/bootstrap-checkbox/blob/master/LICENSE)
+ * Licensed under the MIT license
  */
 
 /**
- * 'Strict Mode' strictly in body of function
  * $.inArray: friends with IE8. Use Array.prototype.indexOf in future.
  * Use this.element.hidden in future.
  * $.proxy: friends with IE8. Use Function.prototype.bind in future.
@@ -11694,14 +11697,14 @@ if (typeof jQuery === 'undefined') {
       }
 
       // Keydown event only trigger if set tabindex, fine!
-      this.$group.on('keydown', $.proxy(this.keydown, this));
+      this.$group.on('keydown', $.proxy(this, 'keydown'));
 
       // Don't trigger if <a> element has .disabled class, fine!
-      this.$group.on('click', 'a:not(.active)', $.proxy(this.click, this));
+      this.$group.on('click', 'a:not(.active)', $.proxy(this, 'click'));
 
-      this.$element.on('change', $.proxy(this.toggle_checked, this));
-      $(this.element.labels).on('click', $.proxy(this.focus, this));
-      $(this.element.form).on('reset', $.proxy(this.reset, this));
+      this.$element.on('change', $.proxy(this, 'toggleChecked'));
+      $(this.element.labels).on('click', $.proxy(this, 'focus'));
+      $(this.element.form).on('reset', $.proxy(this, 'reset'));
 
       this.$group.append(this.$buttons).insertAfter(this.element);
 
@@ -11721,13 +11724,13 @@ if (typeof jQuery === 'undefined') {
         }
       }
     },
-    toggle_checked: function() {
+    toggleChecked: function() {
       // this.$group not focus (incorrect on form reset)
       this.$buttons.toggleClass('active ' + this.options.defaultClass);
       this.$off.toggleClass(this.options.offClass);
       this.$on.toggleClass(this.options.onClass);
     },
-    toggle_disabled: function() {
+    toggleDisabled: function() {
       this.$buttons.toggleClass('disabled');
 
       if (this.element.disabled) {
@@ -11797,7 +11800,7 @@ if (typeof jQuery === 'undefined') {
         var data = $.data(element, 'bs.checkbox');
 
         if (data && element.disabled != value) {
-          data.toggle_disabled();
+          data.toggleDisabled();
         }
 
         if (oldPropHooks.disabled && oldPropHooks.disabled.set) {
@@ -15744,14 +15747,20 @@ this["NL"]["Template"]["OrganizationPartyTeqDefZerg"] = function(obj) {obj || (o
 
 this["NL"]["Template"]["OrganizationPartyTeqZerg"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) { var zerg = obj ;__p +=((__t = ( NL.Template['tequatl-zerg-jobs'](zerg) )) == null ? '' : __t);}return __p};
 
+<<<<<<< HEAD
 this["NL"]["Template"]["TeqZerg"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) { var guardians = _.where(obj, {profession:'guardian'})  ; if (guardians.length > 0) {;__p += '<br/><div class="row"><div class="col-lg-3"><img src="/img/skills/Wall_of_Reflection.png" /></div>'; var counter = 0 ; var start = 0 ; while(start < guardians.length - 1 ){;__p += '<div class="col-lg-3">';var group = guardians.slice(start,start+ 4 ); start += group.length ;++counter;__p += '<div class="list-group-item active"> Wall ' +((__t = ( counter )) == null ? '' : __t) +'</div>'; for(var i = 0; i < group.length; i++) {;__p += '<div class="list-group-item">' +((__t = ( group[i].username )) == null ? '' : __t) +'</div>';};__p += '</div>';};__p += '</div>'; } ; var elementalist = _.where(obj,{profession:'elementalist'}) ; var ele_group = elementalist.slice(0, 6) ; if(ele_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Swirling_Winds.png" /></div><div class="col-lg-3"><div class="list-group-item active">Swirling Winds</div>'; _.each(ele_group,function(ele,idx){;__p += '<div class="list-group-item"><span>SW #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( ele.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ; var warrior = _.where(obj,{profession:'warrior'}) ; var war_group = warrior.slice(0,6) ; if(war_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Battle_Standard.png" /></div><div class="col-lg-3"><div class="list-group-item active">Battle Standard</div>'; _.each(war_group,function(war,idx){;__p += '<div class="list-group-item"><span>Banner #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( war.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ;}return __p};
 
+=======
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
 this["NL"]["Template"]["admin-accounts-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<tr '; if (obj.enddate.substring(0,10) != '9999-12-31'){;__p += 'class="text-strikeout"'; };__p += ' ><td>' +__e( obj.idlogin ) +'</td><td>' +__e( obj.username ) +'</td><td>' +__e( obj.displayname ) +'</td><td>'; if (obj.hascommanderTag == 1) {;__p += '<span class="glyphicon glyphicon-ok text-success"></span>'; } ;__p += '</td><td>'; if (obj.isAdmin == 1) {;__p += '<span class="glyphicon glyphicon-ok text-success"></span>'; } ;__p += '</td><td>' +__e( obj.createddate.substring(0,10) ) +'</td><td><div class="btn-group pull-right"><a href="/admin/account/' +__e( obj.idlogin ) +'/edit" role="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-search"></span> Edit</a></div></td></tr>';}return __p};
 
 this["NL"]["Template"]["admin-organization-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<tr><td>' +__e( obj[i].idorganization ) +'</td><td>' +__e( obj[i].title ) +'</td><td>' +__e( obj[i].status ) +'</td><td>' +__e( obj[i].description ) +'</td><td>' +__e( obj[i].createddate.substring(0,10) ) +'<td><span class="pull-right"><a href="/admin/organization/' +__e(obj[i].idorganization) +'/edit" role="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Edit</a></span></td></tr>';}return __p};
 
+<<<<<<< HEAD
 this["NL"]["Template"]["admin-organizations-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<tr><td>' +__e( obj.idorganization ) +'</td><td>' +__e( obj.title ) +'</td><td><span class="label label-default">' +__e( obj.status ) +'</span></td><td>' +__e( obj.description ) +'</td><td>' +__e( obj.createddate.substring(0,10) ) +'<td><span class="pull-right"><a href="/admin/organization/' +__e(obj.idorganization) +'/edit" role="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Edit</a></span></td></tr>';}return __p};
 
+=======
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
 this["NL"]["Template"]["organization-foodbanner"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {if( foodusername || bannerusername){;__p += '<div class="row"><div class="col-lg-12">';if(foodusername){;__p += '<p><span class="food-icon big"></span> Food will be provided by <b>' +((__t = ( foodusername )) == null ? '' : __t) +'</b> </p>';};if(bannerusername){;__p += '<p><span class="banner-icon big"></span> Banner will be provided by <b>' +((__t = ( bannerusername )) == null ? '' : __t) +'</b></p>';};__p += '</div></div>';};}return __p};
 
 this["NL"]["Template"]["organization-party"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row">'; _.each(obj, function(party){ ;__p += '<div class="col-lg-3"><div class="list-group"><div class="list-group-item active"> ' +__e( party.partyname ) +' <span class="badge">' +__e( party.members.length) +'</span></div>'; if(party.job){ ; if( Array.isArray(party.job) ){ ;	_.each(party.job, function(job) {;__p += '<div class="list-group-item list-group-item-warning">' +__e( job ) +'</div>'; }) ; } else { ;__p += '<div class="list-group-item list-group-item-warning">' +__e( party.job ) +'</div>'; } ; } ;__p += '<div class="list-group-item">'; _.each(party.members,function(member){ ;__p += '<div class="player"><span class="' +__e( member.profession) +'-icon"></span>'; if( member.commander) { ;__p += '<span class="' +__e( member.commander) +'-icon"></span>'; } ; if( member.havebanner == true ) { ;__p += '<span class="banner-icon"></span>'; } ; if( member.havefood == true ) { ;__p += '<span class="food-icon"></span>'; } ;__p += '<span class="user">' +__e( member.displayname != '' ? member.displayname : member.username ) +'</span></div>';});;__p += '</div><div class="list-group-item list-group-item-info text-center"><span>/join ' +__e(party.members[0].username ) +'</span></div></div></div>';});;__p += '</div>';/*  function SelectText(element) {var doc = document, text = doc.getElementById(element), range, selection;if (doc.body.createTextRange) {range = document.body.createTextRange();range.moveToElementText(text);range.select();} else if (window.getSelection) {selection = window.getSelection();range = document.createRange();range.selectNodeContents(text);selection.removeAllRanges();selection.addRange(range);}}document.onclick = function(e) {if (e.target.className === 'click') {SelectText('selectme');}};*/;}return __p};
@@ -15766,7 +15775,11 @@ this["NL"]["Template"]["tequatl-zerg-jobs"] = function(obj) {obj || (obj = {});v
 
 this["NL"]["Template"]["user-index"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="col-lg-4"><p class="text-center"><b>' +__e( title ) +'</b></p><p class="text-center">' +__e( configuration) +'</p><div class="text-center"><span><a href="/user/organization/' +__e(idorganization) +'/view" role="button" class="btn btn-primary">View</a></span></div></div>';}return __p};
 
+<<<<<<< HEAD
 this["NL"]["Template"]["user-organization-register"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-12"><h3 class="text-center"><b>' +((__t = ( obj.user.title )) == null ? '' : __t) +'</b></h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.description ) +'</h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.displayname != '' ? obj.user.displayname : obj.user.username ) +'</h3></div></div><div class="row centered">'; if (obj.user.idstatus == 2) { ;__p += '<div class="col-lg-6"><div class="radio-select profession">'; for(var i = 0; i < obj.userprofessions.length; i++ ){ ;if(registry.idprofession ==  obj.userprofessions[i].idprofession){;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big selected" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" checked /></span>';} else {;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" /></span>'; } ; } ;__p += '</div></div>'; if( obj.user.pickbanner == true ) { ;__p += '<div class="col-lg-2"><div class="check-select banner">'; if(registry.havebanner == true) {;__p += '<span class="icon banner-icon big selected" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" checked /></span>';} else {;__p += '<span class="icon banner-icon big" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickfood  == true ) { ;__p += '<div class="col-lg-2"><div class="check-select food">'; if(registry.havefood == true) {;__p += '<span class="icon food-icon big selected" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" checked /></span>';}else{;__p += '<span class="icon food-icon big" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickcommander  == 1 ) { ;__p += '<div class="col-lg-2"><div class="radio-select commander">'; var comm = ["blue","yellow","purple","red"]; ; for (var i = 0 ; i< comm.length; i++){ ;if( registry.haveTag == comm[i]){;__p += '<span class="icon ' +__e( comm[i]) +'-icon big selected" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" checked/></span>';}else{;__p += '<span class="icon ' +__e( comm[i]) +'-icon big" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" /></span>';}; };__p += '<span class="icon no-commander-icon big" data-input="" ><input type="radio" name="havetag" value="" /></span></div></div>'; } ;__p += '<div class="col-lg-12"><span class="pull-right"><button class="btn btn-primary">Save</button></span></div>'; } else {;__p += '<div class="col-lg-2"><div class="profession"><span class="icon ' +__e( registry.name ) +'-icon big"></span></div></div>'; if( user.pickbanner === true && registry.havebanner === true) { ;__p += '<div class="col-lg-2"><div class="banner"><span class="icon banner-icon big"></span></div></div>'; } ; if( user.pickfood === true && registry.havefood === true) { ;__p += '<div class="col-lg-2"><div class="food"><span class="icon food-icon big"></span></div></div>'; } ;};__p += '</div>';}return __p};
+=======
+this["NL"]["Template"]["user-organization-register"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-12"><h3 class="text-center"><b>' +((__t = ( obj.user.title )) == null ? '' : __t) +'</b></h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.description ) +'</h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.displayname != '' ? obj.user.displayname : obj.user.username ) +'</h3></div></div><div class="row centered">'; if (obj.user.idstatus == 2) { ;__p += '<div class="col-lg-6"><div class="radio-select profession">'; for(var i = 0; i < obj.userprofessions.length; i++ ){ ;if(registry.get("idprofession") ==  obj.userprofessions[i].idprofession){;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big selected" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" checked /></span>';} else {;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" /></span>'; } ; } ;__p += '</div></div>'; if( obj.user.pickbanner == true ) { ;__p += '<div class="col-lg-2"><div class="check-select banner">'; if(registry.get("havebanner") == true) {;__p += '<span class="icon banner-icon big selected" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" checked /></span>';} else {;__p += '<span class="icon banner-icon big" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickfood  == true ) { ;__p += '<div class="col-lg-2"><div class="check-select food">'; if(registry.get("havefood") == true) {;__p += '<span class="icon food-icon big selected" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" checked /></span>';}else{;__p += '<span class="icon food-icon big" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickcommander  == 1 ) { ;__p += '<div class="col-lg-2"><div class="radio-select commander">'; var comm = ["blue","yellow","purple","red"]; ; for (var i = 0 ; i< comm.length; i++){ ;if( registry.get("haveTag") == comm[i]){;__p += '<span class="icon ' +__e( comm[i]) +'-icon big selected" data-input="' +__e( comm[i]) +'"><input type="radio" name="commandertag" value="' +__e( comm[i]) +'" checked/></span>';}else{;__p += '<span class="icon ' +__e( comm[i]) +'-icon big" data-input="' +__e( comm[i]) +'"><input type="radio" name="commandertag" value="' +__e( comm[i]) +'" /></span>';}; };__p += '<span class="icon no-commander-icon big" data-input="" ><input type="radio" name="commandertag" value="" /></span></div></div>'; } ;__p += '<div class="col-lg-12"><span class="pull-right"><button class="btn btn-primary">Save</button></span></div>'; } else {;__p += '<div class="col-lg-2"><div class="profession"><span class="icon ' +__e( registry.get('name') ) +'-icon big"></span></div></div>'; if( user.pickbanner === true && registry.get('havebanner') === true) { ;__p += '<div class="col-lg-2"><div class="banner"><span class="icon banner-icon big"></span></div></div>'; } ; if( user.pickfood === true && registry.get('havefood') === true) { ;__p += '<div class="col-lg-2"><div class="food"><span class="icon food-icon big"></span></div></div>'; } ;};__p += '</div>';}return __p};
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
 
 this["NL"]["Template"]["user-organization"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="user-data"></div><div class="registry-data"></div><div class="party-data"></div>';}return __p};
 this.NL.Mixin = this.NL.Mixin || {};
@@ -15944,6 +15957,154 @@ NL.Collection.OrganizationRegistry = NL.Collection.OrganizationRegistry || Backb
 		return response;
 	}
 });
+NL.Model.Organization = NL.Model.Organization || Backbone.Model.extend({
+	
+});
+NL.Model.OrganizationParty = NL.Model.OrganizationParty || Backbone.Model.extend({
+	defaults: function () {
+		return {
+			partyname: '',
+			members: new NL.Collection.OrganizationPartyMember(),
+			jobs: null
+		};
+	}
+});
+NL.Model.OrganizationPartyMember = NL.Model.OrganizationPartyMember || Backbone.Model.extend({
+	defaults: {
+		partyname: '',
+		username: '',
+		displayname: '',
+		profession: '',
+		havebanner: false,
+		havefood: false,
+		haveTag: ''
+	}
+});
+NL.Model.OrganizationRegistry = NL.Model.OrganizationRegistry || Backbone.Model.extend({
+	idAttribute: 'idregistry'
+});
+NL.Model.OrganizationStatus = NL.Model.OrganizationStatus || Backbone.Model.extend({
+		idAttribute:'idorganization',
+		defaults:{
+			idorganization:-1,
+			idstatus: -1
+		},
+		url:function(){
+			return '/api/user/organization/'+this.get('idorganization')+'/status';
+		}
+	});
+NL.Model.Registry = NL.Model.Registry || Backbone.Model.extend({
+	defaults:{
+		idregistry:null,
+		idprofession:null,
+		havebanner:false,
+		havefood:false,
+		haveTag:'',
+		name:''
+	},
+	idAttribute:'idregistry',
+	url:'/api/user/registry'
+});
+NL.Model.UserIndex = NL.Model.UserIndex || Backbone.Model.extend({
+	url: function(){ return '/api/user/organization'; },
+	idAttribute: 'idorganization'
+}); 
+NL.Collection.OrganizationParty = NL.Collection.OrganizationParty || Backbone.Collection.extend({
+	model: NL.Model.OrganizationParty,
+	url: function () {
+		return '/api/user/organization/' + this.options.idorganization + '/partys';
+	},
+	defaults: {
+		idorganization: -1,
+	},
+	initialize: function (models,options) {
+		this.options = _.extend(this.defaults, options);
+	},
+	setJobs:function(arr){
+		return arr;
+	},
+	getMembers:function(){
+		return _.flatten(_.pluck( this.toJSON(),'members'));
+	},
+	getStatistics:function(){
+		return _.sortBy(
+					_.map(
+						_.countBy(this.getMembers(), 'profession'), function (count, key) { 
+							return { name: key, value: count }; }), 'name');
+	},
+	getFood:function(){
+		var member = _.findWhere(this.getMembers(),{havefood:true});
+		if (member) {
+			return member.username;
+		}
+		return null;
+	},
+	getBanner:function(){
+		var member = _.findWhere(this.getMembers(),{havebanner:true});
+		if (member) {
+			return member.username;
+		}
+		return null;
+	}
+});
+NL.Collection.OrganizationPartyMember = NL.Collection.OrganizationPartyMember || Backbone.Collection.extend({
+	model: NL.Model.OrganizationPartyMember
+});
+NL.Collection.OrganizationPartyDefTeqZerg = NL.Collection.OrganizationPartyDefTeqZerg || NL.Collection.OrganizationParty.extend({
+	defaults:{
+		defLocations:["East","West","North","MegaLaser"],
+		defJob:["East - Waypoint","East - Shipwreck","West - Beach","West - Shipwreck"],
+		zergBattery:["East","MegaLazer"],
+		defBattery:["North","North","West","West"]
+	},
+	setJobs:function(arr){
+		var def = arr.slice(0,4);
+		var zerg = arr.slice(4); 
+		for(var d = 0; d < def.length; d++){
+			def[d].job = [ this.options.defJob[d],'Battery Fase - '+ this.options.defBattery[d]];
+		}
+		for(var z = 0; z < zerg.length; z++){
+			zerg[z].job = ['Zerg','Battery Fase - '+this.options.zergBattery[z%2] ];
+		}
+		return def.concat(zerg);
+	},
+	parse:function(response){
+		return this.setJobs(response);
+	}	
+});
+NL.Collection.OrganizationPartyTeqZerg = NL.Collection.OrganizationPartyTeqZerg || NL.Collection.OrganizationParty.extend({
+	defaults:{
+		locations:["East","West","North","MegaLaser"]
+	},
+	setJobs:function(arr){
+		for(var i = 0; i < arr.length; i++){
+			arr[i].job = 'Battery Fase - '+this.options.locations[i%this.options.locations.length];
+		}
+		return arr;
+	},
+	parse:function(response){
+		return this.setJobs(response);
+	}	
+});
+NL.Collection.OrganizationRegistry = NL.Collection.OrganizationRegistry || Backbone.Collection.extend({
+	defaults: {
+		idorganization: -1,
+		statistic: []
+	},
+	model: NL.Model.OrganizationRegistry,
+	url: function () {
+		return '/api/user/organization/' + this.options.idorganization + '/registrys';
+	},
+	initialize: function (models, options) {
+		this.options = _.extend(this.defaults, options);
+		this.options.statistic = _.sortBy(_.map(_.countBy(models, 'profession'), function (count, key) { return { name: key, value: count }; }), 'name');
+	},
+	parse: function (response) {
+		this.options.statistic = _.sortBy(_.map(_.countBy(response, 'profession'), function (count, key) { return { name: key, value: count }; }), 'name');
+		console.log('.');
+		return response;
+	}
+});
 NL.Collection.Pager = NL.Collection.Pager || Backbone.Collection.extend({
 	initialize: function (options) {
 		this.on('collection:data-fetched', this.updatePager, this);
@@ -15987,10 +16148,166 @@ NL.Collection.UserIndex = NL.Collection.UserIndex || Backbone.Collection.extend(
 		return response;
 	}		
 }); 
+<<<<<<< HEAD
 
 NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 	statisticTemplate: NL.Template["organization-statistic"],
 	template: NL.Template["organization-party"],
+=======
+NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
+	statisticTemplate: NL.Template["organization-statistic"],
+	template: NL.Template["organization-party"],
+	defaults: {
+		timeOutHandler: -1,
+		idorganization: -1,
+		jsviewname: '',
+		partys: []
+	},
+	initialize: function (options) {
+		this.options = _.extend(this.defaults, options);
+		var PartyCollection = NL.Collection[this.options.jsviewname];
+		this.collection = new PartyCollection(
+			this.defaults.partys,
+			{
+				idorganization: this.options.idorganization
+			});
+		this.collection.on('reset', this.render, this);
+		if(this.collection.length === 0){
+			this.collection.fetch({reset:true});
+		}
+		this.render();
+		this.startTimer();
+	},	
+	render: function () {
+		this.$el.html('');
+		this.$el.append(this.statisticTemplate(this.collection.options.statistic));
+		this.$el.append(NL.Template['organization-foodbanner']({
+				bannerusername: this.collection.getBanner(),
+				foodusername:this.collection.getFood()
+			}
+		));
+		this.$el.append(this.template(this.collection.toJSON()));
+		if ( this.options.jsviewname ){
+			this.$el.append(NL.Template[this.options.jsviewname](this.collection.toJSON()));
+		}
+	},
+	startTimer: function () {
+		var self = this;
+		if (this.options.timeOutHandler < 0) {
+			this.options.timeOutHandler = setInterval(function () {
+				self.collection.fetch({ reset: true });
+			}, 10000);
+		}
+	},
+	stopTimer: function () {
+		clearInterval(this.options.timeOutHandler);
+		this.options.timeOutHandler = -1;
+	},
+});
+NL.View.OrganizationRegistry = NL.View.OrganizationRegistry || Backbone.View.extend({
+	statisticTemplate: NL.Template["organization-statistic"],
+	template: NL.Template["organization-registry"],
+	defaults: {
+		timeOutHandler: -1,
+		idorganization: -1,
+		registry: []
+	},
+	initialize: function (options) {
+		this.options = _.extend(this.defaults, options);
+		this.collection = new NL.Collection.OrganizationRegistry(
+			this.options.registry, {
+				idorganization: this.options.idorganization
+			});
+		this.collection.on('reset', this.render, this);
+		if(this.collection.length === 0){
+			this.collection.fetch({reset:true});
+		}
+		this.render();
+		this.startTimer();
+	},
+	render: function () {
+		this.$el.html('');
+		this.$el.append(this.statisticTemplate(this.collection.options.statistic));
+		this.$el.append(this.template(this.collection.toJSON()));
+	},
+	startTimer: function () {
+		var self = this;
+		if (this.options.timeOutHandler < 0) {
+			this.options.timeOutHandler = setInterval(function () {
+				self.collection.fetch({ reset: true });
+			}, 10000);
+		}
+	},
+	stopTimer: function () {
+		clearInterval(this.options.timeOutHandler);
+		this.options.timeOutHandler = -1;
+	}
+});
+NL.View.OrganizationUserRegistry = NL.View.OrganizationUserRegistry || Backbone.View.extend({
+	template: NL.Template['user-organization-register'],
+	events: {
+		'click .radio-select span': 'radioChange',
+		'click .check-select span': 'checkboxChange',
+		'click button':'buttonClick'		
+	},
+	initialize: function (options) {
+		this.on('input:change', this.inputChange);
+		var registry = this.model.get('registry');
+		this.model.set('registry', new NL.Model.Registry(registry));
+		this.render();
+	},
+	render: function () {
+		this.$el.html('');
+		this.$el.html(this.template(this.model.toJSON()));
+	},
+	radioChange: function (e) {
+		var $parent = $(e.currentTarget).parent();
+			$parent.find('.icon.selected')
+					.removeClass('selected');
+		$parent.find('input[type="radio"]')
+				.removeAttr('checked');
+		var $target = $(e.currentTarget);
+		$target.addClass("selected");
+		var val = $target.attr('data-input');
+		var $input = $parent.find('input[type="radio"][value="' + val + '"]');
+		$input.attr('checked', 'checked');
+		this.trigger('input:change', { name: $input.attr('name'), value: val });
+	},
+	checkboxChange: function (e) {
+		var $target = this.$(e.currentTarget);
+		var val = $target.attr('data-input');
+		var $input = $target.parent()
+			.find('input[type="checkbox"][value="' + val + '"]');
+		if ($target.hasClass('selected')) {
+			$input.removeAttr('checked');
+			$target.removeClass('selected');
+			this.trigger('input:change', { name: $input.attr('name'), value: '' });
+		} else {
+			$input.attr('checked', 'checked');
+			$target.addClass('selected')	;
+			this.trigger('input:change', { name: $input.attr('name'), value: val });
+		}		
+	},	
+	inputChange: function (obj) {
+		var value = obj.value;
+		if ( obj.name == 'havebanner' || obj.name == 'havefood'){
+			value = obj.value == 'ok' ? true : false;
+		}
+		if(obj.name == 'idprofession'){
+			value = Number(value);
+		}
+		this.model.get('registry').set(obj.name,value);
+	},
+	buttonClick: function(){
+		var self = this;
+		this.model.get('registry').save().done(function(){
+			self.trigger('userregistry:save', self.model.get('registry').toJSON());	
+		});
+				
+	}
+});
+NL.View.PagedTable = NL.View.PagedTable || Backbone.View.extend({
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
 	defaults: {
 		timeOutHandler: -1,
 		idorganization: -1,
@@ -16248,8 +16565,12 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 		organization: {},
 		registry: [],
 		partys: [],
+<<<<<<< HEAD
 		statistic: [],
 		useroptions:{}
+=======
+		statistic: []
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
 	},
 	template: NL.Template["user-organization"],
 	initialize: function (options) {
@@ -16278,6 +16599,7 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 		clearInterval(this.options.timeOutHandler);
 		this.options.timeOutHandler = -1;
 	},
+<<<<<<< HEAD
 	userModel:function(){
 		if(this.options.useroptions.registry){
 			return this.options.useroptions.registry;
@@ -16292,6 +16614,11 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 			user: this.options.useroptions.user,
 			savebutton:save,
 			model: new NL.Model.Registry(this.userModel())		
+=======
+	showUserView: function (save) {
+		this.userView = this.userView || new NL.View.UserOrganizationData({
+			el:'.user-data'			
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
 		});
 		this.userView.showSave(save);
 	},
@@ -16355,6 +16682,7 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 	}
 });
 NL.View.UserOrganizationData = NL.View.UserOrganizationData || Backbone.View.extend({
+<<<<<<< HEAD
 	defaults:{
 		userprofessions:[],
 		user:{},
@@ -16426,5 +16754,12 @@ NL.View.UserOrganizationData = NL.View.UserOrganizationData || Backbone.View.ext
 			self.trigger('userregistry:save', self.model.toJSON());	
 		});
 				
+=======
+	initialize:function(options){
+		
+	},
+	showSave:function(save){
+		
+>>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
 	}
 });

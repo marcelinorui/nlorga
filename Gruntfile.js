@@ -64,8 +64,7 @@ module.exports = function (grunt) {
             },
             css: {
                 files: {
-                    '<%= css_path %>/<%= pkg.name %>.css': ['<%= css_path %>/nl.css', '<%= css_path %>/toastr.css', '<%= css_path %>/bootstrap.css'],
-                    'public/css/<%= pkg.name %>.css': ['<%= css_path %>/<%= pkg.name %>.css']
+                    'public/css/<%= pkg.name %>.css': ['<%= css_path %>/nl.css', '<%= css_path %>/toastr.css', '<%= css_path %>/bootstrap.css'],
                 }
             }
 
@@ -124,9 +123,8 @@ module.exports = function (grunt) {
                     keepSpecialComments: '*'
                 },
                 files: {
-                    //"<%= css_path %>/<%= pkg.name %>.min.css": "<%= css_path %>/<%= pkg.name %>.css",
-                    'public/css/<%= pkg.name %>.min.css': '<%= css_path %>/<%= pkg.name %>.css'
-                }
+                    'public/css/<%= pkg.name %>.min.css': 'public/css/<%= pkg.name %>.css'
+            }
             }
         },
         less: {
