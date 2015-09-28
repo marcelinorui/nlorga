@@ -3,10 +3,11 @@ var BaseResponse = require('./base-response.js'),
 
 function Response(request){
 	BaseResponse.apply(this,arguments);
-	this.organizations = request.session.organizations || [];
-	if ( request.session.organizations ){
-		request.session.organizations = null;
-	}	
+	
+	this.userregistry = request.session.userregistry || null;	
+	if ( request.session.userregistry ){
+		request.session.userregistry = null;
+	}
 }
 util.inherits(Response, BaseResponse);
 

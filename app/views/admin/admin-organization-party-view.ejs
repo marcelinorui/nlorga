@@ -1,0 +1,33 @@
+<% for(var i = 0 ; i <  partys.length ; i++ ){ %>
+<div class="col-lg-3">
+	<div class="list-group">
+		<div class="list-group-item active"> <%- partys[i].partyname %> <span class="badge"><%- partys[i].members.length%></span></div>
+		
+		<div class="list-group-item">
+		
+		<% for(var j = 0; j < partys[i].members.length ; j++) {%>
+			<div class="player">
+			<span class="<%- partys[i].members[j].profession%>-icon"></span>
+			
+			<% if( partys[i].members[j].commander) { %>
+				<span class="<%- partys[i].members[j].commander%>-icon"></span>
+			
+			<% } %>
+			<% if( partys[i].members[j].havebanner == true ) { %>
+				<span class="banner-icon"></span>
+		
+			<% } %>
+			<% if( partys[i].members[j].havefood == true ) { %>
+				<span class="food-icon"></span>
+			
+			<% } %>
+			
+			<span class="user"><%- partys[i].members[j].displayname != '' ? partys[i].members[j].displayname : partys[i].members[j].username %></span>
+			</div>						
+		<%}%>
+		</div>						
+		
+		<div class="list-group-item list-group-item-info text-center"><span>/join <%-partys[i].members[0].username %></span></div>
+	</div>
+</div>
+<%}%>

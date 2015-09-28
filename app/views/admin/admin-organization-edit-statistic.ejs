@@ -1,0 +1,10 @@
+<% if( statistic ) { %>
+	<div class="row centered">
+		<% for(var i = 0 ; i < statistic.length; i ++){ %>
+			<div class="col-lg-1">
+				<span class="<%-statistic[i].name%>-icon"></span>
+				<label class="counter"><%-statistic[i].value%></label>
+			</div>
+		<% } %>
+	</div>
+<% } %>	

@@ -1,0 +1,83 @@
+<% include ./../partials/header %>
+
+<form action="/user/organization/<%-userregistry.user.idorganization%>/register" method="post">
+<div class="row">
+	<h2 class="text-center">Organization <b><%= userregistry.user.title %></b> 
+	<h3 class="text-center">
+		<span ><b ><%- userregistry.user.description %></b></span>					
+	</h3>
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<div class="radio-select">
+			<% for(var i = 0; i < userregistry.professions.length; i++ ){ %>
+				<span class="icon <%- userregistry.professions[i].name %>-icon big" data-input="<%- userregistry.professions[i].idprofession %>" >
+				<input name="profession" value="<%- userregistry.professions[i].idprofession %>" type="radio" /></span>
+			<% } %>
+		</div>		
+	</div>
+	<% if( userregistry.user.pickbanner == true ) { %>
+	<div class="col-lg-2">
+		<div class="check-select">
+			<span class="icon banner-icon big" data-input="ok" ></span>
+			<input type="checkbox" name="havebanner" value="ok" />
+		</div>
+	</div>
+	<% } %>
+	<% if( userregistry.user.pickfood  == true ) { %>
+	<div class="col-lg-2">
+		<div class="check-select">
+			<span class="icon food-icon big" data-input="ok" ></span>
+			<input type="checkbox" name="havefood"  value="ok"/>
+		</div>
+	</div>
+	<% } %>
+	<% if( userregistry.user.pickcommander  == false ) { %>
+	<div class="col-lg-4">
+		<div class="radio-select">
+			<span class="icon blue-icon big" data-input="blue"></span><input type="radio" name="commandertag" value="blue" />
+			<span class="icon yellow-icon big" data-input="yellow"></span><input type="radio" name="commandertag" value="yellow" />
+			<span class="icon purple-icon big" data-input="purple" ></span><input type="radio" name="commandertag" value="purple" />
+			<span class="icon red-icon big" data-input="red"></span><input type="radio" name="commandertag" value="red" />
+			<span class="icon no-commander-icon big" data-input="" ></span><input type="radio" name="commandertag" value="" />
+		</div>
+	</div>
+	<% } %>
+	<div class="col-lg-offset-9 col-lg-3">
+		<span class="pull-right">
+			<button type="submit" class="btn btn-primary">Save</button>
+		</span>
+	</div>
+</div>
+</form>
+<% include ./../partials/end-body %>
+
+<script>
+	$(function(){
+		$('.radio-select .icon').on('click',function(e){
+			var $parent = $(e.currentTarget).parent(); 
+			$parent.find('.icon.selected') .removeClass('selected');
+			$parent.find('input[type="radio"]').removeAttr('checked');
+			
+			var $target = $(e.currentTarget); 
+			$target.addClass("selected");
+			
+			var val = $target.attr('data-input');
+			$parent.find('input[type="radio"][value="'+val+'"]').attr('checked','checked');
+		});		
+		
+		$('.check-select .icon').on('click',function(e){
+			/* ON OFF */
+			var $parent = $(e.currentTarget).parent(); 
+			$parent.find('.icon.selected').removeClass('selected');
+			$parent.find('input[type="checkbox"]').removeAttr('checked');
+			
+			var $target = $(e.currentTarget); 
+			$target.addClass("selected");
+			
+			var val = $target.attr('data-input');
+			$parent.find('input[type="checkbox"][value="'+val+'"]').attr('checked','checked');
+		});	
+	});	
+</script>
+<% include ./../partials/end-footer %>

@@ -23,11 +23,7 @@
 			<div class="col-lg-2">
 			<label class="control-label" for="displayname">Display Name</label></div>
 			<div class="col-lg-10">
-				<input type="text" class="form-control" value="<% if ( profile.user.displayname ) {%> 
-						<%- profile.user.displayname %> 
-					<%} else  {%> 
-						<%- profile.user.username %> 
-					<%}%>" name="displayname" />
+				<input type="text" class="form-control" value="<% if ( profile.user.displayname ) {%><%- profile.user.displayname %><%} else  {%><%- profile.user.username %><%}%>" name="displayname" />
 			</div>
 		</div>
 		<hr>

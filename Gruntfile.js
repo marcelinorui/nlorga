@@ -52,7 +52,7 @@ module.exports = function (grunt) {
             js: {
                 files: {
                      'public/js/<%= pkg.name %>.js':['assets/lib/jquery/dist/jquery.js',
-                                                        'assets/lib/bootstrap/dist/js/bootsrap.js',
+                                                        'assets/lib/bootstrap/dist/js/bootstrap.js',
                                                         'assets/lib/bootstrap-checkbox/dist/js/bootstrap-checkbox.js',
                                                         'assets/lib/toastr/toastr.js',
                                                         'assets/lib/underscore/underscore.js',

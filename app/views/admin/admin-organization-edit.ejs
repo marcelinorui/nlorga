@@ -1,14 +1,12 @@
 <% include ./../partials/header %>
 <div class="row">
-<div class="col-lg-offset-2 col-lg-8">
+<div class="col-lg-12">
 	<div class="title">
-		<h2>Organization <b><%- organization.title %></b></h2>
+		<h2>Organization <b><%- organization.title %></b> 
+		<span class="label label-default pull-right"><%- organization.status %></span></h2>
 	</div>
-		<h4>
-		<%- organization.status %>	
-	</h4>
 	<% if ( organization.idstatus == 1 ) {  %>
-	<form action="/admin/organization/<%- organization.idorganization%>/edit" method="post">
+	<form action="/admin/organization/<%- organization.idorganization %>/edit" method="post">
 		<div class="form-group">
 			<label for="username">Title</label>
 			<input type="text" id="title" class="form-control" name="title" placeholder="Title" value="<%- organization.title %>" />
@@ -17,11 +15,11 @@
 			<label for="partyconfiguration">Party Configuration</label>
 			<div>
 				<select name="idpartyconfiguration" class="form-control">
-				<% for( var i = 0; i < organization.partyconfiguration.length ;i++){ %>
-					<option value="<%- organization.partyconfiguration[i].idpartyconfiguration%>"
-						<% if ( organization.partyconfiguration[i].idpartyconfiguration == organization.idpartyconfiguration ) { %> 
+				<% for( var i = 0; i < partyconfiguration.length ;i++){ %>
+					<option value="<%- partyconfiguration[i].idpartyconfiguration%>"
+						<% if ( partyconfiguration[i].idpartyconfiguration == organization.idpartyconfiguration ) { %> 
 						selected <% }%> >
-						<%= organization.partyconfiguration[i].description %>
+						<%= partyconfiguration[i].description %>
 					</option>
 				<% } %>			
 				</select>
@@ -35,34 +33,39 @@
 	</form>	
 	<br>
 	<% } else { %>
-	<h3>
-		<span>Party Configuration: </span>						
-			<b><%- organization.description %></b>					
-	</h3>		
+	<div>
+	<h3 class="text-center">
+		<span ><b ><%- organization.description %></b></span>					
+	</h3>	
+	</div>	
 	<% } %>
+	<% if ( organization.idstatus < 6 ){ %>
 	<hr>		
 	<div class="row">
-		<% if ( organization.idstatus != 6 ){ %>
+		
 		<div class="col-lg-3">
 			<form action="/admin/organization/<%- organization.idorganization%>/status/-1" method="post">
-				<button type="submit" class="btn btn-danger"> Reset Organization </button>	
+				<div class="form-group">
+					<button type="submit" class="btn btn-danger"> Reset Organization </button>
+				</div>	
 			</form>	
-		</div>
-		<% } %>
+		</div>		
 		<div class="col-lg-9">
-			<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 			<% if ( organization.idstatus == 1) { %>
+			<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 				<span class="pull-right"><button type="submit" class="btn btn-success">Start Party Registry</button></span>	
+			</form>
 			<% } %>			
 			<% if ( organization.idstatus == 2) { %>
+			<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 				<span class="pull-right"><button type="submit" class="btn btn-success">Stop Party Registry</button>	</span>	
-			
+			</form>
 			<% } %>
 			<% if ( organization.idstatus == 3) { %>
+			<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 					<div class="col-lg-offset-3 col-lg-5">
 						<div class="form-group">
-						<label>Pick a party size</label>
-						
+						<label>Pick a party size</label>						
 							<div class="radio"><label><input type="radio" name="partysize" value="2" checked /> 2 Members</label></div>
 							<div class="radio"><label><input type="radio" name="partysize" value="3"  /> 3 Members</label></div>
 							<div class="radio"><label><input type="radio" name="partysize" value="4"  /> 4 Members</label></div>
@@ -71,21 +74,53 @@
 						</div>
 					</div>					
 					<span class="pull-right"><button type="submit" class="btn btn-success">Create Partys</button></span>
-			<% } %>
-			<% if ( organization.idstatus == 4) { %>
-				<span class="pull-right"><button type="submit" class="btn btn-success">Show Partys </button>	</span>
-			<% } %>
-			<% if ( organization.idstatus == 5) { %>			
-				<span class="pull-right"><button type="submit" class="btn btn-success">Close Organization</button>	</span>
-			<% } %>
 			</form>
+			<% } %>
+			
+			<% if ( organization.idstatus == 4) { %>
+			<div class="row">
+				<div class="col-lg-10">
+					<form action="/admin/organization/<%- organization.idorganization%>/status/-2" method="post" >
+						<div class="row">
+							<div class="col-lg-offset-3 col-lg-5">			
+								<label>Pick a party size</label>						
+								<div class="radio"><label><input type="radio" name="partysize" value="2" checked /> 2 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="3"  /> 3 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="4"  /> 4 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="5"  /> 5 Members</label></div>
+								<%/*<div class="radio"><label><input type="radio" name="partysize" value="10" disabled  /> 10 Members</label></div>*/%>
+							</div>
+							<div class="col-lg-2">						
+								<button type="submit" class="btn btn-success">Remake Partys </button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-2">
+					<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+						<button type="submit" class="btn btn-success">Show Partys </button>
+					</form>
+				</div>
+			</div>
+			<% } %>
+			
+			<% if ( organization.idstatus == 5) { %>			
+				<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+				<span class="pull-right"><button type="submit" class="btn btn-success">Close Organization</button>	</span>
+				</form>
+			<% } %>
 		</div>
-	</div>	
-	<hr>
-	<div class="row">
-	<div class="col-lg-12">
-		Not yet implemented
 	</div>
+	<% } %>	
+	<hr>
+	<% include admin-organization-edit-statistic %>	
+	<div class="row" id="show">
+		<% if (organization.idstatus == 2 || organization.idstatus == 3 ){ %>
+			<% include admin-organization-registry-view %>
+		<% }%>
+		<% if (organization.idstatus == 4 || organization.idstatus == 5 || organization.idstatus == 6 ){ %>
+			<% include admin-organization-party-view %>		
+		<%}%>
 	</div>
 	<hr>
 	<div class="row">
@@ -97,4 +132,25 @@
 	</div>	
 </div>
 
-<% include ./../partials/footer %>
+<% include ./../partials/end-body %>
+<% if (organization.idstatus == 2 || organization.idstatus == 3 || organization.idstatus == 4){ %>
+<script>
+$(function(){
+	var view = new NL.View.AdminOrganization({
+		el: '.show',
+		model: { 
+			organization : <%- JSON.stringify(organization) %>,
+			<%if (organization.idstatus == 2 || organization.idstatus == 3){%>
+			registry: <%- JSON.stringify(registry) %>,
+			<% } %>
+			<%if (organization.idstatus == 4){%>
+			partys: <%- JSON.stringify(partys) %>,
+			<% } %>
+			statistic:<%- JSON.stringify(statistic) %>			
+		},
+		url: '/api/admin/organization/<%- organization.idorganization%>/view'
+	}); 
+});
+</script>
+<% }%>
+<% include ./../partials/end-footer %>

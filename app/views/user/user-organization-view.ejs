@@ -1,13 +1,13 @@
 <% include ./../partials/header %>
 <div class="main"></div>
-
 <% include ./../partials/end-body %>
 <script>
 $(function(){
-	var view = new NL.View.UserIndex({
-		el:'.main',
-		collection: new NL.Collection.UserIndex(<%- JSON.stringify(organizations)%>)
+	var view = new NL.View.UserOrganization({
+		el: '.main', 
+		organization: <%- JSON.stringify(organization) %>,
+		options: <%- JSON.stringify(options) %>
+		});	
 	});
-});
 </script>
 <% include ./../partials/end-footer %>
