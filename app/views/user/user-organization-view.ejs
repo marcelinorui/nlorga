@@ -3,11 +3,11 @@
 <% include ./../partials/end-body %>
 <script>
 $(function(){
-	var view = new NL.View.UserOrganization({
-		el: '.main', 
-		organization: <%- JSON.stringify(organization) %>,
-		options: <%- JSON.stringify(options) %>
-		});	
-	});
+var view = new NL.View.UserOrganization({
+	el: '.main', 
+	organization: <%- JSON.stringify(organization) %>,
+	options: <%- JSON.stringify(options) %>
+	});	
+});
 </script>
 <% include ./../partials/end-footer %>
