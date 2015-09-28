@@ -11,10 +11,15 @@ util.inherits(Account, Base);
 
 
 Account.prototype.listAccounts = function( where , order, parameters, itemsPerPage, currentPage, callback){
-	
-	
-	this.paginateQuery('Login' , ['idlogin','username','displayname','hascommanderTag','isAdmin','createddate','updateddate','enddate'], where ,order, parameters,itemsPerPage,currentPage,callback); 
-}
+	this.paginateQuery('Login' , 
+	['idlogin','username','displayname','hascommanderTag','isAdmin','createddate','updateddate','enddate'], 
+	where ,
+	order, 
+	parameters,
+	itemsPerPage,
+	currentPage,
+	callback); 
+};
 
 Account.prototype.getAccount = function(idlogin, callback){
 	var sql = 'CALL getAccount(?)';
@@ -29,7 +34,7 @@ Account.prototype.getAccount = function(idlogin, callback){
 			callback(err, null);
 		}
 	});
-}
+};
 
 Account.prototype.createAccount = function(username,password,displayname,salt,hascommanderTag,isAdmin,callback){
 	var sql = 'CALL createAccount(?,?,?,?,?,?)';
@@ -42,7 +47,7 @@ Account.prototype.createAccount = function(username,password,displayname,salt,ha
 			callback(err, null);
 		}
 	});
-}
+};
 
 
 Account.prototype.updateAccount = function(idlogin,username,displayname,hascommanderTag,isAdmin,forDelete,callback){
@@ -56,6 +61,6 @@ Account.prototype.updateAccount = function(idlogin,username,displayname,hascomma
 			callback(err, null);
 		}
 	});
-}
+};
 
 module.exports = Account;

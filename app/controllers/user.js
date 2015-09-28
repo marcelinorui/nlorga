@@ -12,9 +12,7 @@ var isUserAuthenticated = function (req, res, next) {
 
 function user(passport) {
 	var router = express.Router();
-
 	router.use(isUserAuthenticated);
-
 	router.get('/', function (req, res) {
 		res.redirect('/user/index');
 	});
@@ -102,7 +100,7 @@ function user(passport) {
 
 		db.Organization.addOrganizationUser(req.params.id, req.user.idlogin, profession, havefood, havebanner, commander, function (err, ok) {
 			if (!err) {
-				req.flash('success', 'You are now registed ');
+				req.flash('success', 'You are now registed.');
 			}
 			return next(err);
 		});
