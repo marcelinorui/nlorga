@@ -7,7 +7,6 @@
 .text-strikeout {
   text-decoration: line-through;
 }
-<<<<<<< HEAD
 .centered {
   text-align: center;
   font-size: 0;
@@ -298,5 +297,3 @@ span.food-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-=======
->>>>>>> fdffb7595c2bba31a5b2c180a79c9b55dedbb772
