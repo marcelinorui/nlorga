@@ -53,7 +53,7 @@ module.exports = function (app, db, config) {
   app.use('/', require('./../app/controllers/base.js')(passport));	
   app.use('/user', require('./../app/controllers/user.js')(passport));
   app.use('/admin', require('./../app/controllers/admin.js')(passport));
-  //app.use('/api/user', require('./app/controllers/api-user.js')(passport));
+  app.use('/api/user', require('./../app/controllers/api-user.js')(passport));
   app.use('/api/admin', require('./../app/controllers/api-admin.js')(passport));
  
 

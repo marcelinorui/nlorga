@@ -4,7 +4,6 @@ var express = require('express'),
 
 
 function isAdminAuthenticated(req, res, next) {
-	return next();
 	if (req.isAuthenticated()) {
 		if (req.user.isAdmin === true) {
 			return next();

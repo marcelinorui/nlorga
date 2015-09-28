@@ -7,7 +7,7 @@
       <%- error.status %><br />
     <% }%>
     <%if (error.stack) { %>
-      <%- error.stack %><br />
+      <%- error.stack.replace(/\n/g,'<br/>') %><br />
     <% }%>
   <% }%>
 </div>
