@@ -1,3 +1,18 @@
 <% include ./../partials/header %>
+<div class="mydata"></div>
 
-<% include ./../partials/footer %>
+<% include ./../partials/end-body %>
+
+<script>
+	var mydata = null;
+	$(function(){				
+		mydata = new NL.View.PartyConfiguration({
+			el: '.mydata',
+			model: new NL.Model.PartyConfiguration(<%- JSON.stringify(configuration) %>)
+		});				
+	});	
+</script>
+
+
+
+<% include ./../partials/end-footer %>

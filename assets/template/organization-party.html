@@ -2,14 +2,14 @@
 <% _.each(obj, function(party){ %>
 <div class="col-lg-3">
 	<div class="list-group">
-		<div class="list-group-item active"> <%- party.partyname %> <span class="badge"><%- party.members.length%></span></div>
+		<div class="list-group-item active"><b> <%- party.partyname %></b> <span class="badge"><%- party.members.length%></span></div>
 		<% if(party.job){ %>
 			<% if( Array.isArray(party.job) ){ %>
 			<%	_.each(party.job, function(job) {%>
-			<div class="list-group-item list-group-item-warning"><%- job %></div>
+			<div class="list-group-item list-group-item-warning"><b><%- job %></b></div>
 				<% }) %>
 			<% } else { %>
-			<div class="list-group-item list-group-item-warning"><%- party.job %></div>
+			<div class="list-group-item list-group-item-warning"><b><%- party.job %></b></div>
 			<% } %>
 		<% } %>
 		<div class="list-group-item">

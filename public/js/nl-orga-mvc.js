@@ -11574,13 +11574,12 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /*!
- * Bootstrap-checkbox v1.2.8 (http://vsn4ik.github.io/bootstrap-checkbox)
+ * Bootstrap-checkbox v1.2.14 (http://vsn4ik.github.io/bootstrap-checkbox)
  * Copyright 2013-2015 Vasily A. (https://github.com/vsn4ik)
- * Licensed under MIT (https://github.com/vsn4ik/bootstrap-checkbox/blob/master/LICENSE)
+ * Licensed under the MIT license
  */
 
 /**
- * 'Strict Mode' strictly in body of function
  * $.inArray: friends with IE8. Use Array.prototype.indexOf in future.
  * Use this.element.hidden in future.
  * $.proxy: friends with IE8. Use Function.prototype.bind in future.
@@ -11694,14 +11693,14 @@ if (typeof jQuery === 'undefined') {
       }
 
       // Keydown event only trigger if set tabindex, fine!
-      this.$group.on('keydown', $.proxy(this.keydown, this));
+      this.$group.on('keydown', $.proxy(this, 'keydown'));
 
       // Don't trigger if <a> element has .disabled class, fine!
-      this.$group.on('click', 'a:not(.active)', $.proxy(this.click, this));
+      this.$group.on('click', 'a:not(.active)', $.proxy(this, 'click'));
 
-      this.$element.on('change', $.proxy(this.toggle_checked, this));
-      $(this.element.labels).on('click', $.proxy(this.focus, this));
-      $(this.element.form).on('reset', $.proxy(this.reset, this));
+      this.$element.on('change', $.proxy(this, 'toggleChecked'));
+      $(this.element.labels).on('click', $.proxy(this, 'focus'));
+      $(this.element.form).on('reset', $.proxy(this, 'reset'));
 
       this.$group.append(this.$buttons).insertAfter(this.element);
 
@@ -11721,13 +11720,13 @@ if (typeof jQuery === 'undefined') {
         }
       }
     },
-    toggle_checked: function() {
+    toggleChecked: function() {
       // this.$group not focus (incorrect on form reset)
       this.$buttons.toggleClass('active ' + this.options.defaultClass);
       this.$off.toggleClass(this.options.offClass);
       this.$on.toggleClass(this.options.onClass);
     },
-    toggle_disabled: function() {
+    toggleDisabled: function() {
       this.$buttons.toggleClass('disabled');
 
       if (this.element.disabled) {
@@ -11797,7 +11796,7 @@ if (typeof jQuery === 'undefined') {
         var data = $.data(element, 'bs.checkbox');
 
         if (data && element.disabled != value) {
-          data.toggle_disabled();
+          data.toggleDisabled();
         }
 
         if (oldPropHooks.disabled && oldPropHooks.disabled.set) {
@@ -15754,13 +15753,17 @@ this["NL"]["Template"]["TeqZerg"] = function(obj) {obj || (obj = {});var __t, __
 
 this["NL"]["Template"]["admin-accounts-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<tr '; if (obj.enddate.substring(0,10) != '9999-12-31'){;__p += 'class="text-strikeout"'; };__p += ' ><td>' +__e( obj.idlogin ) +'</td><td>' +__e( obj.username ) +'</td><td>' +__e( obj.displayname ) +'</td><td>'; if (obj.hascommanderTag == 1) {;__p += '<span class="glyphicon glyphicon-ok text-success"></span>'; } ;__p += '</td><td>'; if (obj.isAdmin == 1) {;__p += '<span class="glyphicon glyphicon-ok text-success"></span>'; } ;__p += '</td><td>' +__e( obj.createddate.substring(0,10) ) +'</td><td><div class="btn-group pull-right"><a href="/admin/account/' +__e( obj.idlogin ) +'/edit" role="button" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-search"></span> Edit</a></div></td></tr>';}return __p};
 
+this["NL"]["Template"]["admin-configurations-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<tr><td>' +__e( obj.idpartyconfiguration ) +'</td><td>' +__e( obj.description ) +'</td><td>'; if (obj.pickfood == 1) {;__p += '<span class="glyphicon glyphicon-ok text-success"></span>'; } ;__p += '</td><td>'; if (obj.pickbanner == 1) {;__p += '<span class="glyphicon glyphicon-ok text-success"></span>'; } ;__p += '</td><td>'; if (obj.pickcommander == 1) {;__p += '<span class="glyphicon glyphicon-ok text-success"></span>'; } ;__p += '</td><td>' +__e( obj.createddate.substring(0,10) ) +'</td><td>' +__e( obj.updateddate.substring(0,10) ) +'</td><td><span class="pull-right"><a href="/admin/configuration/' +__e(obj.idpartyconfiguration) +'/edit" role="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Edit</a></span></td></tr>';}return __p};
+
 this["NL"]["Template"]["admin-organization-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<tr><td>' +__e( obj[i].idorganization ) +'</td><td>' +__e( obj[i].title ) +'</td><td>' +__e( obj[i].status ) +'</td><td>' +__e( obj[i].description ) +'</td><td>' +__e( obj[i].createddate.substring(0,10) ) +'<td><span class="pull-right"><a href="/admin/organization/' +__e(obj[i].idorganization) +'/edit" role="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Edit</a></span></td></tr>';}return __p};
 
 this["NL"]["Template"]["admin-organizations-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<tr><td>' +__e( obj.idorganization ) +'</td><td>' +__e( obj.title ) +'</td><td><span class="label label-default">' +__e( obj.status ) +'</span></td><td>' +__e( obj.description ) +'</td><td>' +__e( obj.createddate.substring(0,10) ) +'<td><span class="pull-right"><a href="/admin/organization/' +__e(obj.idorganization) +'/edit" role="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Edit</a></span></td></tr>';}return __p};
 
-this["NL"]["Template"]["organization-foodbanner"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {if( foodusername || bannerusername){;__p += '<div class="row"><div class="col-lg-12">';if(foodusername){;__p += '<p><span class="food-icon big"></span> Food will be provided by <b>' +((__t = ( foodusername )) == null ? '' : __t) +'</b> </p>';};if(bannerusername){;__p += '<p><span class="banner-icon big"></span> Banner will be provided by <b>' +((__t = ( bannerusername )) == null ? '' : __t) +'</b></p>';};__p += '</div></div>';};}return __p};
+this["NL"]["Template"]["admin-party-configuration"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="col-lg-offset-2 col-lg-8"><div class="title"><h2>Edit Configuration <b>' +__e( description ) +'</b></h2></div><div class="row"><div class="col-lg-12"><label for="description">Description</label><input type="text" id="description" class="form-control" name="description" placeholder="Description" value=\'' +((__t = ( description)) == null ? '' : __t) +'\'/></div></div><div class="row"><div class="col-lg-12"><label for="jsviewname">View Name</label><select name="jsviewname" class="form-control">'; var jsviews = ['OrganizationPartyTeqZerg','OrganizationPartyTeqDefZerg','OrganizationPartyBounty2','OrganizationPartyBounty3','OrganizationPartyBounty6']; ;_.each(jsviews,function(jsview){;__p += '<option value="' +((__t = (jsview)) == null ? '' : __t) +'" ';if( jsviewname == jsview){;__p += 'seleted';};__p += '>' +((__t = (jsview)) == null ? '' : __t) +'</option>';});;__p += '</select></div></div><br><div class="row"><div class="col-lg-2"><label for="isAdmin">Pick Banner</label></div><div class="col-lg-2"><input type="checkbox" id="pickbanner" name="pickbanner" data-style="btn-group-sm" ';if( pickbanner == true){;__p += 'checked';};__p += ' /></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Food</label></div><div class="col-lg-2"><input type="checkbox" id="pickfood" name="pickfood" data-style="btn-group-sm" ';if( pickfood == true){;__p += 'checked';};__p += '/></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Commander</label></div><div class="col-lg-2"><input type="checkbox" id="pickcommander" name="pickcommander" data-style="btn-group-sm" ';if( pickcommander == true){;__p += 'checked';};__p += '/></div></div><div class="row"></div><br><hr><div class="row"><div class="col-lg-12"><div class=" pull-left"><a role="button" href="/admin/configurations" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span>Back</a></div><div class=" pull-right"><button class="btn btn-primary save"> <span class="glyphicon glyphicon-ok "></span> Save</button></div></div></div></div>';}return __p};
 
-this["NL"]["Template"]["organization-party"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row">'; _.each(obj, function(party){ ;__p += '<div class="col-lg-3"><div class="list-group"><div class="list-group-item active"> ' +__e( party.partyname ) +' <span class="badge">' +__e( party.members.length) +'</span></div>'; if(party.job){ ; if( Array.isArray(party.job) ){ ;	_.each(party.job, function(job) {;__p += '<div class="list-group-item list-group-item-warning">' +__e( job ) +'</div>'; }) ; } else { ;__p += '<div class="list-group-item list-group-item-warning">' +__e( party.job ) +'</div>'; } ; } ;__p += '<div class="list-group-item">'; _.each(party.members,function(member){ ;__p += '<div class="player"><span class="' +__e( member.profession) +'-icon"></span>'; if( member.commander) { ;__p += '<span class="' +__e( member.commander) +'-icon"></span>'; } ; if( member.havebanner == true ) { ;__p += '<span class="banner-icon"></span>'; } ; if( member.havefood == true ) { ;__p += '<span class="food-icon"></span>'; } ;__p += '<span class="user">' +__e( member.displayname != '' ? member.displayname : member.username ) +'</span></div>';});;__p += '</div><div class="list-group-item list-group-item-info text-center"><span>/join ' +__e(party.members[0].username ) +'</span></div></div></div>';});;__p += '</div>';/*  function SelectText(element) {var doc = document, text = doc.getElementById(element), range, selection;if (doc.body.createTextRange) {range = document.body.createTextRange();range.moveToElementText(text);range.select();} else if (window.getSelection) {selection = window.getSelection();range = document.createRange();range.selectNodeContents(text);selection.removeAllRanges();selection.addRange(range);}}document.onclick = function(e) {if (e.target.className === 'click') {SelectText('selectme');}};*/;}return __p};
+this["NL"]["Template"]["organization-foodbanner"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {if( foodusername || bannerusername){;__p += '<div class="row centered"><div class="col-lg-6">';if(foodusername){;__p += '<p><span class="food-icon big"></span> Food will be provided by <b>' +((__t = ( foodusername )) == null ? '' : __t) +'</b> </p>';};if(bannerusername){;__p += '<p><span class="banner-icon big"></span> Banner will be provided by <b>' +((__t = ( bannerusername )) == null ? '' : __t) +'</b></p>';};__p += '</div></div>';};}return __p};
+
+this["NL"]["Template"]["organization-party"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row">'; _.each(obj, function(party){ ;__p += '<div class="col-lg-3"><div class="list-group"><div class="list-group-item active"><b> ' +__e( party.partyname ) +'</b> <span class="badge">' +__e( party.members.length) +'</span></div>'; if(party.job){ ; if( Array.isArray(party.job) ){ ;	_.each(party.job, function(job) {;__p += '<div class="list-group-item list-group-item-warning"><b>' +__e( job ) +'</b></div>'; }) ; } else { ;__p += '<div class="list-group-item list-group-item-warning"><b>' +__e( party.job ) +'</b></div>'; } ; } ;__p += '<div class="list-group-item">'; _.each(party.members,function(member){ ;__p += '<div class="player"><span class="' +__e( member.profession) +'-icon"></span>'; if( member.commander) { ;__p += '<span class="' +__e( member.commander) +'-icon"></span>'; } ; if( member.havebanner == true ) { ;__p += '<span class="banner-icon"></span>'; } ; if( member.havefood == true ) { ;__p += '<span class="food-icon"></span>'; } ;__p += '<span class="user">' +__e( member.displayname != '' ? member.displayname : member.username ) +'</span></div>';});;__p += '</div><div class="list-group-item list-group-item-info text-center"><span>/join ' +__e(party.members[0].username ) +'</span></div></div></div>';});;__p += '</div>';/*  function SelectText(element) {var doc = document, text = doc.getElementById(element), range, selection;if (doc.body.createTextRange) {range = document.body.createTextRange();range.moveToElementText(text);range.select();} else if (window.getSelection) {selection = window.getSelection();range = document.createRange();range.selectNodeContents(text);selection.removeAllRanges();selection.addRange(range);}}document.onclick = function(e) {if (e.target.className === 'click') {SelectText('selectme');}};*/;}return __p};
 
 this["NL"]["Template"]["organization-registry"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row">'; for (var col = 0; col < 4; col++) {; var registrys_col = _.select(obj,function(r,idx){ return idx%4 == col; });__p += '<div class="col-lg-3"><div class="list-group">'; _.each(registrys_col,function(r){ ;__p += '<div class="list-group-item"><span class="' +__e( r.profession) +'-icon"></span>'; if( r.haveTag != '' ) { ;__p += '<span class="' +__e( r.commander) +'-icon"></span>'; } ; if( r.havebanner == true ) { ;__p += '<span class="banner-icon"></span>'; } ; if( r.havefood == true ) { ;__p += '<span class="food-icon"></span>'; } ;__p += '<span class="pull-right">' +__e( r.displayname != '' ? r.displayname : r.username ) +'</span></div>'; }); ;__p += '</div></div>'; } ;__p += '</div>';}return __p};
 
@@ -15768,7 +15771,7 @@ this["NL"]["Template"]["organization-statistic"] = function(obj) {obj || (obj = 
 
 this["NL"]["Template"]["pager-template"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-3">'; if ( pageCount > 0) { ;__p += '<span><b>Page ' +__e( currentPage ) +' of ' +__e( pageCount ) +'</b></span>'; } ;__p += '</div><div class="col-lg-6 text-center">'; if (pageCount > 1) { ;__p += '<nav><ul class="pagination">'; if (currentPage > 1) { ;__p += '<li><a href="#" data-pager=\'' +__e( parseInt(currentPage,10)-1 ) +'\'>&laquo;</a></li>'; } ; var i = 1;if (currentPage > 5) {i = +currentPage - 4;} ; if (i !== 1) { ;__p += '<li class="disabled"><a href="#">...</a></li>'; } ; for (i; i<=pageCount; i++) { ; if (currentPage == i) { ;__p += '<li class="active"><span>' +((__t = ( i )) == null ? '' : __t) +' <span class="sr-only">(current)</span></span></li>'; } else { ;__p += '<li><a href="#" data-pager=\'' +((__t = ( i )) == null ? '' : __t) +'\'>' +((__t = ( i )) == null ? '' : __t) +'</a></li>'; } ; if (i == (+currentPage + 4)) { ;__p += '<li class="disabled"><a href="#">...</a></li>'; break; } ; } ; if (currentPage != pageCount) { ;__p += '<li><a href="#" data-pager=\'' +__e( parseInt(currentPage,10)+1 ) +'\'>&raquo;</a></li>'; } ;__p += '</ul></nav>'; } ;__p += '</div><div class="col-lg-3">'; if ( pageCount > 0) { ;__p += '<div class="row"><label class="col-lg-offset-4 col-lg-3"> Items:</label><div class="col-lg-5"><select class="form-control"><option value="10" ' +__e( itemsPerPage == 10 ? "selected" : "" ) +' >10</option><option value="25" ' +__e( itemsPerPage == 25 ? "selected" : "" ) +' >25</option><option value="50" ' +__e( itemsPerPage == 50 ? "selected" : "" ) +' >50</option><option value="100" ' +__e( itemsPerPage == 100 ? "selected" : "" ) +' >100</option></select></div></div>'; } ;__p += '</div></div>';}return __p};
 
-this["NL"]["Template"]["tequatl-zerg-jobs"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) { var zerg = _.chain(obj).pluck('members').flatten().value() ; var guardians = _.where(zerg, {profession:'guardian'})  ; if (guardians.length > 0) {;__p += '<br/><div class="row"><div class="col-lg-3"><img src="/img/skills/Wall_of_Reflection.png" /></div>'; var counter = 0 ; var start = 0 ; while(start < guardians.length - 1 ){;__p += '<div class="col-lg-3">';var group = guardians.slice(start,start+ 4 ); start += group.length ;++counter;__p += '<div class="list-group-item active"> Wall ' +((__t = ( counter )) == null ? '' : __t) +'</div>'; for(var i = 0; i < group.length; i++) {;__p += '<div class="list-group-item">' +((__t = ( group[i].username )) == null ? '' : __t) +'</div>';};__p += '</div>';};__p += '</div>'; } ; var elementalist = _.where(zerg,{profession:'elementalist'}) ; var ele_group = elementalist.slice(0, 6) ; if(ele_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Swirling_Winds.png" /></div><div class="col-lg-3"><div class="list-group-item active">Swirling Winds</div>'; _.each(ele_group,function(ele,idx){;__p += '<div class="list-group-item"><span>SW #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( ele.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ; var warrior = _.where(zerg,{profession:'warrior'}) ; var war_group = warrior.slice(0,6) ; if(war_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Battle_Standard.png" /></div><div class="col-lg-3"><div class="list-group-item active">Battle Standard</div>'; _.each(war_group,function(war,idx){;__p += '<div class="list-group-item"><span>Banner #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( war.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ;}return __p};
+this["NL"]["Template"]["tequatl-zerg-jobs"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) { var zerg = _.chain(obj).pluck('members').flatten().value() ; var guardians = _.where(zerg, {profession:'guardian'})  ; if (guardians.length > 0) {;__p += '<br/><div class="row"><div class="col-lg-3"><img src="/img/skills/Wall_of_Reflection.png" /></div>'; var counter = 0 ; var start = 0 ; while(start < guardians.length - 1 ){;__p += '<div class="col-lg-3">';var group = guardians.slice(start,start+ 4 ); start += group.length ;++counter;__p += '<div class="list-group-item active"><b> Wall ' +((__t = ( counter )) == null ? '' : __t) +'</b></div>'; for(var i = 0; i < group.length; i++) {;__p += '<div class="list-group-item">' +((__t = ( group[i].username )) == null ? '' : __t) +'</div>';};__p += '</div>';};__p += '</div>'; } ; var elementalist = _.where(zerg,{profession:'elementalist'}) ; var ele_group = elementalist.slice(0, 6) ; if(ele_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Swirling_Winds.png" /></div><div class="col-lg-3"><div class="list-group-item active"><b>Swirling Winds</b></div>'; _.each(ele_group,function(ele,idx){;__p += '<div class="list-group-item"><span>SW #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( ele.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ; var warrior = _.where(zerg,{profession:'warrior'}) ; var war_group = warrior.slice(0,6) ; if(war_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Battle_Standard.png" /></div><div class="col-lg-3"><div class="list-group-item active"><b>Battle Standard</b></div>'; _.each(war_group,function(war,idx){;__p += '<div class="list-group-item"><span>Banner #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( war.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ;}return __p};
 
 this["NL"]["Template"]["user-index"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="col-lg-4"><p class="text-center"><b>' +__e( title ) +'</b></p><p class="text-center">' +__e( configuration) +'</p><div class="text-center"><span><a href="/user/organization/' +__e(idorganization) +'/view" role="button" class="btn btn-primary">View</a></span></div></div>';}return __p};
 
@@ -15786,7 +15789,7 @@ toastr.options = {
     'debug': false,
     'newestOnTop': true,
     'progressBar': false,
-    'positionClass': 'toast-bottom-full-width',
+    'positionClass': 'toast-top-full-width',
     'preventDuplicates': false,
     'showDuration': '1000',
     'hideDuration': '1000',
@@ -15798,12 +15801,6 @@ toastr.options = {
     'hideMethod': 'fadeOut'
 };
 
-$(function(){	
-	$('[data-style="btn-group-sm"]:checkbox').checkboxpicker();
-});
-NL.Model.Organization = NL.Model.Organization || Backbone.Model.extend({
-	
-});
 NL.Model.OrganizationParty = NL.Model.OrganizationParty || Backbone.Model.extend({
 	defaults: function () {
 		return {
@@ -15835,6 +15832,39 @@ NL.Model.OrganizationStatus = NL.Model.OrganizationStatus || Backbone.Model.exte
 		},
 		url:function(){
 			return '/api/user/organization/'+this.get('idorganization')+'/status';
+		}
+	});
+NL.Model.PartyConfiguration = NL.Model.PartyConfiguration || Backbone.Model.extend({
+	idAttribute:'idpartyconfiguration',
+	defaults: function () {
+		return {
+			idpartyconfiguration: -1,
+			description: '', 
+			jsviewname: '',
+			pickfood: false,  
+			pickbanner: false, 
+			pickcommander: false,
+			createddate:'' ,
+			updateddate:'' ,
+			enddate:'',
+			profession: new NL.Collection.PartyConfigurationProfession()			
+		};
+	}
+});
+NL.Model.PartyConfigurationProfession = NL.Model.PartyConfigurationProfession || Backbone.Model.extend({
+		idAttribute:'idpartyconfigurationprofesion',
+		defaults:{
+			idpartyconfigurationprofesion:-1,
+			idpartyconfiguration: -1,
+			idprofession: -1,
+			rank:-1,
+			makeExtraGroup:false, 
+			groupName: '',
+			createddate:'', 
+			updateddate:''
+		},
+		url:function(){
+			return '/api/admin/configuration/profession/'+this.get('idpartyconfigurationprofesion');
 		}
 	});
 NL.Model.Registry = NL.Model.Registry || Backbone.Model.extend({
@@ -16016,6 +16046,9 @@ NL.Collection.Pager = NL.Collection.Pager || Backbone.Collection.extend({
 		this.pager = pager;
 	}
 });
+NL.Collection.PartyConfigurationProfession = NL.Collection.PartyConfigurationProfession || Backbone.Collection.extend({
+	model: NL.Model.PartyConfigurationProfession,
+}); 
 NL.Collection.UserIndex = NL.Collection.UserIndex || Backbone.Collection.extend({
 	model: NL.Model.UserIndex,
 	initialize:function(){
@@ -16232,6 +16265,28 @@ NL.View.PagedTable = NL.View.PagedTable || Backbone.View.extend({
 		e.stopPropagation();
 		this.collection.changeItemsPerPage($(e.currentTarget).find('option:selected').attr('value'));
 	}
+});
+NL.View.PartyConfiguration = NL.View.PartyConfiguration || Backbone.View.extend({
+	template:NL.Template['admin-party-configuration'],
+	className:'row',
+	events:{
+		'click .save':'save'	
+	},
+	initialize:function(options){		
+		this.render();
+	},
+	render:function(){
+		var self = this;
+		this.$el.html('');
+		this.$el.append(this.template(this.model.toJSON()));		
+	},
+	save:function(){
+		console.log('save');
+	},
+	destroy:function(){
+		this.collection.reset();
+		this.remove();
+	}	
 });
 NL.View.PartyStatistic = NL.View.PartyStatistic || Backbone.View.extend({
 	template:null,

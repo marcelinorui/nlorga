@@ -236,7 +236,7 @@ function admin(passport) {
 							req.session.idstatus = idstatus;
 							req.flash('success', 'The Organization status changed successfuly.');
 						} else {
-							
+
 						}
 						return next(err);
 					});
@@ -246,15 +246,32 @@ function admin(passport) {
 		res.redirect('/admin/organization/' + req.params.id + '/edit');
 	});
 
+
+
 	router.get('/configurations', function (req, res, next) {
-		next();
-	}, function (req, res, next) {
+		db.Configuration.listConfigurations('', '', null, null, null, function (err, configurations) {
+			if (!err) {
+				req.session.configurations = configurations;
+			} else {
+				req.flash('error', 'SQL Error.')
+			}
+			return next(err);
+		});
+	}, function (req, res) {
 		var Response = require('./../response/admin-configurations-response.js');
 		res.render('admin-configurations', new Response(req))
 	});
+	
 
 	router.get('/configuration/:id/edit', function (req, res, next) {
-		next();
+		db.Configuration.getConfiguration(req.params.id,function(err, configuration){
+			if (!err) {
+				req.session.configuration = configuration;
+			} else {
+				req.flash('error', 'SQL Error.')
+			}
+			return next(err);
+		});
 	}, function (req, res, next) {
 		var Response = require('./../response/admin-configuration-edit-response.js');
 		res.render('admin-configuration-edit', new Response(req))
@@ -262,7 +279,28 @@ function admin(passport) {
 
 	router.get('/configuration/create', function (req, res, next) {
 		var Response = require('./../response/admin-configuration-create-response.js');
-		res.render('admin-configurations-create', new Response(req))
+		res.render('admin-configuration-create', new Response(req))
+	});
+	
+	router.post('/configuration/create', function(req,res,next){
+		var pickbanner = req.body['pickbanner'] ? 1 : 0;
+		var pickfood = req.body['pickfood'] ? 1 : 0;
+		var pickcommander = req.body['pickcommander'] ? 1 : 0;
+		var description = req.body['description'];
+		var jsviewname = req.body['jsviewname'];
+		
+		db.Configuration.createConfiguration(description,jsviewname,pickbanner,pickfood,pickcommander,function(err,idconfiguration){
+			if (!err) {
+				req.session.idconfiguration = idconfiguration;
+				req.flash('success', 'Configuration created successfully.');
+			} else {
+				req.flash('error', 'SQL Error.');
+			}
+			return next(err);
+		});
+		
+	}, function (req, res, next) {
+		res.redirect('/admin/configuration/'+req.session.idconfiguration+'/edit');
 	});
 
 	return router;

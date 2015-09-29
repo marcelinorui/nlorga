@@ -1,3 +1,51 @@
 <% include ./../partials/header %>
+<div class="row">
+	<div class="col-lg-offset-2 col-lg-8">
+		<div class="title">
+			<h2>Create New Configuration </h2>
+		</div>
+		<form action="/admin/configuration/create" method="post">
+			<div class="form-group">
+				<label for="description">Description</label>
+				<input type="text" id="description" class="form-control" name="description" placeholder="Description" />
+			</div>
+			<div class="form-group">
+				<label for="jsviewname">View Name</label>
+				<select name="jsviewname" class="form-control">
+					<option value="OrganizationPartyTeqZerg">OrganizationPartyTeqZerg</option>
+					<option value="OrganizationPartyTeqDefZerg">OrganizationPartyTeqDefZerg</option>
+					<option value="OrganizationPartyBounty2">OrganizationPartyBounty2</option>
+					<option value="OrganizationPartyBounty3">OrganizationPartyBounty3</option>
+					<option value="OrganizationPartyBounty6">OrganizationPartyBounty6</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+			<div class="col-lg-4">
+				<label class="control-label" for="isAdmin">Pick Banner</label>
+				<input type="checkbox" id="pickbanner" name="pickbanner" data-style="btn-group-sm"  />
+			</div>
+			<div class="col-lg-4">
+				<label class="control-label" for="isAdmin">Pick Food</label>
+				<input type="checkbox" id="pickfood" name="pickfood" data-style="btn-group-sm"  />
+			</div>
+			<div class="col-lg-4">
+				<label class="control-label" for="isAdmin">Pick Commander</label>
+				<input type="checkbox" id="pickcommander" name="pickcommander" data-style="btn-group-sm"  />
+			</div>
+			</div>
+			<br>
+			<hr>
+			<div class="form-group">
+				<div class=" pull-left">
+					<a role="button" href="/admin/configurations" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span> Back</a>
+				</div>
+				<div class=" pull-right">
+					<button type="submit" id="btn-login" class="btn btn-primary"> <span class="glyphicon glyphicon-ok "></span> Create</button>
+				</div>
 
+			</div>
+		</form>
+	</div>
+</div>
 <% include ./../partials/footer %>

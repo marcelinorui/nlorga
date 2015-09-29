@@ -15,7 +15,7 @@
 	<%var group = guardians.slice(start,start+ 4 )%>
 	<% start += group.length %>
 	<%++counter%>
-	<div class="list-group-item active"> Wall <%= counter %></div>
+	<div class="list-group-item active"><b> Wall <%= counter %></b></div>
 	<% for(var i = 0; i < group.length; i++) {%>
 		<div class="list-group-item"><%= group[i].username %></div>	
 	<%}%>	 
@@ -33,7 +33,7 @@
 		<img src="/img/skills/Swirling_Winds.png" />
 	</div>
 	<div class="col-lg-3">
-	<div class="list-group-item active">Swirling Winds</div>
+	<div class="list-group-item active"><b>Swirling Winds</b></div>
 	<% _.each(ele_group,function(ele,idx){%>
 	<div class="list-group-item">
 		<span>SW #<%= (idx+1) %></span>
@@ -53,7 +53,7 @@
 		<img src="/img/skills/Battle_Standard.png" />
 	</div>
 	<div class="col-lg-3">
-	<div class="list-group-item active">Battle Standard</div>
+	<div class="list-group-item active"><b>Battle Standard</b></div>
 	<% _.each(war_group,function(war,idx){%>
 	<div class="list-group-item">
 		<span>Banner #<%= (idx+1) %></span>

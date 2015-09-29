@@ -1,0 +1,25 @@
+<tr>
+	<td><%- obj.idpartyconfiguration %></td>
+	<td><%- obj.description %></td>
+	<td><% if (obj.pickfood == 1) {%>
+			<span class="glyphicon glyphicon-ok text-success"></span>
+		<% } %>
+	</td>
+	<td><% if (obj.pickbanner == 1) {%>
+			<span class="glyphicon glyphicon-ok text-success"></span>
+		<% } %>
+	</td>
+	<td><% if (obj.pickcommander == 1) {%>
+			<span class="glyphicon glyphicon-ok text-success"></span>
+		<% } %>
+	</td>
+	<td><%- obj.createddate.substring(0,10) %></td>
+	<td><%- obj.updateddate.substring(0,10) %></td>
+	<td>
+		<span class="pull-right">
+			<a href="/admin/configuration/<%-obj.idpartyconfiguration%>/edit" role="button" class="btn btn-success btn-sm">
+				<span class="glyphicon glyphicon-search"></span> Edit
+			</a>
+		</span>
+	</td>					
+</tr>

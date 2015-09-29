@@ -9,7 +9,7 @@ toastr.options = {
     'debug': false,
     'newestOnTop': true,
     'progressBar': false,
-    'positionClass': 'toast-bottom-full-width',
+    'positionClass': 'toast-top-full-width',
     'preventDuplicates': false,
     'showDuration': '1000',
     'hideDuration': '1000',
@@ -20,7 +20,3 @@ toastr.options = {
     'showMethod': 'fadeIn',
     'hideMethod': 'fadeOut'
 };
-
-$(function(){	
-	$('[data-style="btn-group-sm"]:checkbox').checkboxpicker();
-});

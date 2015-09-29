@@ -42,6 +42,16 @@ function apiAdmin(passport) {
 		});
 	});
 	
+	router.get('/configurations', function(req,res,next){
+	db.Configuration.listConfigurations('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, organizations){
+			if(!err){
+				res.status(200).json(organizations);
+			}
+			return next(err);
+		});
+	});	
+	
+		
 	
 	
 	return router;
