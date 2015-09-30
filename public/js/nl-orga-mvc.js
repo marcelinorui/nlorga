@@ -15759,7 +15759,7 @@ this["NL"]["Template"]["admin-organization-row"] = function(obj) {obj || (obj = 
 
 this["NL"]["Template"]["admin-organizations-row"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<tr><td>' +__e( obj.idorganization ) +'</td><td>' +__e( obj.title ) +'</td><td><span class="label label-default">' +__e( obj.status ) +'</span></td><td>' +__e( obj.description ) +'</td><td>' +__e( obj.createddate.substring(0,10) ) +'<td><span class="pull-right"><a href="/admin/organization/' +__e(obj.idorganization) +'/edit" role="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Edit</a></span></td></tr>';}return __p};
 
-this["NL"]["Template"]["admin-party-configuration"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="col-lg-offset-2 col-lg-8"><div class="title"><h2>Edit Configuration <b>' +__e( description ) +'</b></h2></div><div class="row"><div class="col-lg-12"><label for="description">Description</label><input type="text" id="description" class="form-control" name="description" placeholder="Description" value=\'' +((__t = ( description)) == null ? '' : __t) +'\'/></div></div><div class="row"><div class="col-lg-12"><label for="jsviewname">View Name</label><select name="jsviewname" class="form-control">'; var jsviews = ['OrganizationPartyTeqZerg','OrganizationPartyTeqDefZerg','OrganizationPartyBounty2','OrganizationPartyBounty3','OrganizationPartyBounty6']; ;_.each(jsviews,function(jsview){;__p += '<option value="' +((__t = (jsview)) == null ? '' : __t) +'" ';if( jsviewname == jsview){;__p += 'seleted';};__p += '>' +((__t = (jsview)) == null ? '' : __t) +'</option>';});;__p += '</select></div></div><br><div class="row"><div class="col-lg-2"><label for="isAdmin">Pick Banner</label></div><div class="col-lg-2"><input type="checkbox" id="pickbanner" name="pickbanner" data-style="btn-group-sm" ';if( pickbanner == true){;__p += 'checked';};__p += ' /></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Food</label></div><div class="col-lg-2"><input type="checkbox" id="pickfood" name="pickfood" data-style="btn-group-sm" ';if( pickfood == true){;__p += 'checked';};__p += '/></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Commander</label></div><div class="col-lg-2"><input type="checkbox" id="pickcommander" name="pickcommander" data-style="btn-group-sm" ';if( pickcommander == true){;__p += 'checked';};__p += '/></div></div><div class="row"></div><br><hr><div class="row"><div class="col-lg-12"><div class=" pull-left"><a role="button" href="/admin/configurations" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span>Back</a></div><div class=" pull-right"><button class="btn btn-primary save"> <span class="glyphicon glyphicon-ok "></span> Save</button></div></div></div></div>';}return __p};
+this["NL"]["Template"]["admin-party-configuration"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="col-lg-offset-2 col-lg-8"><div class="title"><h2>Edit Configuration <b>' +__e( description ) +'</b></h2></div><div class="row"><div class="col-lg-12"><label for="description">Description</label><input type="text" id="description" class="form-control" name="description" placeholder="Description" value=\'' +__e( description) +'\'/></div></div><div class="row"><div class="col-lg-12"><label for="jsviewname">View Name</label><select name="jsviewname" class="form-control">'; var jsviews = ['OrganizationPartyTeqZerg','OrganizationPartyTeqDefZerg','OrganizationPartyBounty2','OrganizationPartyBounty3','OrganizationPartyBounty6']; ;_.each(jsviews,function(jsview){;__p += '<option value="' +((__t = (jsview)) == null ? '' : __t) +'" ';if( jsviewname == jsview){;__p += 'seleted';};__p += '>' +((__t = (jsview)) == null ? '' : __t) +'</option>';});;__p += '</select></div></div><br><h3>Choose what users can pick</h3><div class="row"><div class="col-lg-2"><label for="isAdmin">Pick Banner</label></div><div class="col-lg-2"><input type="checkbox" id="pickbanner" name="pickbanner" data-style="btn-group-sm" ';if( pickbanner == true){;__p += 'checked';};__p += ' /></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Food</label></div><div class="col-lg-2"><input type="checkbox" id="pickfood" name="pickfood" data-style="btn-group-sm" ';if( pickfood == true){;__p += 'checked';};__p += '/></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Commander</label></div><div class="col-lg-2"><input type="checkbox" id="pickcommander" name="pickcommander" data-style="btn-group-sm" ';if( pickcommander == true){;__p += 'checked';};__p += '/></div></div><br><h3>Choose Profession Rank</h3><div class="row">'; _.each(profession, function(p, idx){;__p += '<div class="col-lg-4"><div class="row"><div class="col-lg-offset-3 col-lg-3"><span class="icon-' +__e(p.idprofession) +' big"></span></div><div class="col-lg-4"><input type="text" value="' +((__t = (p.rank)) == null ? '' : __t) +'" data-idx="' +__e(idx) +'" class="form-control text-right rank" /></div></div></div>';});;__p += '</div><br><hr><div class="row"><div class="col-lg-12"><div class=" pull-left"><a role="button" href="/admin/configurations" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span>Back</a></div><div class=" pull-right"><button class="btn btn-primary save"> <span class="glyphicon glyphicon-ok "></span> Save</button></div></div></div></div>';}return __p};
 
 this["NL"]["Template"]["organization-foodbanner"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {if( foodusername || bannerusername){;__p += '<div class="row centered"><div class="col-lg-6">';if(foodusername){;__p += '<p><span class="food-icon big"></span> Food will be provided by <b>' +((__t = ( foodusername )) == null ? '' : __t) +'</b> </p>';};if(bannerusername){;__p += '<p><span class="banner-icon big"></span> Banner will be provided by <b>' +((__t = ( bannerusername )) == null ? '' : __t) +'</b></p>';};__p += '</div></div>';};}return __p};
 
@@ -16047,7 +16047,7 @@ NL.Collection.Pager = NL.Collection.Pager || Backbone.Collection.extend({
 	}
 });
 NL.Collection.PartyConfigurationProfession = NL.Collection.PartyConfigurationProfession || Backbone.Collection.extend({
-	model: NL.Model.PartyConfigurationProfession,
+	model: NL.Model.PartyConfigurationProfession
 }); 
 NL.Collection.UserIndex = NL.Collection.UserIndex || Backbone.Collection.extend({
 	model: NL.Model.UserIndex,
@@ -16270,7 +16270,8 @@ NL.View.PartyConfiguration = NL.View.PartyConfiguration || Backbone.View.extend(
 	template:NL.Template['admin-party-configuration'],
 	className:'row',
 	events:{
-		'click .save':'save'	
+		'click .save':'save',
+		'change input.rank':'rankChange'
 	},
 	initialize:function(options){		
 		this.render();
@@ -16282,6 +16283,12 @@ NL.View.PartyConfiguration = NL.View.PartyConfiguration || Backbone.View.extend(
 	},
 	save:function(){
 		console.log('save');
+	},
+	rankChange:function(e){
+		var $target = $(e.currentTarget);
+		var newRank = $target.val();
+		var idx = $target.attr('data-idx');
+		this.model.get('profession')[idx].rank = newRank;
 	},
 	destroy:function(){
 		this.collection.reset();

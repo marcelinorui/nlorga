@@ -16,3 +16,22 @@
         }
     }
 }
+
+.image_icon(@name,@num) {
+    span.@{name}-icon, span.icon-@{num}{
+        background-image: url("@{imageurl}/@{name}.png");
+        background-size: @icon-size;
+        display: inline-block;
+        width: @icon-size;
+        height: @icon-size;
+        
+        &.big{
+            width: @icon-size*2+ 8;
+            height: @icon-size*2+ 8;
+            background-size: @icon-size*2;
+            background-repeat: no-repeat;
+            background-position-x: 4px;
+            background-position-y: 4px;
+        }
+    }
+}

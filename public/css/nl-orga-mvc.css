@@ -57,14 +57,16 @@ label.counter {
 .check-select input[type="checkbox"] {
   display: none!important;
 }
-span.guardian-icon {
+span.guardian-icon,
+span.icon-1 {
   background-image: url("/img/guardian.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.guardian-icon.big {
+span.guardian-icon.big,
+span.icon-1.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -72,14 +74,16 @@ span.guardian-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.warrior-icon {
+span.warrior-icon,
+span.icon-2 {
   background-image: url("/img/warrior.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.warrior-icon.big {
+span.warrior-icon.big,
+span.icon-2.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -87,14 +91,16 @@ span.warrior-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.revenant-icon {
+span.revenant-icon,
+span.icon-3 {
   background-image: url("/img/revenant.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.revenant-icon.big {
+span.revenant-icon.big,
+span.icon-3.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -102,14 +108,16 @@ span.revenant-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.thief-icon {
+span.thief-icon,
+span.icon-5 {
   background-image: url("/img/thief.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.thief-icon.big {
+span.thief-icon.big,
+span.icon-5.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -117,14 +125,16 @@ span.thief-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.ranger-icon {
+span.ranger-icon,
+span.icon-4 {
   background-image: url("/img/ranger.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.ranger-icon.big {
+span.ranger-icon.big,
+span.icon-4.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -132,14 +142,16 @@ span.ranger-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.engineer-icon {
+span.engineer-icon,
+span.icon-6 {
   background-image: url("/img/engineer.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.engineer-icon.big {
+span.engineer-icon.big,
+span.icon-6.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -147,14 +159,16 @@ span.engineer-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.elementalist-icon {
+span.elementalist-icon,
+span.icon-7 {
   background-image: url("/img/elementalist.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.elementalist-icon.big {
+span.elementalist-icon.big,
+span.icon-7.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -162,14 +176,16 @@ span.elementalist-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.mesmer-icon {
+span.mesmer-icon,
+span.icon-8 {
   background-image: url("/img/mesmer.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.mesmer-icon.big {
+span.mesmer-icon.big,
+span.icon-8.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
@@ -177,14 +193,16 @@ span.mesmer-icon.big {
   background-position-x: 4px;
   background-position-y: 4px;
 }
-span.necromancer-icon {
+span.necromancer-icon,
+span.icon-9 {
   background-image: url("/img/necromancer.png");
   background-size: 20px;
   display: inline-block;
   width: 20px;
   height: 20px;
 }
-span.necromancer-icon.big {
+span.necromancer-icon.big,
+span.icon-9.big {
   width: 48px;
   height: 48px;
   background-size: 40px;
