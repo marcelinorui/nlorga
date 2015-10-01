@@ -13,5 +13,8 @@ NL.Model.PartyConfiguration = NL.Model.PartyConfiguration || Backbone.Model.exte
 			enddate:'',
 			profession: new NL.Collection.PartyConfigurationProfession()			
 		};
+	},
+	url: function(){
+		return '/api/admin/configuration/'+this.get('idpartyconfiguration');
 	}
 });

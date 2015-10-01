@@ -11,7 +11,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="jsviewname">View Name</label>
-			<select name="jsviewname" class="form-control">
+			<select name="jsviewname" id="jsviewname" class="form-control">
 			<% var jsviews = ['OrganizationPartyTeqZerg',
 							'OrganizationPartyTeqDefZerg',
 							'OrganizationPartyBounty2',
@@ -44,22 +44,7 @@
 		</div>
 	</div>	
 	<br>
-	<h3>Choose Profession Rank</h3>
-	<div class="row">
-		<% _.each(profession, function(p, idx){%>
-			<div class="col-lg-4">
-				<div class="row">
-					<div class="col-lg-offset-3 col-lg-3">
-					<span class="icon-<%-p.idprofession%> big"></span>
-					</div>
-					<div class="col-lg-4">
-					<input type="text" value="<%=p.rank%>" data-idx="<%-idx%>" class="form-control text-right rank" />
-					</div>
-				</div>
-			</div>		
-		<%});%>
-	</div>	
-	<br>
+	<div class="profession"></div>
 	<hr>
 	<div class="row">
 		<div class="col-lg-12">

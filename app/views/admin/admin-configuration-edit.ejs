@@ -8,11 +8,10 @@
 	$(function(){				
 		mydata = new NL.View.PartyConfiguration({
 			el: '.mydata',
-			model: new NL.Model.PartyConfiguration(<%- JSON.stringify(configuration) %>)
+			partyconfiguration: <%- JSON.stringify(configuration.partyconfiguration)%>,
+			partyconfigurationprofession:  <%- JSON.stringify(configuration.partyconfigurationprofession)%> 
 		});				
 	});	
 </script>
-
-
 
 <% include ./../partials/end-footer %>

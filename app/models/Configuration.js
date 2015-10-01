@@ -31,8 +31,10 @@ Configuration.prototype.getConfiguration = function (idpartyconfiguration, callb
 	var self = this;
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
-			var out = self.getFirstRow(rows,fields);
-			out.profession = self.getTable(rows,fields,1);
+			var out = {
+				partyconfiguration : self.getFirstRow(rows,fields),
+			    partyconfigurationprofession : self.getTable(rows,fields,1)
+			};
 			callback(err, out);
 		} else {
 			callback(err,null);
@@ -60,6 +62,33 @@ Configuration.prototype.createConfiguration = function(description,jsviewname,pi
 		if (!err) {
 			var id = self.getSingle(rows, fields);
 			callback(err, id);
+		} else {
+			callback(err,null);
+		}
+	});
+};
+
+Configuration.prototype.saveConfiguration = function(idpartyconfiguration,description,jsviewname,pickbanner,pickfood,pickcommander, callback){
+	var sql = 'CALL saveConfiguration(?,?,?,?,?,?)';
+	var params = [idpartyconfiguration, description, jsviewname,pickbanner,pickfood,pickcommander];
+	var query = mysql.format(sql,params);
+	this.db.query(query, function (err, rows, fields) {
+		if (!err) {
+			callback(err, 'ok');
+		} else {
+			callback(err,null);
+		}
+	});
+};
+
+
+Configuration.prototype.saveConfigurationProfession = function(idpartyconfigurationprofession, rank, callback){
+	var sql = 'CALL saveConfigurationProfession(?,?)';
+	var params = [idpartyconfigurationprofession, rank];
+	var query = mysql.format(sql,params);
+	this.db.query(query, function (err, rows, fields) {
+		if (!err) {
+			callback(err, 'ok');
 		} else {
 			callback(err,null);
 		}

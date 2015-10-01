@@ -30,9 +30,8 @@ module.exports = function (grunt) {
                 '<%= css_path %>/bootstrap.css'],
             js: [
                 '<%=js_template_path %>/template.js',
-                '<%=js_path %>/<%= pkg.name %>.js',
-                '<%=js_path%>/<%= pkg.name%>.min.js',
-                '<%=js_path%>/<%= pkg.name%>.min.js.map'
+                'public/js/<%= pkg.name %>.js',
+                'public/js/<%= pkg.name%>.min.js'
             ]
         },
         jshint: {
@@ -51,9 +50,6 @@ module.exports = function (grunt) {
                         'assets/lib/toastr/toastr.js',
                         'assets/lib/underscore/underscore.js',
                         'assets/lib/backbone/backbone.js',
-                        /*'assets/lib/backbone.babysitter/lib/backbone.babysitter.js',
-                        'assets/lib/backbone.wreqr/lib/backbone.wreqr.js',
-                        'assets/lib/marionette/lib/core/backbone.marionette.js',*/
                         '<%= js_template_path %>/template.js',
                         '<%= js_template_path %>/Start.js',
                         '<%= js_model_path %>/*.js',
@@ -151,10 +147,11 @@ module.exports = function (grunt) {
                 }
             },
             js: {
-                files: ['gruntfile.js',
-                    '<%=js_path%>/**/*.js',
-                    '<%= template_path %>/*.html',
-                    '<%= template_path %>/*.htm'],
+                files: [/*'gruntfile.js',*/
+                        '<%=js_path%>/**/*.js',
+                        '<%= template_path %>/*.html',
+                        '<%= template_path %>/*.htm',
+                        '!<%= js_template_path %>/template.js'],
                 tasks: ['build-js'],
                 options: {
                     livereload: true,

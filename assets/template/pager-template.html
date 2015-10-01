@@ -10,7 +10,7 @@
 		<nav>
 			<ul class="pagination">
 				<% if (currentPage > 1) { %>
-					<li><a href="#" data-pager='<%- parseInt(currentPage,10)-1 %>'>&laquo;</a></li>
+					<li><a href="#" data-pager='<%- parseInt(currentPage,10)-1 %>'><span class="glyphicon glyphicon-menu-left"></span></a></li>
 				<% } %>
 				<% var i = 1;
 				if (currentPage > 5) {
@@ -30,7 +30,10 @@
 					<% break; } %>
 				<% } %>
 				<% if (currentPage != pageCount) { %>
-					<li><a href="#" data-pager='<%- parseInt(currentPage,10)+1 %>'>&raquo;</a></li>
+					<li><a href="#" data-pager='<%- parseInt(currentPage,10)+1 %>'> 
+							<span class="glyphicon glyphicon-menu-right"></span>
+						</a>
+					</li>
 				<% } %>
 			</ul>
 		</nav>	
