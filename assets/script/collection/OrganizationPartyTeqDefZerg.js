@@ -1,4 +1,4 @@
-NL.Collection.OrganizationPartyDefTeqZerg = NL.Collection.OrganizationPartyDefTeqZerg || NL.Collection.OrganizationParty.extend({
+NL.Collection.OrganizationPartyTeqDefZerg = NL.Collection.OrganizationPartyTeqDefZerg || NL.Collection.OrganizationParty.extend({
 	defaults:{
 		defLocations:["East","West","North","MegaLaser"],
 		defJob:["East - Waypoint","East - Shipwreck","West - Beach","West - Shipwreck"],

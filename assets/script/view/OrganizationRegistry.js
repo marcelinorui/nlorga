@@ -21,7 +21,7 @@ NL.View.OrganizationRegistry = NL.View.OrganizationRegistry || Backbone.View.ext
 	},
 	render: function () {
 		this.$el.html('');
-		this.$el.append(this.statisticTemplate(this.collection.options.statistic));
+		this.$el.append(this.statisticTemplate(this.collection.getStatistic()));
 		this.$el.append(this.template(this.collection.toJSON()));
 	},
 	startTimer: function () {

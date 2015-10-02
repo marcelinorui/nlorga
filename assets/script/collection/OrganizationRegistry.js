@@ -15,5 +15,8 @@ NL.Collection.OrganizationRegistry = NL.Collection.OrganizationRegistry || Backb
 		this.options.statistic = _.sortBy(_.map(_.countBy(response, 'profession'), function (count, key) { return { name: key, value: count }; }), 'name');
 		console.log('.');
 		return response;
+	},
+	getStatistic:function(){
+		return _.sortBy(_.map(_.countBy(this.toJSON() , 'profession'), function (count, key) { return { name: key, value: count }; }), 'name');
 	}
 });
