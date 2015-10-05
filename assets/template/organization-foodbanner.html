@@ -1,12 +1,14 @@
 <%if( foodusername || bannerusername){%>
 <div class="row centered">
+	<%if(foodusername){%>
 	<div class="col-lg-6">
-		<%if(foodusername){%>
-			<p><span class="food-icon big"></span> Food will be provided by <b><%= foodusername %></b> </p>
-		<%}%>
-		<%if(bannerusername){%>
-			<p><span class="banner-icon big"></span> Banner will be provided by <b><%= bannerusername %></b></p>
-		<%}%>
+		<p class="text-center"><span class="food-icon big"></span> Food will be provided by <b><%= foodusername %></b> </p>
 	</div>
+	<%}%>
+	<%if(bannerusername){%>
+		<div class="col-lg-6">
+		<p  class="text-center"><span class="banner-icon big"></span> Banner will be provided by <b><%= bannerusername %></b></p>
+		</div>
+	<%}%>
 </div>	
 <%}%>

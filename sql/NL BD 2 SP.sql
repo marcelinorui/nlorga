@@ -99,7 +99,7 @@ CREATE PROCEDURE `getUserProfile` (
 	in_idlogin INT
 )
 BEGIN
-	select l.displayname, l.hascommanderTag
+	select l.displayname,l.username, l.hascommanderTag
     from login l 
     where l.idlogin = in_idlogin;
 

@@ -2,8 +2,8 @@
 <div class="row">
 <div class="col-lg-12">
 	<div class="title">
-		<h2>Organization <b><%- organization.title %></b> 
-		<span class="label label-default pull-right"><%- organization.status %></span></h2>
+		<h2>Organization <b><%- organization.title %></b></h2> 
+		<span class="label label-info pull-right"><%- organization.status %></span>
 	</div>
 	<% if ( organization.idstatus == 1 ) {  %>
 	<form action="/admin/organization/<%- organization.idorganization %>/edit" method="post">
@@ -113,44 +113,18 @@
 	</div>
 	<% } %>	
 	<hr>
-	<% include admin-organization-edit-statistic %>	
-	<div class="row" id="show">
-		<% if (organization.idstatus == 2 || organization.idstatus == 3 ){ %>
-			<% include admin-organization-registry-view %>
-		<% }%>
-		<% if (organization.idstatus == 4 || organization.idstatus == 5 || organization.idstatus == 6 ){ %>
-			<% include admin-organization-party-view %>		
-		<%}%>
-	</div>
-	<hr>
-	<div class="row">
-		<div class="col-lg-12">
-		<span class=" pull-left">
-			<a role="button" href="/admin/organizations" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span> Back</a>
-		</span>				
-		</div>
-	</div>	
+	<div class="main"></div>
 </div>
 
 <% include ./../partials/end-body %>
-<% if (organization.idstatus == 2 || organization.idstatus == 3 || organization.idstatus == 4){ %>
 <script>
-$(function(){
-	var view = new NL.View.AdminOrganization({
-		el: '.show',
-		model: { 
-			organization : <%- JSON.stringify(organization) %>,
-			<%if (organization.idstatus == 2 || organization.idstatus == 3){%>
-			registry: <%- JSON.stringify(registry) %>,
-			<% } %>
-			<%if (organization.idstatus == 4){%>
-			partys: <%- JSON.stringify(partys) %>,
-			<% } %>
-			statistic:<%- JSON.stringify(statistic) %>			
-		},
-		url: '/api/admin/organization/<%- organization.idorganization%>/view'
-	}); 
-});
+	$(function(){
+	var view = new NL.View.UserOrganization({
+		el: '.main', 
+		organization: <%- JSON.stringify(organization) %>,
+		useroptions: <%- JSON.stringify(useroptions) %>
+		});	
+	});
 </script>
-<% }%>
+</script>
 <% include ./../partials/end-footer %>

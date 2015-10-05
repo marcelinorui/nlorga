@@ -137,7 +137,7 @@ function user(passport) {
 		};
 
 		if (obj.password1 && obj.password2) {
-			if (obj.password1 == obj.password2 && obj.password1.legnth > 0 && obj.password2.length > 0) {
+			if (obj.password1 == obj.password2 && obj.password1.length > 0 && obj.password2.length > 0) {
 				db.User.changeLoginPassword(req.user.idlogin, obj.password1,
 					function (err, ok) {
 						if (!err) {
@@ -147,10 +147,13 @@ function user(passport) {
 					});
 			} else {
 				req.flash('warning', 'Both fields must have the same password.');
+				return res.redirect('/user/changePassword')
 			}
 		} else {
 			req.flash('warning', 'Both fields must have the same password.');
+			return res.redirect('/user/changePassword')
 		}
+		
 	}, function (req, res) {
 		res.redirect('/user');
 	});

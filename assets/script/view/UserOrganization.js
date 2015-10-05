@@ -76,35 +76,52 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 			this.registryView.startTimer();
 		}
 	},
-	removeViews: function () {
-		
+	removeUserView:function(){
+		if(this.userView){
+			this.userView.remove();
+		}
+	},	
+	removeRegistryView:function(){
+		if(this.registryView){
+			this.registryView.remove();
+		}
 	},
+	removePartyView:function(){
+		if(this.partyView){
+			this.partyView.remove();
+		}
+	},	
 	statusChange: function (model) {
 		console.log('status changed:' + model.get('idstatus'));
 		var status = model.get('idstatus');
 		if (status == 1) {
-			this.removeViews();
+			this.removeUserView();
+			this.removeRegistryView();
+			this.removePartyView();
 		}
 		if (status == 2) {
 			this.showUserView(true);
-			this.showRegistryView();
+			this.showRegistryView(false);
+			this.removePartyView();
 		}
 		if (status == 3) {
 			this.showUserView(false);
-			this.showRegistryView(false);
+			this.showRegistryView(true);
+			this.removePartyView();
 		}
 		if (status == 4) {
 			this.showUserView(false);
 			this.showRegistryView(false);
+			this.removePartyView();
 		}
 		if (status == 5) {
 			this.showUserView(false);
-			this.showRegistryView(true);
+			this.removeRegistryView();
 			this.showPartyView(false);
 		}
 		if (status == 6) {
 			this.showUserView(false);
-			this.showRegistryView(true);
+			this.removeRegistryView();
 			this.showPartyView(true);
 			this.stopTimer();
 		}

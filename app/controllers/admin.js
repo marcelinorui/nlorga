@@ -164,7 +164,7 @@ function admin(passport) {
 
 	router.get('/organization/:id/edit', function (req, res, next) {
 		var idorganization = req.params.id;
-		db.Organization.getOrganization(idorganization, function (err, organization) {
+		db.Organization.getOrganizationForUser(idorganization,req.user.idlogin, function (err, organization) {
 			if (!err) {
 				req.session.organization = organization;
 			} else {

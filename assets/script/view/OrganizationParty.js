@@ -24,7 +24,7 @@ NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 	},	
 	render: function () {
 		this.$el.html('');
-		this.$el.append(this.statisticTemplate(this.collection.getStatistics()));
+		this.$el.append(this.statisticTemplate(this.collection.getStatistic()));
 		this.$el.append(NL.Template['organization-foodbanner']({
 				bannerusername: this.collection.getBanner(),
 				foodusername:this.collection.getFood()

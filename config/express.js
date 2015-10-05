@@ -59,7 +59,7 @@ module.exports = function (app, db, config) {
 
   if (app.locals.ENV_DEVELOPMENT) {
     app.use(function (err, req, res, next) {
-       var Response = new (require('./../app/response/error-response.js'))(req,err);
+      var Response = new (require('./../app/response/error-response.js'))(req,err);
       res.status(err.status || 500);
       res.render('error', Response);
     });

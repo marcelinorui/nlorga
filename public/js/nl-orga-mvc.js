@@ -11574,13 +11574,12 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /*!
- * Bootstrap-checkbox v1.2.8 (http://vsn4ik.github.io/bootstrap-checkbox)
+ * Bootstrap-checkbox v1.2.14 (http://vsn4ik.github.io/bootstrap-checkbox)
  * Copyright 2013-2015 Vasily A. (https://github.com/vsn4ik)
- * Licensed under MIT (https://github.com/vsn4ik/bootstrap-checkbox/blob/master/LICENSE)
+ * Licensed under the MIT license
  */
 
 /**
- * 'Strict Mode' strictly in body of function
  * $.inArray: friends with IE8. Use Array.prototype.indexOf in future.
  * Use this.element.hidden in future.
  * $.proxy: friends with IE8. Use Function.prototype.bind in future.
@@ -11694,14 +11693,14 @@ if (typeof jQuery === 'undefined') {
       }
 
       // Keydown event only trigger if set tabindex, fine!
-      this.$group.on('keydown', $.proxy(this.keydown, this));
+      this.$group.on('keydown', $.proxy(this, 'keydown'));
 
       // Don't trigger if <a> element has .disabled class, fine!
-      this.$group.on('click', 'a:not(.active)', $.proxy(this.click, this));
+      this.$group.on('click', 'a:not(.active)', $.proxy(this, 'click'));
 
-      this.$element.on('change', $.proxy(this.toggle_checked, this));
-      $(this.element.labels).on('click', $.proxy(this.focus, this));
-      $(this.element.form).on('reset', $.proxy(this.reset, this));
+      this.$element.on('change', $.proxy(this, 'toggleChecked'));
+      $(this.element.labels).on('click', $.proxy(this, 'focus'));
+      $(this.element.form).on('reset', $.proxy(this, 'reset'));
 
       this.$group.append(this.$buttons).insertAfter(this.element);
 
@@ -11721,13 +11720,13 @@ if (typeof jQuery === 'undefined') {
         }
       }
     },
-    toggle_checked: function() {
+    toggleChecked: function() {
       // this.$group not focus (incorrect on form reset)
       this.$buttons.toggleClass('active ' + this.options.defaultClass);
       this.$off.toggleClass(this.options.offClass);
       this.$on.toggleClass(this.options.onClass);
     },
-    toggle_disabled: function() {
+    toggleDisabled: function() {
       this.$buttons.toggleClass('disabled');
 
       if (this.element.disabled) {
@@ -11797,7 +11796,7 @@ if (typeof jQuery === 'undefined') {
         var data = $.data(element, 'bs.checkbox');
 
         if (data && element.disabled != value) {
-          data.toggle_disabled();
+          data.toggleDisabled();
         }
 
         if (oldPropHooks.disabled && oldPropHooks.disabled.set) {
@@ -15764,21 +15763,21 @@ this["NL"]["Template"]["admin-party-configuration-profession"] = function(obj) {
 
 this["NL"]["Template"]["admin-party-configuration"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="col-lg-offset-2 col-lg-8"><div class="title"><h2>Edit Configuration <b>' +__e( description ) +'</b></h2></div><div class="row"><div class="col-lg-12"><label for="description">Description</label><input type="text" id="description" class="form-control" name="description" placeholder="Description" value=\'' +__e( description) +'\'/></div></div><div class="row"><div class="col-lg-12"><label for="jsviewname">View Name</label><select name="jsviewname" id="jsviewname" class="form-control">'; var jsviews = ['OrganizationPartyTeqZerg','OrganizationPartyTeqDefZerg','OrganizationPartyBounty2','OrganizationPartyBounty3','OrganizationPartyBounty6']; ;_.each(jsviews,function(jsview){;__p += '<option value="' +((__t = (jsview)) == null ? '' : __t) +'" ';if( jsviewname == jsview){;__p += 'seleted';};__p += '>' +((__t = (jsview)) == null ? '' : __t) +'</option>';});;__p += '</select></div></div><br><h3>Choose what users can pick</h3><div class="row"><div class="col-lg-2"><label for="isAdmin">Pick Banner</label></div><div class="col-lg-2"><input type="checkbox" id="pickbanner" name="pickbanner" data-style="btn-group-sm" ';if( pickbanner == true){;__p += 'checked';};__p += ' /></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Food</label></div><div class="col-lg-2"><input type="checkbox" id="pickfood" name="pickfood" data-style="btn-group-sm" ';if( pickfood == true){;__p += 'checked';};__p += '/></div><div class="col-lg-2"><label class="control-label" for="isAdmin">Pick Commander</label></div><div class="col-lg-2"><input type="checkbox" id="pickcommander" name="pickcommander" data-style="btn-group-sm" ';if( pickcommander == true){;__p += 'checked';};__p += '/></div></div><br><div class="profession"></div><hr><div class="row"><div class="col-lg-12"><div class=" pull-left"><a role="button" href="/admin/configurations" class="btn btn-default"> <span class="glyphicon glyphicon-arrow-left "></span>Back</a></div><div class=" pull-right"><button class="btn btn-primary save"> <span class="glyphicon glyphicon-ok "></span> Save</button></div></div></div></div>';}return __p};
 
-this["NL"]["Template"]["organization-foodbanner"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {if( foodusername || bannerusername){;__p += '<div class="row centered"><div class="col-lg-6">';if(foodusername){;__p += '<p><span class="food-icon big"></span> Food will be provided by <b>' +((__t = ( foodusername )) == null ? '' : __t) +'</b> </p>';};if(bannerusername){;__p += '<p><span class="banner-icon big"></span> Banner will be provided by <b>' +((__t = ( bannerusername )) == null ? '' : __t) +'</b></p>';};__p += '</div></div>';};}return __p};
+this["NL"]["Template"]["organization-foodbanner"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {if( foodusername || bannerusername){;__p += '<div class="row centered">';if(foodusername){;__p += '<div class="col-lg-6"><p class="text-center"><span class="food-icon big"></span> Food will be provided by <b>' +((__t = ( foodusername )) == null ? '' : __t) +'</b> </p></div>';};if(bannerusername){;__p += '<div class="col-lg-6"><p  class="text-center"><span class="banner-icon big"></span> Banner will be provided by <b>' +((__t = ( bannerusername )) == null ? '' : __t) +'</b></p></div>';};__p += '</div>';};}return __p};
 
 this["NL"]["Template"]["organization-party"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row">'; _.each(obj, function(party){ ;__p += '<div class="col-lg-3"><div class="list-group"><div class="list-group-item active"><b> ' +__e( party.partyname ) +'</b> <span class="badge">' +__e( party.members.length) +'</span></div>'; if(party.job){ ; if( Array.isArray(party.job) ){ ;	_.each(party.job, function(job) {;__p += '<div class="list-group-item list-group-item-warning"><b>' +__e( job ) +'</b></div>'; }) ; } else { ;__p += '<div class="list-group-item list-group-item-warning"><b>' +__e( party.job ) +'</b></div>'; } ; } ;__p += '<div class="list-group-item">'; _.each(party.members,function(member){ ;__p += '<div class="player"><span class="' +__e( member.profession) +'-icon"></span>'; if( member.commander) { ;__p += '<span class="' +__e( member.commander) +'-icon"></span>'; } ; if( member.havebanner == true ) { ;__p += '<span class="banner-icon"></span>'; } ; if( member.havefood == true ) { ;__p += '<span class="food-icon"></span>'; } ;__p += '<span class="user">' +__e( member.displayname != '' ? member.displayname : member.username ) +'</span></div>';});;__p += '</div><div class="list-group-item list-group-item-info text-center"><span>/join ' +__e(party.members[0].username ) +'</span></div></div></div>';});;__p += '</div>';/*  function SelectText(element) {var doc = document, text = doc.getElementById(element), range, selection;if (doc.body.createTextRange) {range = document.body.createTextRange();range.moveToElementText(text);range.select();} else if (window.getSelection) {selection = window.getSelection();range = document.createRange();range.selectNodeContents(text);selection.removeAllRanges();selection.addRange(range);}}document.onclick = function(e) {if (e.target.className === 'click') {SelectText('selectme');}};*/;}return __p};
 
 this["NL"]["Template"]["organization-registry"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row">'; for (var col = 0; col < 4; col++) {; var registrys_col = _.select(obj,function(r,idx){ return idx%4 == col; });__p += '<div class="col-lg-3"><div class="list-group">'; _.each(registrys_col,function(r){ ;__p += '<div class="list-group-item"><span class="' +__e( r.profession) +'-icon"></span>'; if( r.haveTag != '' ) { ;__p += '<span class="' +__e( r.commander) +'-icon"></span>'; } ; if( r.havebanner == true ) { ;__p += '<span class="banner-icon"></span>'; } ; if( r.havefood == true ) { ;__p += '<span class="food-icon"></span>'; } ;__p += '<span class="pull-right">' +__e( r.displayname != '' ? r.displayname : r.username ) +'</span></div>'; }); ;__p += '</div></div>'; } ;__p += '</div>';}return __p};
 
-this["NL"]["Template"]["organization-statistic"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<br/><div class="row centered">'; _.each(obj,function(s){ ;__p += '<div class="col-lg-1"><span class="' +__e( s.name ) +'-icon"></span><span class="counter">' +__e( s.value ) +'</span></div>'; }); ;__p += '</div><br/>';}return __p};
+this["NL"]["Template"]["organization-statistic"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<br/><div class="row centered">';var sum = 0;_.each(obj,function(s){;sum += s.value;; }); ;__p += '<div class="col-lg-6"><h4 class="text-center"><b>Participating Players: ' +((__t = (sum)) == null ? '' : __t) +'</b></h4></div></div><div class="row centered">'; _.each(obj,function(s){ ;__p += '<div class="col-lg-1"><span class="' +__e( s.name ) +'-icon"></span><label class="counter">' +__e( s.value ) +'</label></div>'; }); ;__p += '</div><br/>';}return __p};
 
 this["NL"]["Template"]["pager-template"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-3">'; if ( pageCount > 0) { ;__p += '<span><b>Page ' +__e( currentPage ) +' of ' +__e( pageCount ) +'</b></span>'; } ;__p += '</div><div class="col-lg-6 text-center">'; if (pageCount > 1) { ;__p += '<nav><ul class="pagination">'; if (currentPage > 1) { ;__p += '<li><a href="#" data-pager=\'' +__e( parseInt(currentPage,10)-1 ) +'\'><span class="glyphicon glyphicon-menu-left"></span></a></li>'; } ; var i = 1;if (currentPage > 5) {i = +currentPage - 4;} ; if (i !== 1) { ;__p += '<li class="disabled"><a href="#">...</a></li>'; } ; for (i; i<=pageCount; i++) { ; if (currentPage == i) { ;__p += '<li class="active"><span>' +((__t = ( i )) == null ? '' : __t) +' <span class="sr-only">(current)</span></span></li>'; } else { ;__p += '<li><a href="#" data-pager=\'' +((__t = ( i )) == null ? '' : __t) +'\'>' +((__t = ( i )) == null ? '' : __t) +'</a></li>'; } ; if (i == (+currentPage + 4)) { ;__p += '<li class="disabled"><a href="#">...</a></li>'; break; } ; } ; if (currentPage != pageCount) { ;__p += '<li><a href="#" data-pager=\'' +__e( parseInt(currentPage,10)+1 ) +'\'><span class="glyphicon glyphicon-menu-right"></span></a></li>'; } ;__p += '</ul></nav>'; } ;__p += '</div><div class="col-lg-3">'; if ( pageCount > 0) { ;__p += '<div class="row"><label class="col-lg-offset-4 col-lg-3"> Items:</label><div class="col-lg-5"><select class="form-control"><option value="10" ' +__e( itemsPerPage == 10 ? "selected" : "" ) +' >10</option><option value="25" ' +__e( itemsPerPage == 25 ? "selected" : "" ) +' >25</option><option value="50" ' +__e( itemsPerPage == 50 ? "selected" : "" ) +' >50</option><option value="100" ' +__e( itemsPerPage == 100 ? "selected" : "" ) +' >100</option></select></div></div>'; } ;__p += '</div></div>';}return __p};
 
 this["NL"]["Template"]["tequatl-zerg-jobs"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) { var zerg = _.chain(obj).pluck('members').flatten().value() ; var guardians = _.where(zerg, {profession:'guardian'})  ; if (guardians.length > 0) {;__p += '<br/><div class="row"><div class="col-lg-3"><img src="/img/skills/Wall_of_Reflection.png" /></div>'; var counter = 0 ; var start = 0 ; while(start < guardians.length - 1 ){;__p += '<div class="col-lg-3">';var group = guardians.slice(start,start+ 4 ); start += group.length ;++counter;__p += '<div class="list-group-item active"><b> Wall ' +((__t = ( counter )) == null ? '' : __t) +'</b></div>'; for(var i = 0; i < group.length; i++) {;__p += '<div class="list-group-item">' +((__t = ( group[i].username )) == null ? '' : __t) +'</div>';};__p += '</div>';};__p += '</div>'; } ; var elementalist = _.where(zerg,{profession:'elementalist'}) ; var ele_group = elementalist.slice(0, 6) ; if(ele_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Swirling_Winds.png" /></div><div class="col-lg-3"><div class="list-group-item active"><b>Swirling Winds</b></div>'; _.each(ele_group,function(ele,idx){;__p += '<div class="list-group-item"><span>SW #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( ele.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ; var warrior = _.where(zerg,{profession:'warrior'}) ; var war_group = warrior.slice(0,6) ; if(war_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Battle_Standard.png" /></div><div class="col-lg-3"><div class="list-group-item active"><b>Battle Standard</b></div>'; _.each(war_group,function(war,idx){;__p += '<div class="list-group-item"><span>Banner #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( war.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ;}return __p};
 
-this["NL"]["Template"]["user-index"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="col-lg-4"><p class="text-center"><b>' +__e( title ) +'</b></p><p class="text-center">' +__e( configuration) +'</p><div class="text-center"><span><a href="/user/organization/' +__e(idorganization) +'/view" role="button" class="btn btn-primary">View</a></span></div></div>';}return __p};
+this["NL"]["Template"]["user-index"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="col-offset-lg-1 col-lg-3"><div class="thumbnail"><p class="text-center"><b>' +__e( title ) +'</b></p><p class="text-center">' +__e( configuration) +'</p><p class="text-center"><span class="label label-success">' +__e( description ) +'</span></p><div class="text-center"><span><a href="/user/organization/' +__e(idorganization) +'/view" role="button" class="btn btn-primary btn-sm">Join The Fight</a></span></div></div></div>';}return __p};
 
-this["NL"]["Template"]["user-organization-register"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-12"><h3 class="text-center"><b>' +((__t = ( obj.user.title )) == null ? '' : __t) +'</b></h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.description ) +'</h3></div><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.displayname != '' ? obj.user.displayname : obj.user.username ) +'</h3></div></div><div class="row centered">'; if (obj.user.idstatus == 2) { ;__p += '<div class="col-lg-6"><div class="radio-select profession">'; for(var i = 0; i < obj.userprofessions.length; i++ ){ ;if(registry.idprofession ==  obj.userprofessions[i].idprofession){;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big selected" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" checked /></span>';} else {;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" /></span>'; } ; } ;__p += '</div></div>'; if( obj.user.pickbanner == true ) { ;__p += '<div class="col-lg-2"><div class="check-select banner">'; if(registry.havebanner == true) {;__p += '<span class="icon banner-icon big selected" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" checked /></span>';} else {;__p += '<span class="icon banner-icon big" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickfood  == true ) { ;__p += '<div class="col-lg-2"><div class="check-select food">'; if(registry.havefood == true) {;__p += '<span class="icon food-icon big selected" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" checked /></span>';}else{;__p += '<span class="icon food-icon big" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickcommander  == 1 ) { ;__p += '<div class="col-lg-2"><div class="radio-select commander">'; var comm = ["blue","yellow","purple","red"]; ; for (var i = 0 ; i< comm.length; i++){ ;if( registry.haveTag == comm[i]){;__p += '<span class="icon ' +__e( comm[i]) +'-icon big selected" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" checked/></span>';}else{;__p += '<span class="icon ' +__e( comm[i]) +'-icon big" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" /></span>';}; };__p += '<span class="icon no-commander-icon big" data-input="" ><input type="radio" name="havetag" value="" /></span></div></div>'; } ;__p += '<div class="col-lg-12"><span class="pull-right"><button class="btn btn-primary">Save</button></span></div>'; } else {;__p += '<div class="col-lg-2"><div class="profession"><span class="icon ' +__e( registry.name ) +'-icon big"></span></div></div>'; if( user.pickbanner === true && registry.havebanner === true) { ;__p += '<div class="col-lg-2"><div class="banner"><span class="icon banner-icon big"></span></div></div>'; } ; if( user.pickfood === true && registry.havefood === true) { ;__p += '<div class="col-lg-2"><div class="food"><span class="icon food-icon big"></span></div></div>'; } ;};__p += '</div>';}return __p};
+this["NL"]["Template"]["user-organization-register"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="well"><div class="row"><div class="col-lg-6"><h3 class="text-center">' +__e( obj.user.displayname != '' ? obj.user.displayname : obj.user.username ) +'</h3></div><div class="col-lg-6"><h3 class="text-center"><b>' +((__t = ( obj.user.title )) == null ? '' : __t) +'</b> - ' +__e( obj.user.description ) +'</h3></div></div><div class="row centered">'; if (obj.user.idstatus == 2) { ;__p += '<div class="col-lg-6"><div class="radio-select profession">'; for(var i = 0; i < obj.userprofessions.length; i++ ){ ;if(registry.idprofession ==  obj.userprofessions[i].idprofession){;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big selected" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" checked /></span>';} else {;__p += '<span class="icon ' +__e( obj.userprofessions[i].name ) +'-icon big" data-input="' +__e( obj.userprofessions[i].idprofession ) +'" ><input name="idprofession" value="' +__e( obj.userprofessions[i].idprofession ) +'" type="radio" /></span>'; } ; } ;__p += '</div></div>'; if( obj.user.pickbanner == true ) { ;__p += '<div class="col-lg-2"><div class="check-select banner">'; if(registry.havebanner == true) {;__p += '<span class="icon banner-icon big selected" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" checked /></span>';} else {;__p += '<span class="icon banner-icon big" data-input="ok" ><input type="checkbox" name="havebanner" value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickfood  == true ) { ;__p += '<div class="col-lg-2"><div class="check-select food">'; if(registry.havefood == true) {;__p += '<span class="icon food-icon big selected" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" checked /></span>';}else{;__p += '<span class="icon food-icon big" data-input="ok" ><input type="checkbox" name="havefood"  value="ok" /></span>';};__p += '</div></div>'; } ; if( obj.user.pickcommander  == 1 ) { ;__p += '<div class="col-lg-2"><div class="radio-select commander">'; var comm = ["blue","yellow","purple","red"]; ; for (var i = 0 ; i< comm.length; i++){ ;if( registry.haveTag == comm[i]){;__p += '<span class="icon ' +__e( comm[i]) +'-icon big selected" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" checked/></span>';}else{;__p += '<span class="icon ' +__e( comm[i]) +'-icon big" data-input="' +__e( comm[i]) +'"><input type="radio" name="havetag" value="' +__e( comm[i]) +'" /></span>';}; };__p += '<span class="icon no-commander-icon big" data-input="" ><input type="radio" name="havetag" value="" /></span></div></div>'; } ;__p += '<div class="col-lg-12"><span class="pull-right"><button class="btn btn-primary">Sign Up For Duty</button></span></div>'; } else {;__p += '<div class="col-lg-2"><div class="profession"><span class="icon ' +__e( registry.name ) +'-icon big"></span></div></div>'; if( user.pickbanner === true && registry.havebanner === true) { ;__p += '<div class="col-lg-2"><div class="banner"><span class="icon banner-icon big"></span></div></div>'; } ; if( user.pickfood === true && registry.havefood === true) { ;__p += '<div class="col-lg-2"><div class="food"><span class="icon food-icon big"></span></div></div>'; } ;};__p += '</div></div>';}return __p};
 
 this["NL"]["Template"]["user-organization"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="user-data"></div><div class="registry-data"></div><div class="party-data"></div>';}return __p};
 this.NL.Mixin = this.NL.Mixin || {};
@@ -15907,7 +15906,7 @@ NL.Collection.OrganizationParty = NL.Collection.OrganizationParty || Backbone.Co
 	getMembers:function(){
 		return _.flatten(_.pluck( this.toJSON(),'members'));
 	},
-	getStatistics:function(){
+	getStatistic:function(){
 		return _.sortBy(
 					_.map(
 						_.countBy(this.getMembers(), 'profession'), function (count, key) { 
@@ -16068,7 +16067,134 @@ NL.Collection.UserIndex = NL.Collection.UserIndex || Backbone.Collection.extend(
 		return response;
 	}		
 }); 
-
+NL.View.AdminOrganization = NL.View.AdminOrganization || Backbone.View.extend({
+	defaults: {
+		timeOutHandler: -1,
+		organization: {},
+		registry: [],
+		partys: [],
+		statistic: [],
+		useroptions:{}
+	},
+	template: NL.Template["user-organization"],
+	initialize: function (options) {
+		this.options = _.extend(this.defaults, options);
+		this.model = new NL.Model.OrganizationStatus({
+			idstatus: this.options.organization.idstatus,
+			idorganization: this.options.organization.idorganization
+		});
+		this.model.on('change', this.statusChange, this);
+		this.render();
+		this.statusChange(this.model);
+		this.startTimer();
+	},
+	render: function () {
+		this.$el.html(this.template(this.options));
+	},
+	startTimer: function () {
+		var self = this;
+		if (this.options.timeOutHandler < 0) {
+			this.options.timeOutHandler = setInterval(function () {
+				self.model.fetch({});
+			}, 10000);
+		}
+	},
+	stopTimer: function () {
+		clearInterval(this.options.timeOutHandler);
+		this.options.timeOutHandler = -1;
+	},
+	userModel:function(){
+		if(this.options.useroptions.registry){
+			return this.options.useroptions.registry;
+		}else{
+			return {idorganization: this.options.organization.idorganization};
+		}	
+	},
+	showUserView: function (save) {
+		this.userView = this.userView || new NL.View.UserOrganizationData({
+			el:'.user-data',
+			userprofessions: this.options.useroptions.userprofessions,
+			user: this.options.useroptions.user,
+			savebutton:save,
+			model: new NL.Model.Registry(this.userModel())		
+		});
+		this.userView.showSave(save);
+	},
+	showPartyView: function (stopTimer) {
+		this.partyView = this.partyView || new NL.View.OrganizationParty({
+			el: '.party-data',
+			partys: this.options.partys,
+			idorganization: this.options.organization.idorganization,
+			jsviewname: this.options.organization.jsviewname
+		});
+		if (stopTimer) {
+			this.partyView.stopTimer();
+		} else {
+			this.partyView.startTimer();
+		}
+	},
+	showRegistryView: function (stopTimer) {
+		this.registryView = this.registryView || new NL.View.OrganizationRegistry({
+			el: '.registry-data',
+			registry: this.options.registry,
+			idorganization: this.options.organization.idorganization
+		});
+		if (stopTimer) {
+			this.registryView.stopTimer();
+		} else {
+			this.registryView.startTimer();
+		}
+	},
+	removeUserView:function(){
+		if(this.userView){
+			this.userView.remove();
+		}
+	},	
+	removeRegistryView:function(){
+		if(this.registryView){
+			this.registryView.remove();
+		}
+	},
+	removePartyView:function(){
+		if(this.partyView){
+			this.partyView.remove();
+		}
+	},	
+	statusChange: function (model) {
+		console.log('status changed:' + model.get('idstatus'));
+		var status = model.get('idstatus');
+		if (status == 1) {
+			this.removeUserView();
+			this.removeRegistryView();
+			this.removePartyView();
+		}
+		if (status == 2) {
+			this.showUserView(true);
+			this.showRegistryView(false);
+			this.removePartyView();
+		}
+		if (status == 3) {
+			this.showUserView(false);
+			this.showRegistryView(true);
+			this.removePartyView();
+		}
+		if (status == 4) {
+			this.showUserView(false);
+			this.showRegistryView(false);
+			this.showPartyView(false);
+		}
+		if (status == 5) {
+			this.showUserView(false);
+			this.removeRegistryView();
+			this.showPartyView(false);
+		}
+		if (status == 6) {
+			this.showUserView(false);
+			this.removeRegistryView();
+			this.stopTimer();
+		}
+	}
+});
 NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 	statisticTemplate: NL.Template["organization-statistic"],
 	template: NL.Template["organization-party"],
@@ -16095,7 +16221,7 @@ NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 	},	
 	render: function () {
 		this.$el.html('');
-		this.$el.append(this.statisticTemplate(this.collection.getStatistics()));
+		this.$el.append(this.statisticTemplate(this.collection.getStatistic()));
 		this.$el.append(NL.Template['organization-foodbanner']({
 				bannerusername: this.collection.getBanner(),
 				foodusername:this.collection.getFood()
@@ -16453,35 +16579,52 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 			this.registryView.startTimer();
 		}
 	},
-	removeViews: function () {
-		
+	removeUserView:function(){
+		if(this.userView){
+			this.userView.remove();
+		}
+	},	
+	removeRegistryView:function(){
+		if(this.registryView){
+			this.registryView.remove();
+		}
 	},
+	removePartyView:function(){
+		if(this.partyView){
+			this.partyView.remove();
+		}
+	},	
 	statusChange: function (model) {
 		console.log('status changed:' + model.get('idstatus'));
 		var status = model.get('idstatus');
 		if (status == 1) {
-			this.removeViews();
+			this.removeUserView();
+			this.removeRegistryView();
+			this.removePartyView();
 		}
 		if (status == 2) {
 			this.showUserView(true);
-			this.showRegistryView();
+			this.showRegistryView(false);
+			this.removePartyView();
 		}
 		if (status == 3) {
 			this.showUserView(false);
-			this.showRegistryView(false);
+			this.showRegistryView(true);
+			this.removePartyView();
 		}
 		if (status == 4) {
 			this.showUserView(false);
 			this.showRegistryView(false);
+			this.removePartyView();
 		}
 		if (status == 5) {
 			this.showUserView(false);
-			this.showRegistryView(true);
+			this.removeRegistryView();
 			this.showPartyView(false);
 		}
 		if (status == 6) {
 			this.showUserView(false);
-			this.showRegistryView(true);
+			this.removeRegistryView();
 			this.showPartyView(true);
 			this.stopTimer();
 		}

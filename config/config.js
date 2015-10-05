@@ -1,22 +1,24 @@
 var path = require('path'),
-    rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'development';
+  rootPath = path.normalize(__dirname + '/..'),
+  env = process.env.NODE_ENV || 'development';
 
 var config = {
   development: {
     root: rootPath,
     app: {
-      name: 'NL Site - DEV'
+      name: 'NL Site - DEV',
+
     },
+    ip: '127.0.0.1',
     port: 3000,
-	db:{
-		"username": "root",
-		"password": "root",
-		"database": "nl",
-		"host": "127.0.0.1",
-		"dialect": "mysql"
-  	},
-    cipher:{
+    db: {
+      "username": "root",
+      "password": "root",
+      "database": "nl",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    cipher: {
       algorithm: 'aes-256-ctr',
       password: 'a very cool password for the cypher'
     }
@@ -27,15 +29,16 @@ var config = {
     app: {
       name: 'NL Site - TEST'
     },
-    port: 3000,
-	db:{
-		"username": "root",
-		"password": "root",
-		"database": "nl",
-		"host": "127.0.0.1",
-		"dialect": "mysql"
-  	},
-     cipher:{
+    ip: process.env.OPENSHIFT_NODE_JS_IP,
+    port: process.env.OPENSHIFT_NODEJS_PORT,
+    db: {
+      "username": "root",
+      "password": "root",
+      "database": "nl",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    cipher: {
       algorithm: 'aes-256-ctr',
       password: 'a very cool password for the cypher'
     }
@@ -46,15 +49,16 @@ var config = {
     app: {
       name: 'NL Site'
     },
-    port: 3000,
-	db:{
-		"username": "root",
-		"password": "root",
-		"database": "nl",
-		"host": "127.0.0.1",
-		"dialect": "mysql"
-  	},
-     cipher:{
+    ip: process.env.OPENSHIFT_NODE_JS_IP,
+    port: process.env.OPENSHIFT_NODEJS_PORT,
+    db: {
+      "username": "root",
+      "password": "root",
+      "database": "nl",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    cipher: {
       algorithm: 'aes-256-ctr',
       password: 'a very cool password for the cypher'
     }

@@ -1,9 +1,18 @@
 <br/>
 <div class="row centered">
+	<%var sum = 0%>
+	<%_.each(obj,function(s){%>
+		<%sum += s.value;%>
+	<% }); %>
+	<div class="col-lg-6">
+		<h4 class="text-center"><b>Participating Players: <%=sum%></b></h4>
+	</div>
+</div>
+<div class="row centered">
 	<% _.each(obj,function(s){ %>
 	<div class="col-lg-1">
 		<span class="<%- s.name %>-icon"></span>
-		<span class="counter"><%- s.value %></span>
+		<label class="counter"><%- s.value %></label>
 	</div>
 	<% }); %>
 </div>

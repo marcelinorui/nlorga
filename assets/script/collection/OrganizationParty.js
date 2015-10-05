@@ -15,7 +15,7 @@ NL.Collection.OrganizationParty = NL.Collection.OrganizationParty || Backbone.Co
 	getMembers:function(){
 		return _.flatten(_.pluck( this.toJSON(),'members'));
 	},
-	getStatistics:function(){
+	getStatistic:function(){
 		return _.sortBy(
 					_.map(
 						_.countBy(this.getMembers(), 'profession'), function (count, key) { 
