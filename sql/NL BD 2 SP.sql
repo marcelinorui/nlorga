@@ -816,7 +816,7 @@ insert into temp_registrys (idregistry,idprofession)
 insert into organizationparty  (idorganization,idpartyname,idregistry,havefood,havebanner, createddate)
 	select in_idorganization, p.idpartyname , r.idregistry ,0 ,0, NOW()
 	from temp_registrys r , temp_partynames p 
-	where r.id % @count +1 = p.id
+	where r.id % @count + 1  = p.id
 	order by p.id;
 
 ## get 1 random food
@@ -853,4 +853,4 @@ END
 $$
 DELIMITER ;
 
-##Call populatePartyRegistrys(1);
+##Call populatePartyRegistrys(3);

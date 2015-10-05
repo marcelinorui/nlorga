@@ -24,26 +24,6 @@
 </div>
 <% } %>
 
-<% var elementalist = _.where(zerg,{profession:'elementalist'}) %>
-<% var ele_group = elementalist.slice(0, 6) %>
-<% if(ele_group.length > 0) {%>
-<br />
-<div class="row">
-	<div class="col-lg-3">
-		<img src="/img/skills/Swirling_Winds.png" />
-	</div>
-	<div class="col-lg-3">
-	<div class="list-group-item active"><b>Swirling Winds</b></div>
-	<% _.each(ele_group,function(ele,idx){%>
-	<div class="list-group-item">
-		<span>SW #<%= (idx+1) %></span>
-		<span class="pull-right"><%= ele.username%></span>
-	</div>
-<% }); %>
-	</div>
-</div>
-<% } %>
-
 <% var warrior = _.where(zerg,{profession:'warrior'}) %>
 <% var war_group = warrior.slice(0,6) %> 
 <% if(war_group.length > 0) {%>
@@ -58,6 +38,26 @@
 	<div class="list-group-item">
 		<span>Banner #<%= (idx+1) %></span>
 		<span class="pull-right"><%= war.username%></span>
+	</div>
+<% }); %>
+	</div>
+</div>
+<% } %>
+
+<% var elementalist = _.where(zerg,{profession:'elementalist'}) %>
+<% var ele_group = elementalist.slice(0, 6) %>
+<% if(ele_group.length > 0) {%>
+<br />
+<div class="row">
+	<div class="col-lg-3">
+		<img src="/img/skills/Swirling_Winds.png" />
+	</div>
+	<div class="col-lg-3">
+	<div class="list-group-item active"><b>Swirling Winds</b></div>
+	<% _.each(ele_group,function(ele,idx){%>
+	<div class="list-group-item">
+		<span>SW #<%= (idx+1) %></span>
+		<span class="pull-right"><%= ele.username%></span>
 	</div>
 <% }); %>
 	</div>

@@ -30,7 +30,7 @@ function base(passport) {
 			}
 			req.login(user, { session: true }, function (err) {
 				if (err) { return next(err) }
-				return res.redirect('/user/');
+				return res.redirect('/user');
 			});
 		})(req, res, next)
 	});

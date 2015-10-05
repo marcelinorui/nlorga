@@ -5,6 +5,7 @@ NL.Collection.OrganizationParty = NL.Collection.OrganizationParty || Backbone.Co
 	},
 	defaults: {
 		idorganization: -1,
+		username:''
 	},
 	initialize: function (models,options) {
 		this.options = _.extend(this.defaults, options);

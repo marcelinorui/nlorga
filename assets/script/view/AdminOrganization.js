@@ -56,6 +56,7 @@ NL.View.AdminOrganization = NL.View.AdminOrganization || Backbone.View.extend({
 			el: '.party-data',
 			partys: this.options.partys,
 			idorganization: this.options.organization.idorganization,
+			username:this.options.useroptions.user.username,
 			jsviewname: this.options.organization.jsviewname
 		});
 		if (stopTimer) {
@@ -68,6 +69,7 @@ NL.View.AdminOrganization = NL.View.AdminOrganization || Backbone.View.extend({
 		this.registryView = this.registryView || new NL.View.OrganizationRegistry({
 			el: '.registry-data',
 			registry: this.options.registry,
+			username:this.options.useroptions.user.username,
 			idorganization: this.options.organization.idorganization
 		});
 		if (stopTimer) {
@@ -106,12 +108,12 @@ NL.View.AdminOrganization = NL.View.AdminOrganization || Backbone.View.extend({
 		}
 		if (status == 3) {
 			this.showUserView(false);
-			this.showRegistryView(true);
-			this.removePartyView();
+			this.showRegistryView(false);
+			this.showPartyView(false);
 		}
 		if (status == 4) {
 			this.showUserView(false);
-			this.showRegistryView(false);
+			this.showRegistryView(true);
 			this.showPartyView(false);
 		}
 		if (status == 5) {
@@ -122,6 +124,7 @@ NL.View.AdminOrganization = NL.View.AdminOrganization || Backbone.View.extend({
 		if (status == 6) {
 			this.showUserView(false);
 			this.removeRegistryView();
+			this.showPartyView(true);
 			this.stopTimer();
 		}
 	}

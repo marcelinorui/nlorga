@@ -56,6 +56,7 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 			el: '.party-data',
 			partys: this.options.partys,
 			idorganization: this.options.organization.idorganization,
+			username:this.options.useroptions.user.username,
 			jsviewname: this.options.organization.jsviewname
 		});
 		if (stopTimer) {
@@ -68,6 +69,7 @@ NL.View.UserOrganization = NL.View.UserOrganization || Backbone.View.extend({
 		this.registryView = this.registryView || new NL.View.OrganizationRegistry({
 			el: '.registry-data',
 			registry: this.options.registry,
+			username:this.options.useroptions.user.username,
 			idorganization: this.options.organization.idorganization
 		});
 		if (stopTimer) {

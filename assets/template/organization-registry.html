@@ -1,10 +1,14 @@
 <div class="row">
 <% for (var col = 0; col < 4; col++) {%>	
-	<% var registrys_col = _.select(obj,function(r,idx){ return idx%4 == col; })%>
+	<% var registrys_col = _.select(registrys,function(r,idx){ return idx%4 == col; })%>
 	<div class="col-lg-3">
 		<div class="list-group">
 		<% _.each(registrys_col,function(r){ %>
+			<% if ( r.username == obj.username ){%>  
+			<div class="list-group-item list-group-item-success">
+			<%}else{%>
 			<div class="list-group-item">
+			<%}%>
 				<span class="<%- r.profession%>-icon"></span>
 				<% if( r.haveTag != '' ) { %>
 					<span class="<%- r.commander%>-icon"></span>

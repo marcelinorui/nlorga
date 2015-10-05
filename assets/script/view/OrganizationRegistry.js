@@ -4,13 +4,15 @@ NL.View.OrganizationRegistry = NL.View.OrganizationRegistry || Backbone.View.ext
 	defaults: {
 		timeOutHandler: -1,
 		idorganization: -1,
+		username:'',
 		registry: []
 	},
 	initialize: function (options) {
 		this.options = _.extend(this.defaults, options);
 		this.collection = new NL.Collection.OrganizationRegistry(
 			this.options.registry, {
-				idorganization: this.options.idorganization
+				idorganization: this.options.idorganization,
+				username:this.options.username
 			});
 		this.collection.on('reset', this.render, this);
 		if(this.collection.length === 0){
@@ -22,7 +24,10 @@ NL.View.OrganizationRegistry = NL.View.OrganizationRegistry || Backbone.View.ext
 	render: function () {
 		this.$el.html('');
 		this.$el.append(this.statisticTemplate(this.collection.getStatistic()));
-		this.$el.append(this.template(this.collection.toJSON()));
+		this.$el.append(this.template({
+			registrys: this.collection.toJSON(), 
+			username:this.collection.options.username
+		}));
 	},
 	startTimer: function () {
 		var self = this;

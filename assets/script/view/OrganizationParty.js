@@ -5,7 +5,11 @@ NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 		timeOutHandler: -1,
 		idorganization: -1,
 		jsviewname: '',
+		username:'',
 		partys: []
+	},
+	events:{
+		'click .player':'playerClick'	
 	},
 	initialize: function (options) {
 		this.options = _.extend(this.defaults, options);
@@ -13,7 +17,8 @@ NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 		this.collection = new PartyCollection(
 			this.defaults.partys,
 			{
-				idorganization: this.options.idorganization
+				idorganization: this.options.idorganization,
+				username:this.options.username
 			});
 		this.collection.on('reset', this.render, this);
 		if(this.collection.length === 0){
@@ -30,7 +35,9 @@ NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 				foodusername:this.collection.getFood()
 			}
 		));
-		this.$el.append(this.template(this.collection.toJSON()));
+		this.$el.append(this.template({
+			partys: this.collection.toJSON(),
+			username: this.collection.options.username}));
 		if ( this.options.jsviewname ){
 			this.$el.append(NL.Template[this.options.jsviewname](this.collection.toJSON()));
 		}
@@ -47,4 +54,7 @@ NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 		clearInterval(this.options.timeOutHandler);
 		this.options.timeOutHandler = -1;
 	},
+	playerClick:function(e){
+		console.log('Player Click');
+	}
 });

@@ -3,7 +3,7 @@ var hash = require('password-hasher'),
 
 var utils = {
     createHashAndSalt: function (password) {
-        return hash.createHashAndSalt('ssha512', password, 128);
+        return hash.createHashAndSalt('ssha', password, 128);
     },
     shuffleList: function shuffleList(list) {
         var randId = 0;
