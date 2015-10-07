@@ -36,8 +36,12 @@ module.exports = function (app, db, config) {
   }));
   app.use(flash());
   
+  app.use(function (req, res, next) {
+      res.pagetitle = config.app.name;
+      next();
+  });
+  
   app.use(express.static( config.root + '/public'));
-
   app.use(methodOverride());
 
   require('./authentication.js')(passport);

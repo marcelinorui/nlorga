@@ -32,10 +32,10 @@ var config = {
     ip: process.env.OPENSHIFT_NODE_JS_IP,
     port: process.env.OPENSHIFT_NODEJS_PORT,
     db: {
-      "username": "root",
-      "password": "root",
-      "database": "nl",
-      "host": "127.0.0.1",
+      "username": process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+      "password": process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+      "database": process.env.OPENSHIFT_MYSQL_DB_HOST,
+      "host": process.env.OPENSHIFT_GEAR_NAME,
       "dialect": "mysql"
     },
     cipher: {
@@ -45,17 +45,17 @@ var config = {
   },
 
   production: {
-    root: rootPath,
+     root: rootPath,
     app: {
       name: 'NL Site'
     },
-    ip: process.env.OPENSHIFT_NODE_JS_IP,
+    ip: process.env.OPENSHIFT_NODEJS_IP,
     port: process.env.OPENSHIFT_NODEJS_PORT,
     db: {
-      "username": "root",
-      "password": "root",
-      "database": "nl",
-      "host": "127.0.0.1",
+      "username": process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+      "password": process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+      "database": process.env.OPENSHIFT_MYSQL_DB_HOST,
+      "host": process.env.OPENSHIFT_GEAR_NAME,
       "dialect": "mysql"
     },
     cipher: {
