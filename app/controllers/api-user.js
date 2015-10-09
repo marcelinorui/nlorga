@@ -1,19 +1,10 @@
 var express = require('express'),
-		db = require('./../models/index.js');
-
-var isUserAuthenticated = function (req, res, next) {
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	else {
-		res.redirect('/login');
-	}
-};
+		db = require('./../db/index.js');
 
 function api(passport) {
 	var router = express.Router();
 	
-	router.use(isUserAuthenticated);
+	router.use(require('../utils/auth.js').isUserAuthenticated);
 	
 	router.get('/', function (req, res) {
 		res.status(200).json('ok');

@@ -40,7 +40,7 @@ Organization.prototype.getOrganization = function (idorganization, callback) {
 				case 1:
 					data.partyconfiguration = self.getTable(rows, fields, 1);
 					break;
-				case 2:					
+				case 2:
 				case 3:
 					data.registry = self.getTable(rows, fields, 1);
 					data.statistic = self.getTable(rows, fields, 2);
@@ -177,15 +177,15 @@ Organization.prototype.getPartys = function (idorganization, callback) {
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
 			var registrys = self.getTable(rows, fields);
-			
-			var partys = _.map(_.groupBy(registrys, 'partyname'), function (value,key) {
-						var aux = {
-							partyname: key,
-							members: value
-						};
-						return aux;
-					});
-			
+
+			var partys = _.map(_.groupBy(registrys, 'partyname'), function (value, key) {
+				var aux = {
+					partyname: key,
+					members: value
+				};
+				return aux;
+			});
+
 			callback(err, partys);
 		} else {
 			callback(err, null);
@@ -262,7 +262,7 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 			data.organization = self.getFirstRow(rows, fields, 3);
 			switch (data.organization.idstatus) {
 				case 1:
-				
+
 					data.partyconfiguration = self.getFirstRow(rows, fields, 4);
 					break;
 				case 2:
@@ -307,13 +307,13 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 	});
 };
 
-Organization.prototype.getOrganizationStatus = function(idorganization, callback){
+Organization.prototype.getOrganizationStatus = function (idorganization, callback) {
 	var sql = 'CALL getOrganizationStatus(?)';
 	var params = [idorganization];
 	var query = mysql.format(sql, params);
 	var self = this;
 	this.db.query(query, function (err, rows, fields) {
-		if(!err){
+		if (!err) {
 			var status = self.getFirstRow(rows, fields);
 			callback(err, status);
 		} else {
@@ -322,8 +322,8 @@ Organization.prototype.getOrganizationStatus = function(idorganization, callback
 	});
 };
 
-Organization.prototype.makeOrganizationPartys = function(idorganization,groupSize, callback){
-	var sql = 'CALL makeOrganizationPartys(?,?)';
+Organization.prototype.makeOrganizationPartys = function (idorganization, groupSize, callback) {
+	/*var sql = 'CALL makeOrganizationPartys(?,?)';
 	var params = [idorganization, groupSize];
 	var query = mysql.format(sql, params);
 	
@@ -333,6 +333,24 @@ Organization.prototype.makeOrganizationPartys = function(idorganization,groupSiz
 		} else {
 			callback(err, null);
 		}
+	});*/
+	var self = this;
+	self.getRegistrysForPartys(idorganization, function (err, registrys) {
+		if (!err) {							
+			//make the partys						
+			var partys = utils.makePartys(registrys, groupSize, idorganization);
+			//insert the partys into DB
+			self.cleanPartys(idorganization, function (err, data) {
+				if (!err) {
+					self.addPartys(partys, function (err, ok) {
+						return callback(err, ok);
+					});
+				} else {
+					return callback(err,null);
+				}
+			});
+		} 
+		return callback(err,null);
 	});
 };
 

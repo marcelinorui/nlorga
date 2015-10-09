@@ -23,7 +23,6 @@ var config = {
       password: 'a very cool password for the cypher'
     }
   },
-
   test: {
     root: rootPath,
     app: {

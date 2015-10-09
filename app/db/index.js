@@ -28,14 +28,12 @@ var db = {
       })
       .forEach(function (file) {
         if (file.slice(-3) !== '.js') return;
-        var Model = require(path.join(__dirname, file));
-        db[file.replace('.js', '')] = new Model(self.pool);
+        var DB = require(path.join(__dirname, file));
+        db[file.replace('.js', '')] = new DB(self.pool);
       });
 
     fn();
   }
 };
-
-/* Add Relations Between Models */
 
 module.exports = db;

@@ -1,66 +1,105 @@
-var util = require('util'),
-    mysql = require('mysql'),
-    Base = require('./../sql/base.js'),
-    utils = require('./../utils/utils.js');
-
-function Account(db){
-	Base.apply(this,arguments);
-};
-
-util.inherits(Account, Base);
-
-
-Account.prototype.listAccounts = function( where , order, parameters, itemsPerPage, currentPage, callback){
-	this.paginateQuery('Login' , 
-	['idlogin','username','displayname','hascommanderTag','isAdmin','createddate','updateddate','enddate'], 
-	where ,
-	order, 
-	parameters,
-	itemsPerPage,
-	currentPage,
-	callback); 
-};
-
-Account.prototype.getAccount = function(idlogin, callback){
-	var sql = 'CALL getAccount(?)';
-	var params = [idlogin];
-	var query = mysql.format(sql, params);
-	var self = this;
-	this.db.query(query, function (err, rows, fields) {
+var db = require('./../db/index.js'),
+	utils = require('./../utils/utils.js');
+	
+module.exports.listUrl = '/accounts';
+module.exports.list = function (req, res, next) {
+	db.Account.listAccounts('', '', null, null, null, function (err, accounts) {
 		if (!err) {
-			var out = self.getFirstRow(rows,fields,0);
-			callback(err, out);
+			req.session.accounts = accounts;
 		} else {
-			callback(err, null);
+			req.flash('error', 'SQL Error.')
 		}
+		return next(err);
 	});
 };
-
-Account.prototype.createAccount = function(username,password,displayname,salt,hascommanderTag,isAdmin,callback){
-	var sql = 'CALL createAccount(?,?,?,?,?,?)';
-	var params = [username,password,displayname,salt,hascommanderTag,isAdmin];
-	var query = mysql.format(sql, params);
-	this.db.query(query, function (err, rows, fields) {
-		if (!err) {
-			callback(err, "ok");
-		} else {
-			callback(err, null);
-		}
-	});
+module.exports.listResponse = function (req, res) {
+	var Response = require('./../response/admin-accounts-response.js');
+	res.render('admin-accounts', new Response(req))
 };
 
-
-Account.prototype.updateAccount = function(idlogin,username,displayname,hascommanderTag,isAdmin,forDelete,callback){
-	var sql = 'CALL updateAccount(?,?,?,?,?,?)';
-	var params = [idlogin,username,displayname,hascommanderTag,isAdmin,forDelete];
-	var query = mysql.format(sql, params);
-	this.db.query(query, function (err, rows, fields) {
+module.exports.getUrl = '/account/:id/edit';
+module.exports.get = function (req, res, next) {
+	db.Account.getAccount(req.params.id, function (err, account) {
 		if (!err) {
-			callback(err, "ok");
+			req.session.account = account;
 		} else {
-			callback(err, null);
+			req.flash('error', 'SQL Error.')
 		}
+		return next(err);
 	});
 };
+module.exports.getResponse = function (req, res, next) {
+	var Response = require('./../response/admin-account-edit-response.js');
+	res.render('admin-account-edit', new Response(req));
+};
 
-module.exports = Account;
+module.exports.updateUrl = '/account/:id/edit';
+module.exports.update = function (req, res, next) {
+	var account = {
+		idlogin: req.params.id,
+		username: req.body.username,
+		displayname: req.body['displayname'] ? req.body.displayname : '',
+		hascommanderTag: req.body['hascommanderTag'] ? 1 : 0,
+		isAdmin: req.body['isAdmin'] ? 1 : 0,
+		forDelete: req.body['forDelete'] ? 1 : 0
+	};
+
+	db.Account.updateAccount(
+		account.idlogin,
+		account.username,
+		account.displayname,
+		account.hascommanderTag,
+		account.isAdmin,
+		account.forDelete,
+		function (err, ok) {
+			if (!err) {
+				req.flash('success', 'Account changed successfully.');
+			} else {
+				req.flash('error', 'SQL Error.')
+			}
+			return next(err);
+		});
+};
+module.exports.updateResponse = function (req, res, next) {
+	res.redirect('/admin/account/' + req.params.id + '/edit');
+};
+
+module.exports.createUrl = '/account/create'
+module.exports.create = function (req, res, next) {
+	next();
+};
+module.exports.createResponse = function (req, res, next) {
+	var Response = require('./../response/admin-account-create-response.js');
+	res.render('admin-account-create', new Response(req));
+};
+
+module.exports.insertUrl = '/account/create';
+module.exports.insert = function (req, res, next) {
+		var code = utils.createHashAndSalt(req.body.password);
+		var account = {
+			username: req.body.username,
+			password: code.hash.toString('utf8'),
+			displayname: req.body['displayname'] ? req.body.displayname : '',
+			salt: code.salt.toString('utf8'),
+			hascommanderTag: req.body['hascommanderTag'] ? 1 : 0,
+			isAdmin: req.body['isAdmin'] ? 1 : 0
+		};
+
+		db.Account.createAccount(
+			account.username,
+			account.password,
+			account.displayname,
+			account.salt,
+			account.hascommanderTag,
+			account.isAdmin
+			, function (err, ok) {
+				if (!err) {
+					req.flash('success', 'A new account was created successfully.');
+				}
+				next(err);
+			});
+};
+
+module.exports.insertResponse = function(req,res,next){
+	res.redirect('/admin/accounts');
+};

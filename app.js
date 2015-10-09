@@ -1,6 +1,6 @@
 var express = require('express'),
   config = require('./config/config'),
-  db = require('./app/models');
+  db = require('./app/db');
 
 var app = express();
 

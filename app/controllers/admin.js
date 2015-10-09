@@ -1,120 +1,25 @@
 var express = require('express'),
-	db = require('./../models/index.js'),
-	utils = require('./../utils/utils.js');
+	db = require('./../db/index.js'),
+	utils = require('./../utils/utils.js'),
+	account = require('./../models/Account.js');
 
 
-function isAdminAuthenticated(req, res, next) {
-	if (req.isAuthenticated()) {
-		if (req.user.isAdmin === true) {
-			return next();
-		} else {
-			res.redirect('/no-permitions');
-		}
-	}
-	else {
-		res.redirect('/login');
-	}
-};
 
 function admin(passport) {
 	var router = express.Router();
 
-	router.use(isAdminAuthenticated);
+	router.use(require('../utils/auth.js').isAdminAuthenticated);
 
 	router.get('/', function (req, res, next) {
 		var Response = require('./../response/admin-accounts-response.js');
 		res.render('admin', new Response(req));
 	});
 
-	router.get('/accounts', function (req, res, next) {
-		db.Account.listAccounts('', '', null, null, null, function (err, accounts) {
-			if (!err) {
-				req.session.accounts = accounts;
-			} else {
-				req.flash('error', 'SQL Error.')
-			}
-			return next(err);
-		});
-	}, function (req, res) {
-		var Response = require('./../response/admin-accounts-response.js');
-		res.render('admin-accounts', new Response(req))
-	});
-
-	router.get('/account/:id/edit', function (req, res, next) {
-		db.Account.getAccount(req.params.id, function (err, account) {
-			if (!err) {
-				req.session.account = account;
-			} else {
-				req.flash('error', 'SQL Error.')
-			}
-			return next(err);
-		})
-	}, function (req, res, next) {
-		var Response = require('./../response/admin-account-edit-response.js');
-		res.render('admin-account-edit', new Response(req));
-	});
-
-	router.post('/account/:id/edit', function (req, res, next) {
-		var account = {
-			idlogin: req.params.id,
-			username: req.body.username,
-			displayname: req.body['displayname'] ? req.body.displayname : '',
-			hascommanderTag: req.body['hascommanderTag'] ? 1 : 0,
-			isAdmin: req.body['isAdmin'] ? 1 : 0,
-			forDelete: req.body['forDelete'] ? 1 : 0
-		};
-
-		db.Account.updateAccount(
-			account.idlogin,
-			account.username,
-			account.displayname,
-			account.hascommanderTag,
-			account.isAdmin,
-			account.forDelete,
-			function (err, ok) {
-				if (!err) {
-					req.flash('success', 'Account changed successfully.');
-				} else {
-					req.flash('error', 'SQL Error.')
-				}
-				return next(err);
-			})
-	}, function (req, res, next) {
-		res.redirect('/admin/account/' + req.params.id + '/edit');
-	});
-
-	router.get('/account/create', function (req, res, next) {
-		var Response = require('./../response/admin-account-create-response.js');
-		res.render('admin-account-create', new Response(req));
-	});
-
-	router.post('/account/create', isAdminAuthenticated, function (req, res, next) {
-		var code = utils.createHashAndSalt(req.body.password);
-		var account = {
-			username: req.body.username,
-			password: code.hash.toString('utf8'),
-			displayname: req.body['displayname'] ? req.body.displayname : '',
-			salt: code.salt.toString('utf8'),
-			hascommanderTag: req.body['hascommanderTag'] ? 1 : 0,
-			isAdmin: req.body['isAdmin'] ? 1 : 0
-		};
-
-		db.Account.createAccount(
-			account.username,
-			account.password,
-			account.displayname,
-			account.salt,
-			account.hascommanderTag,
-			account.isAdmin
-			, function (err, ok) {
-				if (!err) {
-					req.flash('success', 'A new account was created successfully.');
-				}
-				next(err);
-			});
-	}, function (req, res) {
-		res.redirect('/admin/accounts');
-	});
+	router.get(account.listUrl, account.list, account.listResponse);
+	router.get(account.getUrl, account.get, account.getResponse);
+	router.post(account.updateUrl,account.update, account.updateResponse);
+	router.get(account.createUrl,account.create,account.createResponse);
+	router.post(account.insertUrl, account.insert,account.insertResponse);  
 
 	router.get('/organizations', function (req, res, next) {
 		db.Organization.listOrganizations('', '', null, null, null, function (err, organizations) {

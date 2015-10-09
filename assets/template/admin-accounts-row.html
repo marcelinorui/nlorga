@@ -1,4 +1,4 @@
-<tr <% if (obj.enddate.substring(0,10) != '9999-12-31'){%>class="text-strikeout"<% }%> >
+<tr <% if (obj.enddate){%>class="text-strikeout"<% }%> >
 	<td><%- obj.idlogin %></td>
 	<td><%- obj.username %></td>
 	<td><%- obj.displayname %></td>
@@ -8,9 +8,13 @@
 		<% } %>						
 	</td>
 	<td>
-		<% if (obj.isAdmin == 1) {%>
-			<span class="glyphicon glyphicon-ok text-success"></span>
-		<% } %>
+		<% if (obj.idrole === 1) {%>
+			Guild Member
+		<% } else if (obj.idrole === 2){%>
+			Commander
+		<% } else if (obj.idrole >= 3){%>
+			Administrator
+		<% }%>
 	</td>
 	<td><%- obj.createddate.substring(0,10) %></td>
 	<td>
