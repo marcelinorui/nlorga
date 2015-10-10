@@ -1,246 +1,245 @@
-USE `nl`;
-
+use `nl`;
 ##############################################################
-#						LOGIN
+#						login
 ##############################################################
 
-DROP procedure IF EXISTS `verifyLogin`;
-DELIMITER $$
-CREATE PROCEDURE `verifyLogin`(
+drop procedure if exists `verifylogin`;
+delimiter $$
+create procedure `verifylogin`(
 	in_username varchar(50),
 	in_password varchar(128)
 )
-BEGIN	
-    SELECT password, salt
+begin	
+    select password, salt
     into @password, @salt
 	from login
 	where username = in_username;
 	
 	if sha1(concat(@salt,in_password)) = @password then
 	
-		select idlogin, username,displayname, hascommanderTag, isAdmin
+		select idlogin, username,displayname, hascommandertag, idrole
         from login
         where username = in_username
         and enddate > now();
 	else
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid username/password ';
+		signal sqlstate '45000' set message_text = 'Invalid username/password ';
 	end if;
-END$$
-DELIMITER ;
+end$$
+delimiter ;
 
 
 ##############################################################
-##						USER
+##						user
 ##############################################################
 
-DROP procedure IF EXISTS `changeLoginPassword`;
-DELIMITER $$
-CREATE PROCEDURE `changeLoginPassword` (
+drop procedure if exists `changeloginpassword`;
+delimiter $$
+create procedure `changeloginpassword` (
 in_idlogin int,
 in_password varchar(128)
 )
-BEGIN
-	Update `login`
-    Set `password` = sha1(concat(salt,in_password)),
-		updatedDate = NOW()
-    WHERE idlogin = in_idlogin;
-END
+begin
+	update `login`
+    set `password` = sha1(concat(salt,in_password)),
+		updateddate = now()
+    where idlogin = in_idlogin;
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `changeUserProfile`;
-DELIMITER $$  
-CREATE PROCEDURE changeUserProfile(
+drop procedure if exists `changeuserprofile`;
+delimiter $$  
+create procedure changeuserprofile(
 	in_idlogin int,
     in_displayname varchar(50),
-    in_hascommanderTag tinyint,
+    in_hascommandertag tinyint,
     in_professions varchar(255),
     in_split varchar(1)
 )
-BEGIN
+begin
 	
     delete from loginprofession
     where idlogin = in_idlogin;
     
-	SET @String      = in_professions;
-	SET @Occurrences = LENGTH(@String) - LENGTH(REPLACE(@String, in_split, ''));
-	myloop: WHILE (@Occurrences > 0)
-	DO 
-		SET @myValue = SUBSTRING_INDEX(@String, ',', 1);
-		IF (@myValue != '') THEN
+	set @string      = in_professions;
+	set @occurrences = length(@string) - length(replace(@string, in_split, ''));
+	myloop: while (@occurrences > 0)
+	do 
+		set @myvalue = substring_index(@string, ',', 1);
+		if (@myvalue != '') then
 		
 			set @in_profession = cast(@myvalue as unsigned int);
 			
 			insert into loginprofession 
 			values (in_idlogin,@in_profession);
 			
-		ELSE
-			LEAVE myloop; 
-		END IF;
-		SET @Occurrences = LENGTH(@String) - LENGTH(REPLACE(@String, in_split, ''));
-		IF (@occurrences = 0) THEN 
-			LEAVE myloop; 
-		END IF;
-		SET @String = SUBSTRING(@String,LENGTH(SUBSTRING_INDEX(@String, in_split, 1))+2);
-	END WHILE; 
+		else
+			leave myloop; 
+		end if;
+		set @occurrences = length(@string) - length(replace(@string, in_split, ''));
+		if (@occurrences = 0) then 
+			leave myloop; 
+		end if;
+		set @string = substring(@string,length(substring_index(@string, in_split, 1))+2);
+	end while; 
     
     update login
     set displayname = in_displayname,
-		hascommanderTag = in_hascommanderTag,
-        updateddate = NOW()
+		hascommandertag = in_hascommandertag,
+        updateddate = now()
 	where idlogin = in_idlogin;
     
-END $$
-DELIMITER ;
+end $$
+delimiter ;
 
-DROP procedure IF EXISTS `getUserProfile`;
-DELIMITER $$
-CREATE PROCEDURE `getUserProfile` (
-	in_idlogin INT
+drop procedure if exists `getuserprofile`;
+delimiter $$
+create procedure `getuserprofile` (
+	in_idlogin int
 )
-BEGIN
-	select l.displayname,l.username, l.hascommanderTag
+begin
+	select l.displayname,l.username, l.hascommandertag
     from login l 
     where l.idlogin = in_idlogin;
 
-SELECT p.name, count(l.idlogin)  as active 
- FROM loginProfession l
-	right JOIN profession p
-    ON l.idprofession = p.idprofession 
+select p.name, count(l.idlogin)  as active 
+ from loginprofession l
+	right join profession p
+    on l.idprofession = p.idprofession 
     and l.idlogin = in_idlogin         
     where p.active = 1
     group by p.name
     order by p.idprofession;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 ##############################################################
-##						PROFESSION
+##						profession
 ##############################################################
 
 
 
-DROP procedure IF EXISTS `getAllProfessions`;
-DELIMITER $$
-CREATE PROCEDURE `getAllProfessions` ()
-BEGIN
-SELECT *
- FROM profession p 
+drop procedure if exists `getallprofessions`;
+delimiter $$
+create procedure `getallprofessions` ()
+begin
+select *
+ from profession p 
  where p.active = 1
  order by p.idprofession;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
 ##############################################################
-##						ACCOUNT
+##						account
 ##############################################################
 
 
-DROP procedure IF EXISTS `getAccount`;
-DELIMITER $$
-CREATE PROCEDURE `getAccount` (
-	in_idlogin INT
+drop procedure if exists `getaccount`;
+delimiter $$
+create procedure `getaccount` (
+	in_idlogin int
 )
-BEGIN
-    SELECT idlogin, username, displayname, 
-			hascommanderTag, isAdmin, createddate, updateddate, enddate
+begin
+    select idlogin, username, displayname, 
+			hascommandertag, idrole, createddate, updateddate, enddate
 	from login
 	where idlogin = in_idlogin;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
 
-DROP procedure IF EXISTS `createAccount`;
-DELIMITER $$
-CREATE PROCEDURE `createAccount` (
+drop procedure if exists `createaccount`;
+delimiter $$
+create procedure `createaccount` (
 in_username varchar(50),
 in_password varchar(128),
 in_displayname varchar(50),
 in_salt varchar(128),
-in_hascommanderTag tinyint,
-in_isAdmin tinyint
+in_hascommandertag tinyint,
+in_idrole tinyint
 )
-BEGIN
-	INSERT INTO `login`(`username`,`password`,`salt`,`displayname`,`hascommanderTag`,`isAdmin`,`createddate`,`updateddate`,`enddate`)
-	VALUES (in_username,
+begin
+	insert into `login`(`username`,`password`,`salt`,`displayname`,`hascommandertag`,`idrole`,`createddate`,`updateddate`,`enddate`)
+	values (in_username,
 		    in_password,
             in_salt,
             in_displayname,
-            in_hascommanderTag,
-			in_isAdmin,
-			NOW(),
-			NOW(),
-			'9999-12-31 23:59:59');
-END
+            in_hascommandertag,
+			in_idrole,
+			now(),
+			now(),
+			NULL);
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
 
-DROP procedure IF EXISTS `updateAccount`;
-DELIMITER $$
-CREATE PROCEDURE `updateAccount` (
+drop procedure if exists `updateaccount`;
+delimiter $$
+create procedure `updateaccount` (
 	in_idlogin int,
 	in_username varchar(50),
 	in_displayname varchar(50),
-	in_hascommanderTag tinyint,
-	in_isAdmin tinyint,
+	in_hascommandertag tinyint,
+	in_idrole tinyint,
 	in_delete tinyint
 )
-BEGIN
-	Update `login`
-    Set isAdmin = in_isAdmin,
+begin
+	update `login`
+    set idrole = in_idrole,
 		username = in_username,
 		displayname = in_displayname,
-		hascommanderTag = in_hascommanderTag,
-		updateddate = NOW(),
-        enddate = CASE WHEN in_delete = 1 THEN NOW() ELSE '9999-12-31 23:59:59' END
-    WHERE idlogin = in_idlogin;
-END
+		hascommandertag = in_hascommandertag,
+		updateddate = now(),
+        enddate = case when in_delete = 1 then now() else NULL end
+    where idlogin = in_idlogin;
+end
 $$
-DELIMITER ;
+delimiter ;
 
 ##############################################################
-##						Organization
+##						organization
 ##############################################################
 
 
-DROP procedure IF EXISTS `createOrganization`;
-DELIMITER $$
-CREATE PROCEDURE `createOrganization` (
+drop procedure if exists `createorganization`;
+delimiter $$
+create procedure `createorganization` (
 in_idpartyconfiguration int,
 in_title varchar(50)
 )
-BEGIN
-	INSERT INTO `organization`(`idstatus`,`idpartyconfiguration`,`title`,`createddate`,`updateddate`,`enddate`)
-	VALUES (1,
+begin
+	insert into `organization`(`idstatus`,`idpartyconfiguration`,`title`,`createddate`,`updateddate`,`enddate`)
+	values (1,
 		    in_idpartyconfiguration,
             in_title,           
-			NOW(),
-			NOW(),
-			'9999-12-31 23:59:59');
+			now(),
+			now(),
+			NULL);
             
-	SELECT LAST_INSERT_ID();
-END
+	select last_insert_id();
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `getOrganization`;
-DELIMITER $$
-CREATE PROCEDURE `getOrganization` (
-in_idorganization INT
+drop procedure if exists `getorganization`;
+delimiter $$
+create procedure `getorganization` (
+in_idorganization int
 )
-BEGIN
+begin
 	select idstatus into @mystatus
     from organization 
     where idorganization = in_idorganization;
 
-    SELECT o.idorganization, 
+    select o.idorganization, 
 		   o.idstatus, 
            s.description as status,
            p.idpartyconfiguration,
@@ -258,48 +257,48 @@ BEGIN
 	where o.idorganization = in_idorganization;
     
     if @mystatus in( 1) then
-		CALL getActivePartyConfiguration();
+		call getactivepartyconfiguration();
     
     elseif @mystatus in (2,3) then
-        CALL getRegistrys(in_idorganization); 
-        CALL getStatistics(in_idorganization);
+        call getregistrys(in_idorganization); 
+        call getstatistics(in_idorganization);
 	elseif @mystatus in(4,5,6) then
-		CALL getPartys(in_idorganization);
-        CALL getStatistics(in_idorganization);
+		call getpartys(in_idorganization);
+        call getstatistics(in_idorganization);
 	end if;  
     
     
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `getOrganizationStatus`;
-DELIMITER $$
-CREATE PROCEDURE `getOrganizationStatus` (
-in_idorganization INT
+drop procedure if exists `getorganizationstatus`;
+delimiter $$
+create procedure `getorganizationstatus` (
+in_idorganization int
 )
-BEGIN
+begin
 	select idorganization,idstatus
     from organization
     where idorganization = in_idorganization;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `getOrganizationForUser`;
-DELIMITER $$
-CREATE PROCEDURE `getOrganizationForUser` (
-	in_idorganization INT,
+drop procedure if exists `getorganizationforuser`;
+delimiter $$
+create procedure `getorganizationforuser` (
+	in_idorganization int,
     in_idlogin int
 )
-BEGIN
-	CALL getUserOrganizationConfiguration(in_idorganization,in_idlogin);
+begin
+	call getuserorganizationconfiguration(in_idorganization,in_idlogin);
    
    select idstatus into @mystatus
     from organization 
     where idorganization = in_idorganization;
 
-    SELECT o.idorganization, 
+    select o.idorganization, 
 		   o.idstatus, 
            s.description as status,
            p.idpartyconfiguration,
@@ -317,83 +316,83 @@ BEGIN
 	where o.idorganization = in_idorganization;
     
     if @mystatus in( 1) then
-		CALL getActivePartyConfiguration();    
+		call getactivepartyconfiguration();    
     elseif @mystatus in (2,3) then
-        CALL getRegistrys(in_idorganization); 
-        CALL getStatistics(in_idorganization);
+        call getregistrys(in_idorganization); 
+        call getstatistics(in_idorganization);
 	elseif @mystatus in (4) then
-		CALL getRegistrys(in_idorganization); 
-        CALL getPartys(in_idorganization);
-        CALL getStatistics(in_idorganization);
+		call getregistrys(in_idorganization); 
+        call getpartys(in_idorganization);
+        call getstatistics(in_idorganization);
 	elseif @mystatus in(5,6) then
-		CALL getPartys(in_idorganization);
-        CALL getStatistics(in_idorganization);
+		call getpartys(in_idorganization);
+        call getstatistics(in_idorganization);
 	end if;  
     
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
-DROP procedure IF EXISTS `getStatistics`;
-DELIMITER $$
-CREATE PROCEDURE `GetStatistics` (
+drop procedure if exists `getstatistics`;
+delimiter $$
+create procedure `getstatistics` (
 	in_idorganization int
 )
-BEGIN
-     SELECT p.idprofession, p.name, count(a.idregistry)  as value 
-    FROM organizationregistry a 
-	right JOIN profession p ON a.idprofession = p.idprofession
+begin
+     select p.idprofession, p.name, count(a.idregistry)  as value 
+    from organizationregistry a 
+	right join profession p on a.idprofession = p.idprofession
     where a.idorganization = in_idorganization and p.active = 1
     group by p.name;
    
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `updateOrganization`;
-DELIMITER $$
-CREATE PROCEDURE `updateOrganization` (
+drop procedure if exists `updateorganization`;
+delimiter $$
+create procedure `updateorganization` (
 in_idorganization int,
 in_title varchar(255),
 in_idpartyconfiguration int
 )
-BEGIN
+begin
     update organization
     set title = in_title,
 		idpartyconfiguration = in_idpartyconfiguration,
 		updateddate = now()
 	where idorganization = in_idorganization;    
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
-DROP procedure IF EXISTS `moveStatusOrganization`;
-DELIMITER $$
-CREATE PROCEDURE `moveStatusOrganization` (
+drop procedure if exists `movestatusorganization`;
+delimiter $$
+create procedure `movestatusorganization` (
 in_idorganization int,
 in_idstatus int
 )
-BEGIN
+begin
 	set @idstatus = in_idstatus +1;
     
     update organization
     set idstatus = @idstatus,
 		updateddate = now(),
-        enddate = CASE WHEN @idstatus = 5 THEN NOW() ELSE '9999-12-31 23:59:59' END
+        enddate = case when @idstatus = 5 then now() else NULL end
 	where idorganization = in_idorganization;    
     
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `resetOrganization`;
-DELIMITER $$
-CREATE PROCEDURE `resetOrganization` (
+drop procedure if exists `resetorganization`;
+delimiter $$
+create procedure `resetorganization` (
 	in_idorganization int
 )
-BEGIN
+begin
 	delete from organizationparty
     where idorganization = in_idorganization;
     
@@ -403,44 +402,44 @@ BEGIN
     update organization
     set idstatus = 1,
 		updateddate = now(),
-        enddate = '9999-12-31 23:59:59'
+        enddate = NULL
 	where idorganization = in_idorganization;    
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `getRegistrys`;
-DELIMITER $$
-CREATE PROCEDURE `getRegistrys` (
+drop procedure if exists `getregistrys`;
+delimiter $$
+create procedure `getregistrys` (
 	in_idorganization int
 )
-BEGIN
-	SELECT l.username
+begin
+	select l.username
 		  ,l.displayname
 		  ,p.name as profession
 		  ,r.havebanner
 		  ,r.havefood
-		  ,r.haveTag
-	FROM organizationregistry r 
+		  ,r.havetag
+	from organizationregistry r 
 	inner join login l
 	on r.idlogin = l.idlogin
 	inner join profession p 
 	on r.idprofession = p.idprofession
 	where r.idorganization = in_idorganization
 	order by idregistry;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `getRegistrysForPartys`;
-DELIMITER $$
-CREATE PROCEDURE `getRegistrysForPartys` (
+drop procedure if exists `getregistrysforpartys`;
+delimiter $$
+create procedure `getregistrysforpartys` (
 	in_idorganization int
 )
-BEGIN
-	SELECT r.idregistry,
+begin
+	select r.idregistry,
 		   p.idprofession
-	FROM organizationregistry r 
+	from organizationregistry r 
 	inner join profession p 
 		on r.idprofession = p.idprofession
     inner join organization o
@@ -454,25 +453,25 @@ BEGIN
 	order by pcp.rank;
     
     select idpartyname from partyname order by rand();
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
-DROP procedure IF EXISTS `getPartys`;
-DELIMITER $$
-CREATE PROCEDURE `getPartys` (
+drop procedure if exists `getpartys`;
+delimiter $$
+create procedure `getpartys` (
 	in_idorganization int
 )
-BEGIN
-	SELECT p.name as partyname
+begin
+	select p.name as partyname
 	  ,l.username
 	  ,l.displayname
 	  ,prof.name as profession
 	  ,o.havebanner
 	  ,o.havefood
-	  ,r.haveTag
-	FROM organizationparty o 
+	  ,r.havetag
+	from organizationparty o 
 	inner join organizationregistry r 
 	on o.idregistry = r.idregistry
 	inner join partyname p 
@@ -483,34 +482,34 @@ BEGIN
     on r.idprofession = prof.idprofession
 	where r.idorganization = in_idorganization
 	order by o.idorganizationparty;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `cleanPartys`;
-DELIMITER $$
-CREATE PROCEDURE `cleanPartys` (
+drop procedure if exists `cleanpartys`;
+delimiter $$
+create procedure `cleanpartys` (
 	in_idorganization int
 )
-BEGIN
+begin
     delete from organizationparty
     where idorganization = in_idorganization;
 
     update organization
     set updateddate = now()        
 	where idorganization = in_idorganization;    
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `getActiveOrganizations`;
-DELIMITER $$
-CREATE PROCEDURE `getActiveOrganizations` (
+drop procedure if exists `getactiveorganizations`;
+delimiter $$
+create procedure `getactiveorganizations` (
 	in_idlogin int
 )
-BEGIN
-	SELECT distinct o.idorganization, o.title, p.description as configuration, p.jsviewname, o.idstatus, s.description, case when r.idlogin  is not null then 1 else 0 end userInOrganization
-	FROM organization o inner join status s
+begin
+	select distinct o.idorganization, o.title, p.description as configuration, p.jsviewname, o.idstatus, s.description, case when r.idlogin  is not null then 1 else 0 end userinorganization
+	from organization o inner join status s
     on o.idstatus = s.idstatus
     inner join partyconfiguration p 
     on o.idpartyconfiguration = p.idpartyconfiguration
@@ -518,25 +517,25 @@ BEGIN
     on o.idorganization = r.idorganization  and r.idlogin = in_idlogin
     where o.idstatus in (2,3,4,5)
 	order by o.idorganization;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
-DROP procedure IF EXISTS `getUserOrganizationConfiguration`;
-DELIMITER $$
-CREATE PROCEDURE `getUserOrganizationConfiguration` (
-	in_idorganization INT,
-    in_idlogin INT
+drop procedure if exists `getuserorganizationconfiguration`;
+delimiter $$
+create procedure `getuserorganizationconfiguration` (
+	in_idorganization int,
+    in_idlogin int
 )
-BEGIN
+begin
 	select o.idorganization,
 		   o.idstatus,
 		   l.username,
 		   l.displayname,
 		   o.title,
 		   pc.description,
-		   case when pc.pickcommander = 1 THEN l.hascommanderTag else 0 end pickcommander,
+		   case when pc.pickcommander = 1 then l.hascommandertag else 0 end pickcommander,
 		   pc.pickbanner, 
 		   pc.pickfood       
 	from organization o inner join partyconfiguration pc
@@ -545,38 +544,38 @@ BEGIN
 	where o.idorganization = in_idorganization
 	and l.idlogin = in_idlogin;
     
-	SELECT p.name, p.idprofession
-	FROM login l
-    inner join loginProfession lp
+	select p.name, p.idprofession
+	from login l
+    inner join loginprofession lp
     on l.idlogin = lp.idlogin
-	inner JOIN profession p
+	inner join profession p
     on lp.idprofession = p.idprofession 
     and p.active = 1 
 	where l.idlogin = in_idlogin
 	order by p.idprofession;    
     
-    select r.idregistry,r.idorganization,r.idprofession, p.name,r.havefood,r.havebanner,r.haveTag
+    select r.idregistry,r.idorganization,r.idprofession, p.name,r.havefood,r.havebanner,r.havetag
     from organizationregistry r inner join profession p 
     on r.idprofession = p.idprofession
     where r.idorganization = in_idorganization
     and r.idlogin = in_idlogin;
     
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
-DROP procedure IF EXISTS `addOrganizationUser`;
-DELIMITER $$
-CREATE PROCEDURE `addOrganizationUser` (
+drop procedure if exists `addorganizationuser`;
+delimiter $$
+create procedure `addorganizationuser` (
 in_idorganization int,
 in_idlogin int,
 in_idprofession int,
 in_havefood tinyint,
 in_havebanner tinyint,
-in_haveTag varchar(10)
+in_havetag varchar(10)
 )
-BEGIN
+begin
 	select count(idregistry), idregistry
 	into @count, @idregistry
 	from organizationregistry
@@ -584,62 +583,62 @@ BEGIN
     and idlogin = in_idlogin;
     
     if @count = 0 then
-		insert into organizationregistry (`idorganization`, `idlogin`, `idprofession`, `havefood`, `havebanner`, `haveTag`, `createddate`, `updateddate`) 
+		insert into organizationregistry (`idorganization`, `idlogin`, `idprofession`, `havefood`, `havebanner`, `havetag`, `createddate`, `updateddate`) 
 		values(
 			in_idorganization,
 			in_idlogin,
 			in_idprofession,
 			in_havefood,
 			in_havebanner,
-			in_haveTag,
-			NOW(),
-			NOW()
+			in_havetag,
+			now(),
+			now()
 		);
     else
 		update organizationregistry
 		set idprofession = in_idprofession,
 			havefood = in_havefood,
 			havebanner = in_havebanner,
-			haveTag = in_haveTag,
-			updateddate = NOW()
+			havetag = in_havetag,
+			updateddate = now()
 		where idregistry = @idregistry
 		and idorganization = in_idorganization
 		and idlogin = in_idlogin;
     
     end if;
 
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 ##############################################################
-##						Party Configuration
+##						party configuration
 ##############################################################
-DROP procedure IF EXISTS `getActivePartyConfiguration`;
-DELIMITER $$
-CREATE PROCEDURE `getActivePartyConfiguration` ()
-BEGIN
-    SELECT idpartyconfiguration, description,jsviewname 
+drop procedure if exists `getactivepartyconfiguration`;
+delimiter $$
+create procedure `getactivepartyconfiguration` ()
+begin
+    select idpartyconfiguration, description,jsviewname 
 ,pickfood 
 ,pickbanner 
 ,pickcommander
 	from partyconfiguration
-	where enddate = '9999-12-31 23:59:59';
-END
+	where enddate = NULL;
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `createConfiguration`;
-DELIMITER $$
-CREATE PROCEDURE `createConfiguration` (
+drop procedure if exists `createconfiguration`;
+delimiter $$
+create procedure `createconfiguration` (
  in_description varchar(255),
  in_jsviewname varchar(255),
  in_pickbanner tinyint,
  in_pickfood tinyint,
  in_pickcommander tinyint
 )
-BEGIN
-  INSERT INTO `partyconfiguration`
+begin
+  insert into `partyconfiguration`
 (`description`,
 `jsviewname`,
 `pickfood`,
@@ -648,36 +647,36 @@ BEGIN
 `createddate`,
 `updateddate`,
 `enddate`)
-VALUES
+values
 (in_description,
 in_jsviewname,
 in_pickfood,
 in_pickbanner,
 in_pickcommander,
-NOW(),
-NOW(),
+now(),
+now(),
 '9999-12-31 23:59:59');
 
-set @idpartyconfiguration = LAST_INSERT_ID();
-insert into partyconfigurationprofession (idpartyconfiguration,idprofession,rank,makeExtraGroup,groupName,createddate,updateddate)
-select @idpartyconfiguration, idprofession, -1, 0, '', NOW(),NOW() 
+set @idpartyconfiguration = last_insert_id();
+insert into partyconfigurationprofession (idpartyconfiguration,idprofession,rank,makeextragroup,groupname,createddate,updateddate)
+select @idpartyconfiguration, idprofession, -1, 0, '', now(),now() 
 from profession;
 
 
 select @idpartyconfiguration;
 
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
 
-DROP procedure IF EXISTS `getConfiguration`;
-DELIMITER $$
-CREATE PROCEDURE `getConfiguration` (
+drop procedure if exists `getconfiguration`;
+delimiter $$
+create procedure `getconfiguration` (
 in_idpartyconfiguration int
 )
-BEGIN
+begin
 	select idpartyconfiguration, 
     description, 
     jsviewname, 
@@ -694,19 +693,19 @@ BEGIN
     idpartyconfiguration, 
     idprofession, 
     rank, 
-    makeExtraGroup, 
-    groupName, 
+    makeextragroup, 
+    groupname, 
     createddate, 
     updateddate
     from partyconfigurationprofession 
     where idpartyconfiguration = in_idpartyconfiguration;
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `saveConfiguration`;
-DELIMITER $$
-CREATE PROCEDURE `saveConfiguration` (
+drop procedure if exists `saveconfiguration`;
+delimiter $$
+create procedure `saveconfiguration` (
 in_idpartyconfiguration int,
 in_description varchar(255), 
 in_jsviewname varchar(255) ,
@@ -714,78 +713,78 @@ in_pickbanner tinyint(4),
 in_pickfood tinyint(4) ,
 in_pickcommander tinyint(4)
 )
-BEGIN
+begin
     update partyconfiguration
     set description = in_description,
 		jsviewname = in_jsviewname,
 		pickfood = in_pickfood,
         pickbanner = in_pickbanner,
         pickcommander = in_pickcommander,
-        updateddate = NOW()
+        updateddate = now()
 	where idpartyconfiguration = in_idpartyconfiguration;    
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 
-DROP procedure IF EXISTS `saveConfigurationProfession`;
-DELIMITER $$
-CREATE PROCEDURE `saveConfigurationProfession` (
+drop procedure if exists `saveconfigurationprofession`;
+delimiter $$
+create procedure `saveconfigurationprofession` (
 in_idpartyconfigurationprofession int,
 in_rank int 
 )
-BEGIN
+begin
     update partyconfigurationprofession
     set rank = in_rank,		
-        updateddate = NOW()
+        updateddate = now()
 	where idpartyconfigurationprofession = in_idpartyconfigurationprofession;    
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
 ##############################################################
-##						TESTING PURPOSES
+##						testing purposes
 ##############################################################
-DROP procedure IF EXISTS `populatePartyRegistrys`;
-DELIMITER $$
-CREATE PROCEDURE `populatePartyRegistrys` (
+drop procedure if exists `populatepartyregistrys`;
+delimiter $$
+create procedure `populatepartyregistrys` (
 	in_idorganization int
 )
-BEGIN
+begin
 
-delete from organizationRegistry 
+delete from organizationregistry 
 where idorganization = in_idorganization;
 
 set @idorga = in_idorganization;
-set @rand = CEIL((RAND() * (select count(1) from login) ));
-set @sql = 'insert into organizationregistry (`idorganization`, `idlogin`, `idprofession`, `havefood`, `havebanner`, `haveTag`, `createddate`, `updateddate`) select ?, idlogin, (select idprofession from profession where active = 1 ORDER BY RAND() LIMIT 1) as idprofession , ROUND(RAND()) havefood, ROUND(RAND()) havebanner,'''' ,NOW(), NOW() from login where idlogin > CEIL((RAND() * (select count(1) from login) )) order by rand() limit ?';
+set @rand = ceil((rand() * (select count(1) from login) ));
+set @sql = 'insert into organizationregistry (`idorganization`, `idlogin`, `idprofession`, `havefood`, `havebanner`, `havetag`, `createddate`, `updateddate`) select ?, idlogin, (select idprofession from profession where active = 1 order by rand() limit 1) as idprofession , round(rand()) havefood, round(rand()) havebanner,'''' ,now(), now() from login where idlogin > ceil((rand() * (select count(1) from login) )) order by rand() limit ?';
 
-PREPARE stmt FROM @sql;
-EXECUTE stmt USING @idorga, @rand;
-DEALLOCATE PREPARE stmt;
+prepare stmt from @sql;
+execute stmt using @idorga, @rand;
+deallocate prepare stmt;
 
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-DROP procedure IF EXISTS `makeOrganizationPartys`;
-DELIMITER $$
-CREATE PROCEDURE `makeOrganizationPartys` (
+drop procedure if exists `makeorganizationpartys`;
+delimiter $$
+create procedure `makeorganizationpartys` (
 	in_idorganization int,
-    in_groupSize int
+    in_groupsize int
 )
-BEGIN
+begin
 
 delete from organizationparty 
 where idorganization = in_idorganization;
 
-## Get how many groups we will have
-select CEIL((select count(idregistry) from organizationregistry where idorganization = in_idorganization)  / in_groupSize) as count
+## get how many groups we will have
+select ceil((select count(idregistry) from organizationregistry where idorganization = in_idorganization)  / in_groupsize) as count
 into @count;
 
 ## get random partynames for the number of groups we have
-DROP temporary table  IF EXISTS temp_partynames;
-create temporary table temp_partynames ( id int not null primary key AUTO_INCREMENT, idpartyname int not null);
+drop temporary table  if exists temp_partynames;
+create temporary table temp_partynames ( id int not null primary key auto_increment, idpartyname int not null);
 insert into temp_partynames (idpartyname)
 	select idpartyname from partyname order by rand();
 
@@ -794,12 +793,12 @@ where id > @count +1;
 
 
 ## get all the registration by the rank configuration
-DROP temporary table  IF EXISTS temp_registrys;
-create temporary table temp_registrys ( id int not null primary key AUTO_INCREMENT, idregistry int not null, idprofession int not null);
+drop temporary table  if exists temp_registrys;
+create temporary table temp_registrys ( id int not null primary key auto_increment, idregistry int not null, idprofession int not null);
 insert into temp_registrys (idregistry,idprofession)
-	SELECT r.idregistry,
+	select r.idregistry,
 		   p.idprofession
-	FROM organizationregistry r 
+	from organizationregistry r 
 	inner join profession p 
 	on r.idprofession = p.idprofession
 	inner join organization o
@@ -814,7 +813,7 @@ insert into temp_registrys (idregistry,idprofession)
 
 ## split the registrations by the number of partys we have
 insert into organizationparty  (idorganization,idpartyname,idregistry,havefood,havebanner, createddate)
-	select in_idorganization, p.idpartyname , r.idregistry ,0 ,0, NOW()
+	select in_idorganization, p.idpartyname , r.idregistry ,0 ,0, now()
 	from temp_registrys r , temp_partynames p 
 	where r.id % @count + 1  = p.id
 	order by p.id;
@@ -825,7 +824,7 @@ into @foodid
 from organizationregistry 
 where idorganization = in_idorganization 
 and havefood = 1
-order by RAND()
+order by rand()
 limit 0,1;
 
 ## get 1 random banner
@@ -834,7 +833,7 @@ into @bannerid
 from organizationregistry 
 where idorganization = in_idorganization 
 and havebanner = 1
-order by RAND()
+order by rand()
 limit 0,1;
 
 update organizationparty
@@ -849,8 +848,8 @@ where idregistry = @bannerid;
 drop temporary table temp_registrys;
 drop temporary table temp_partynames;
 
-END
+end
 $$
-DELIMITER ;
+delimiter ;
 
-##Call populatePartyRegistrys(3);
+##call populatepartyregistrys(3);

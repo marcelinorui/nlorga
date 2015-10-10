@@ -26,20 +26,17 @@
 					</div>
 				</div>				
 				<div class="form-group">
-					<div class="col-sm-3">
-						<label class="control-label" for="hascommanderTag">Commander Tag</label>
-					</div>
-					<div class="col-sm-3">
-						<input type="checkbox" id="hascommanderTag" name="hascommanderTag" data-style="btn-group-sm" <% if (account.hascommanderTag == 1
-						) {%> checked
-						<% } %> />
-					</div>
+					
 					<div class="col-sm-3">
 						<label class="control-label" for="isAdmin">Administrator</label>
 					</div>
-					<div class="col-sm-3">
-						<input type="checkbox" id="isAdmin" name="isAdmin" data-style="btn-group-sm" <% if (account.isAdmin == 1 ) {%> checked
-						<% } %> />
+					<div class="col-sm-9">
+					<% var roles = [{id:1,description:'Guild Member'},{id:2,description:'Commander'},{id:3 ,description:'Administrator'}]%>
+						<select id="idrole" name="idrole" class="form-control">
+							<% for(var i = 0; i < roles.length; i++) {%>
+								<option value="<%=roles[i].id %>"><%=roles[i].description %></option>
+							<% }%>
+						</select>
 					</div>					
 				</div>
 				<div class="form-group">
@@ -63,11 +60,11 @@
 					</div>
 					<div class="col-sm-3">
 						<input type="checkbox" id="forDelete" name="forDelete" data-style="btn-group-sm" 
-						<% if ( account.enddate.toISOString().substring(0,10) != '9999-12-31') {%> 
+						<% if ( account.enddate) {%> 
 						checked							
 						<% } %> />
 					</div>
-					<% if (account.enddate.toISOString().substring(0,10) != '9999-12-31') {%>
+					<% if (account.enddate) {%>
 					<div class="col-sm-3">
 						<label class="control-label">Removed At</label>
 					</div>

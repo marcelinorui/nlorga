@@ -3,7 +3,6 @@ var session = require('express-session');
 var glob = require('glob');
 var crypto = require('crypto');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
@@ -11,6 +10,7 @@ var methodOverride = require('method-override');
 var passport = require('./authentication.js');
 var flash = require('connect-flash');
 var passport = require('passport');
+var logger = require("./logger.js");
 
 module.exports = function (app, db, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -24,7 +24,8 @@ module.exports = function (app, db, config) {
     config.root + '/app/views/user']);
   app.set('view engine', 'ejs');
   
-  app.use(logger('dev'));
+  app.use(require('morgan')("dev")); //, {"stream": logger.stream }));
+  
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());

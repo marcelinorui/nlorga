@@ -43,7 +43,7 @@ Configuration.prototype.getConfiguration = function (idpartyconfiguration, callb
 };
 
 Configuration.prototype.listConfigurations = function( where , order, parameters, itemsPerPage, currentPage, callback){
-	this.paginateQuery('PartyConfiguration', 
+	this.paginateQuery('partyconfiguration', 
 	['idpartyconfiguration','description','pickfood','pickbanner','pickcommander','createddate','updateddate','enddate'], 
 	where ,
 	order, 

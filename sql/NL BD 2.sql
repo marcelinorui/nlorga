@@ -1,34 +1,41 @@
-DROP SCHEMA IF exists `nl`;
-CREATE SCHEMA `nl`;
-USE `nl`;
+drop schema if exists `nl`;
+create schema `nl`;
+use `nl`;
 /*********************************************/
-/* 					Tables	 			 	 */
+/* 					tables	 			 	 */
 /*********************************************/
 
 
-CREATE TABLE `status` (
-  `idstatus` INT NOT NULL AUTO_INCREMENT ,
-  `description` varchar(50) NOT NULL ,
-  PRIMARY KEY (`idstatus`)  );
+create table `status` (
+  `idstatus` int not null auto_increment ,
+  `description` varchar(50) not null ,
+  primary key (`idstatus`)  );
 
 /*********************************************/
-/* 					PARTYNAME 			 	 */
+/* 					partyname 			 	 */
 /*********************************************/
-DROP TABLE IF EXISTS `partyname`;
-CREATE TABLE `partyname` (
-  `idpartyname` INT NOT NULL AUTO_INCREMENT ,
-  `name` varchar(200) NOT NULL ,
-  PRIMARY KEY (`idpartyname`)  );
+drop table if exists `partyname`;
+create table `partyname` (
+  `idpartyname` int not null auto_increment ,
+  `name` varchar(200) not null ,
+  primary key (`idpartyname`)  );
 
 /*********************************************/
-/* 					PROFESSION 			 	 */
+/* 					profession 			 	 */
 /*********************************************/
-DROP TABLE IF EXISTS `profession`;
-CREATE TABLE `profession` (
-  `idprofession` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(50) NOT NULL ,
+drop table if exists `profession`;
+create table `profession` (
+  `idprofession` int not null auto_increment ,
+  `name` varchar(50) not null ,
   `active` tinyint not null,
-  PRIMARY KEY (`idprofession`)  );
+  primary key (`idprofession`)  );
+
+drop table if exists `role`;
+create table `role` (
+  `idrole` int not null auto_increment ,
+  `description` varchar(50) not null,
+  `active` tinyint not null,
+  primary key (`idrole`)  );
 
 
 /*********************************************/
@@ -42,138 +49,141 @@ CREATE TABLE `role` (
 );
 
 /*********************************************/
-/* 					LOGIN    			 	 */
+/* 					login    			 	                 */
 /*********************************************/  
-DROP TABLE IF EXISTS `login`;
-CREATE TABLE `login` (
-  `idlogin` INT NOT NULL AUTO_INCREMENT ,
-  `username` varchar(50) NOT NULL ,
+drop table if exists `login`;
+create table `login` (
+  `idlogin` int not null auto_increment ,
+  `username` varchar(50) not null ,
   `password` varchar(128) not null,
-  `displayname` varchar(50) NOT NULL ,
+  `displayname` varchar(50) not null ,
   `salt` varchar(128) not null,
-  `hascommanderTag` tinyint not null,
-  `isAdmin` tinyint not null,
+  `hascommandertag` tinyint not null,
+  `idrole` int not null,
   `createddate` datetime not null,
   `updateddate` datetime not null,
-  `enddate` datetime not null,
-  PRIMARY KEY (`idlogin`)  ,
-  UNIQUE KEY `uk_username_displayname`(`username`, `displayname`)
+  `enddate` datetime null,
+  primary key (`idlogin`)  ,
+  unique key `uk_username_displayname`(`username`, `displayname`)
   );
 
+alter table `login` add constraint `fk_login_role` foreign key (`idrole`)
+references role (`idrole`);   
+
 /*********************************************/
-/* 			    LOGINPROFESSION    		 	 */
+/* 			    loginprofession    		 	 */
 /*********************************************/  
-DROP TABLE IF EXISTS `loginProfession`;  
-  CREATE TABLE `loginProfession` (
-    `idlogin` INT NOT NULL, 
-    `idprofession` INT NOT NULL,
+drop table if exists `loginprofession`;  
+  create table `loginprofession` (
+    `idlogin` int not null, 
+    `idprofession` int not null,
     
-    PRIMARY KEY (`idlogin`,`idprofession`) 
+    primary key (`idlogin`,`idprofession`) 
 );
-/*ALTER TABLE `loginProfession` ADD CONSTRAINT `fk_loginProfession_login` FOREIGN KEY (idlogin)
-   REFERENCES login (idlogin);   
-ALTER TABLE `loginProfession` ADD CONSTRAINT `fk_loginProfession_profession` FOREIGN KEY (idprofession)
-    REFERENCES profession (idprofession);  
+/*alter table `loginprofession` add constraint `fk_loginprofession_login` foreign key (idlogin)
+   references login (idlogin);   
+alter table `loginprofession` add constraint `fk_loginprofession_profession` foreign key (idprofession)
+    references profession (idprofession);  
 */
 
 /*********************************************/
-/*		    ORGANIZATIONCONFIGURATION    	 */
+/*		    organizationconfiguration    	 */
 /*********************************************/  
-DROP TABLE IF EXISTS `partyConfiguration`;
-CREATE TABLE `partyConfiguration` (
-  `idpartyconfiguration` INT NOT NULL AUTO_INCREMENT ,
-  `description` varchar(255) NOT NULL ,
+drop table if exists `partyconfiguration`;
+create table `partyconfiguration` (
+  `idpartyconfiguration` int not null auto_increment ,
+  `description` varchar(255) not null ,
   `jsviewname` varchar(255) not null ,
-  `pickfood` TINYINT NOT NULL,
-  `pickbanner` TINYINT NOT NULL,
-  `pickcommander` TINYINT NOT NULL,
+  `pickfood` tinyint not null,
+  `pickbanner` tinyint not null,
+  `pickcommander` tinyint not null,
   `createddate` datetime not null,
   `updateddate` datetime not null,
-  `enddate`  datetime not null,
-  PRIMARY KEY (`idpartyconfiguration`)  );
+  `enddate`  datetime null,
+  primary key (`idpartyconfiguration`)  );
 
 
 /*********************************************/
-/* 			    ORGANIZATION    		 	 */
+/* 			    organization    		 	 */
 /*********************************************/  
-DROP TABLE IF EXISTS `organization`;
-CREATE TABLE `organization` (
-  `idorganization` INT NOT NULL AUTO_INCREMENT,
-  `idpartyconfiguration` INT NOT NULL,
-  `idstatus` INT NOT NULL,
+drop table if exists `organization`;
+create table `organization` (
+  `idorganization` int not null auto_increment,
+  `idpartyconfiguration` int not null,
+  `idstatus` int not null,
   `title` varchar(255),
   `createddate` datetime not null,
   `updateddate` datetime not null,  
-  `enddate`  datetime not null,
-  PRIMARY KEY (`idorganization`)  ); 
+  `enddate`  datetime null,
+  primary key (`idorganization`)  ); 
 
-/*ALTER TABLE `organization` ADD CONSTRAINT `fk_organization_status` FOREIGN KEY (idstatus)
-    REFERENCES status (idstatus);    
+/*alter table `organization` add constraint `fk_organization_status` foreign key (idstatus)
+    references status (idstatus);    
 
-ALTER TABLE `organization` ADD CONSTRAINT `fk_organization_partyConfiguration` FOREIGN KEY (idpartyconfiguration)
-    REFERENCES partyConfiguration (idpartyconfiguration);    
+alter table `organization` add constraint `fk_organization_partyconfiguration` foreign key (idpartyconfiguration)
+    references partyconfiguration (idpartyconfiguration);    
 */
 /*********************************************/
-/* 			    ORGANIZATIONREGISTRY     	 */
+/* 			    organizationregistry     	 */
 /*********************************************/  
-DROP TABLE IF EXISTS `organizationRegistry`;
-CREATE TABLE `organizationRegistry` (
-  `idregistry` INT NOT NULL AUTO_INCREMENT ,
-  `idorganization` INT NOT NULL ,
-  `idlogin` INT NOT NULL ,
-  `idprofession` INT NOT NULL ,
-  `havefood` TINYINT NOT NULL,
-  `havebanner` TINYINT NOT NULL,
-  `haveTag` varchar(10) NOT NULL,
-  `createddate` datetime NOT NULL ,
-  `updateddate` datetime NOT NULL ,
-  PRIMARY KEY (`idregistry`) ,
-  CONSTRAINT uc_idorganization_idlogin UNIQUE (idorganization,idlogin));
+drop table if exists `organizationregistry`;
+create table `organizationregistry` (
+  `idregistry` int not null auto_increment ,
+  `idorganization` int not null ,
+  `idlogin` int not null ,
+  `idprofession` int not null ,
+  `havefood` tinyint not null,
+  `havebanner` tinyint not null,
+  `havetag` varchar(10) not null,
+  `createddate` datetime not null ,
+  `updateddate` datetime not null ,
+  primary key (`idregistry`) ,
+  constraint uc_idorganization_idlogin unique (idorganization,idlogin));
 
-ALTER TABLE `organizationRegistry` ADD CONSTRAINT `fk_organizationRegistry_organization` FOREIGN KEY (idorganization)
-   REFERENCES organization (idorganization);
+alter table `organizationregistry` add constraint `fk_organizationregistry_organization` foreign key (idorganization)
+   references organization (idorganization);
    
-ALTER TABLE `organizationRegistry` ADD CONSTRAINT `fk_organizationRegistry_login` FOREIGN KEY (idlogin)
-   REFERENCES login (idlogin);
-/*ALTER TABLE `organizationRegistry` ADD CONSTRAINT `fk_organizationRegistry_profession` FOREIGN KEY (idprofession)
-    REFERENCES profession (idprofession);  */
+alter table `organizationregistry` add constraint `fk_organizationregistry_login` foreign key (idlogin)
+   references login (idlogin);
+/*alter table `organizationregistry` add constraint `fk_organizationregistry_profession` foreign key (idprofession)
+    references profession (idprofession);  */
 
 /*********************************************/
-/* 			    ORGANIZATIONPARTY	     	 */
+/* 			    organizationparty	     	 */
 /*********************************************/  
-DROP TABLE IF EXISTS `organizationParty`;
-CREATE TABLE `organizationParty` (
-  `idorganizationparty` INT NOT NULL AUTO_INCREMENT ,
-  `idorganization` INT NOT NULL ,
-  `idpartyname` INT NOT NULL ,
+drop table if exists `organizationparty`;
+create table `organizationparty` (
+  `idorganizationparty` int not null auto_increment ,
+  `idorganization` int not null ,
+  `idpartyname` int not null ,
   `idregistry` int not null ,
   `havefood` tinyint not null,
   `havebanner` tinyint not null,
-  `createddate` datetime NOT NULL ,
-  PRIMARY KEY (`idorganizationparty`) );  
-ALTER TABLE `organizationParty` ADD CONSTRAINT `fk_organizationParty_organization` FOREIGN KEY (idorganization)
-   REFERENCES organization (idorganization); 
-ALTER TABLE `organizationParty` ADD CONSTRAINT `fk_organizationParty_organizationRegistry` FOREIGN KEY (idregistry)
-   REFERENCES organizationRegistry (idregistry);      
+  `createddate` datetime not null ,
+  primary key (`idorganizationparty`) );  
+alter table `organizationparty` add constraint `fk_organizationparty_organization` foreign key (idorganization)
+   references organization (idorganization); 
+alter table `organizationparty` add constraint `fk_organizationparty_organizationregistry` foreign key (idregistry)
+   references organizationregistry (idregistry);      
 
 /*********************************************/
-/*		    PARTYCONFIGURATIONPROFESSION   	 */
+/*		    partyconfigurationprofession   	 */
 /*********************************************/    
-DROP TABLE IF EXISTS `partyConfigurationProfession`;
-CREATE TABLE `partyConfigurationProfession` (
-  `idpartyconfigurationprofession` INT NOT NULL AUTO_INCREMENT ,
-  `idpartyconfiguration` INT NOT NULL,
-  `idprofession` INT NOT NULL  ,
+drop table if exists `partyconfigurationprofession`;
+create table `partyconfigurationprofession` (
+  `idpartyconfigurationprofession` int not null auto_increment ,
+  `idpartyconfiguration` int not null,
+  `idprofession` int not null  ,
   `rank` int not null,
-  `makeExtraGroup` tinyint not null,
-  `groupName` varchar(30),
+  `makeextragroup` tinyint not null,
+  `groupname` varchar(30),
   `createddate` datetime not null,
   `updateddate` datetime not null,
-  PRIMARY KEY (`idpartyconfigurationprofession`)  );  
+  primary key (`idpartyconfigurationprofession`)  );  
 
-ALTER TABLE `partyConfigurationProfession` ADD CONSTRAINT `fk_partyConfigurationProfession_profession` FOREIGN KEY (idprofession)
-    REFERENCES profession (idprofession);   
-ALTER TABLE `partyConfigurationProfession` ADD CONSTRAINT `fk_partyConfigurationProfession_partyConfiguration` FOREIGN KEY (idpartyconfiguration)
-    REFERENCES partyConfiguration (idpartyconfiguration);
+alter table `partyconfigurationprofession` add constraint `fk_partyconfigurationprofession_profession` foreign key (idprofession)
+    references profession (idprofession);   
+alter table `partyconfigurationprofession` add constraint `fk_partyconfigurationprofession_partyconfiguration` foreign key (idpartyconfiguration)
+    references partyconfiguration (idpartyconfiguration);
     
 
