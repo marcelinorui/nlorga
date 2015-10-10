@@ -37,7 +37,7 @@ module.exports = function (app, db, config) {
   app.use(flash());
   
   app.use(function (req, res, next) {
-      res.pagetitle = config.app.name;
+      req.pagetitle = config.app.name;
       next();
   });
   
