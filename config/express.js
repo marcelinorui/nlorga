@@ -10,7 +10,7 @@ var methodOverride = require('method-override');
 var passport = require('./authentication.js');
 var flash = require('connect-flash');
 var passport = require('passport');
-var logger = require("./logger.js");
+//var logger = require("./logger.js");
 
 module.exports = function (app, db, config) {
   var env = process.env.NODE_ENV || 'development';
