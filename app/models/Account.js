@@ -21,11 +21,19 @@ module.exports.getUrl = '/account/:id/edit';
 module.exports.get = function (req, res, next) {
 	db.Account.getAccount(req.params.id, function (err, account) {
 		if (!err) {
-			req.session.account = account;
+			db.Roles.getRoles(function(err,roles){
+				if(!err){
+					req.session.roles = roles;
+					req.session.account = account;
+				} else {
+					req.flash('error', 'SQL Error');
+				}
+				return next(err);
+			});
 		} else {
-			req.flash('error', 'SQL Error.')
-		}
-		return next(err);
+			req.flash('error', 'SQL Error');
+			return next(err);
+		}		
 	});
 };
 module.exports.getResponse = function (req, res, next) {
@@ -40,7 +48,7 @@ module.exports.update = function (req, res, next) {
 		username: req.body.username,
 		displayname: req.body['displayname'] ? req.body.displayname : '',
 		hascommanderTag: req.body['hascommanderTag'] ? 1 : 0,
-		isAdmin: req.body['isAdmin'] ? 1 : 0,
+		idrole: Number(req.body['idrole']) ,
 		forDelete: req.body['forDelete'] ? 1 : 0
 	};
 
@@ -49,7 +57,7 @@ module.exports.update = function (req, res, next) {
 		account.username,
 		account.displayname,
 		account.hascommanderTag,
-		account.isAdmin,
+		account.idrole,
 		account.forDelete,
 		function (err, ok) {
 			if (!err) {
@@ -66,7 +74,12 @@ module.exports.updateResponse = function (req, res, next) {
 
 module.exports.createUrl = '/account/create'
 module.exports.create = function (req, res, next) {
-	next();
+	db.getRoles(function(err,roles){
+		if(!err){
+			req.session.roles = roles;
+		}
+		return next(err);
+	});
 };
 module.exports.createResponse = function (req, res, next) {
 	var Response = require('./../response/admin-account-create-response.js');
@@ -82,7 +95,7 @@ module.exports.insert = function (req, res, next) {
 			displayname: req.body['displayname'] ? req.body.displayname : '',
 			salt: code.salt.toString('hex'),
 			hascommanderTag: req.body['hascommanderTag'] ? 1 : 0,
-			isAdmin: req.body['isAdmin'] ? 1 : 0
+			idrole: Number(req.body['idrole']) 
 		};
 
 		db.Account.createAccount(
@@ -91,7 +104,7 @@ module.exports.insert = function (req, res, next) {
 			account.displayname,
 			account.salt,
 			account.hascommanderTag,
-			account.isAdmin
+			account.idrole
 			, function (err, ok) {
 				if (!err) {
 					req.flash('success', 'A new account was created successfully.');

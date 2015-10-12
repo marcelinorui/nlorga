@@ -22,7 +22,7 @@ Account.prototype.listAccounts = function( where , order, parameters, itemsPerPa
 };
 
 Account.prototype.getAccount = function(idlogin, callback){
-	var sql = 'CALL getAccount(?)';
+	var sql = 'CALL getaccount(?)';
 	var params = [idlogin];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -36,9 +36,9 @@ Account.prototype.getAccount = function(idlogin, callback){
 	});
 };
 
-Account.prototype.createAccount = function(username,password,displayname,salt,hascommanderTag,isAdmin,callback){
-	var sql = 'CALL createAccount(?,?,?,?,?,?)';
-	var params = [username,password,displayname,salt,hascommanderTag,isAdmin];
+Account.prototype.createAccount = function(username,password,displayname,salt,hascommanderTag,idrole,callback){
+	var sql = 'CALL createaccount(?,?,?,?,?,?)';
+	var params = [username,password,displayname,salt,hascommanderTag,idrole];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
@@ -50,9 +50,9 @@ Account.prototype.createAccount = function(username,password,displayname,salt,ha
 };
 
 
-Account.prototype.updateAccount = function(idlogin,username,displayname,hascommanderTag,isAdmin,forDelete,callback){
-	var sql = 'CALL updateAccount(?,?,?,?,?,?)';
-	var params = [idlogin,username,displayname,hascommanderTag,isAdmin,forDelete];
+Account.prototype.updateAccount = function(idlogin,username,displayname,hascommanderTag,idrole,forDelete,callback){
+	var sql = 'CALL updateaccount(?,?,?,?,?,?)';
+	var params = [idlogin,username,displayname,hascommanderTag,idrole,forDelete];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {

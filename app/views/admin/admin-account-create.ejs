@@ -27,7 +27,11 @@
 						<label class="control-label" for="isAdmin">Administrator</label>
 					</div>
 					<div class="col-sm-3">
-						<input type="checkbox" id="isAdmin" name="isAdmin" data-style="btn-group-sm"  />
+						<select id="idrole" name="idrole" class="form-control">
+							<% for(var i = 0; i < roles.length; i++) {%>
+								<option value="<%=roles[i].idrole %>"><%=roles[i].description %></option>
+							<% }%>
+						</select>
 					</div>
 					<div class="col-sm-3">
 						<label class="control-label" for="hascommanderTag">Commander Tag</label>

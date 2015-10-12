@@ -1,7 +1,7 @@
 use `nl`;
-##############################################################
-#						login
-##############################################################
+/*************************************************************/
+/*						login                                */
+/*************************************************************/
 
 drop procedure if exists `verifylogin`;
 delimiter $$
@@ -27,10 +27,24 @@ begin
 end$$
 delimiter ;
 
+/*************************************************************/
+/*						 roles                               */
+/*************************************************************/
 
-##############################################################
-##						user
-##############################################################
+drop procedure if exists `getroles`;
+delimiter $$
+create procedure `getroles`()
+begin
+	select idrole,description
+    from role
+    where active = 1;
+end$$
+delimiter ;
+
+
+/*************************************************************/
+/*						 user                                */
+/*************************************************************/
 
 drop procedure if exists `changeloginpassword`;
 delimiter $$
@@ -114,10 +128,9 @@ end
 $$
 delimiter ;
 
-##############################################################
-##						profession
-##############################################################
-
+/*************************************************************/
+/*						profession                           */
+/*************************************************************/
 
 
 drop procedure if exists `getallprofessions`;
@@ -133,11 +146,9 @@ $$
 delimiter ;
 
 
-##############################################################
-##						account
-##############################################################
-
-
+/*************************************************************/
+/*						account                              */
+/*************************************************************/
 drop procedure if exists `getaccount`;
 delimiter $$
 create procedure `getaccount` (
@@ -162,7 +173,7 @@ in_password varchar(128),
 in_displayname varchar(50),
 in_salt varchar(128),
 in_hascommandertag tinyint,
-in_idrole tinyint
+in_idrole int
 )
 begin
 	insert into `login`(`username`,`password`,`salt`,`displayname`,`hascommandertag`,`idrole`,`createddate`,`updateddate`,`enddate`)
@@ -188,7 +199,7 @@ create procedure `updateaccount` (
 	in_username varchar(50),
 	in_displayname varchar(50),
 	in_hascommandertag tinyint,
-	in_idrole tinyint,
+	in_idrole int,
 	in_delete tinyint
 )
 begin
@@ -203,11 +214,9 @@ begin
 end
 $$
 delimiter ;
-
-##############################################################
-##						organization
-##############################################################
-
+/*************************************************************/
+/*						organization                         */
+/*************************************************************/
 
 drop procedure if exists `createorganization`;
 delimiter $$
@@ -603,9 +612,9 @@ end
 $$
 delimiter ;
 
-##############################################################
-##						party configuration
-##############################################################
+/*************************************************************/
+/*						party configuration                  */
+/*************************************************************/
 drop procedure if exists `getactivepartyconfiguration`;
 delimiter $$
 create procedure `getactivepartyconfiguration` ()
@@ -734,9 +743,9 @@ end
 $$
 delimiter ;
 
-##############################################################
-##						testing purposes
-##############################################################
+/*************************************************************/
+/*					testing purposes                         */
+/*************************************************************/
 drop procedure if exists `populatepartyregistrys`;
 delimiter $$
 create procedure `populatepartyregistrys` (

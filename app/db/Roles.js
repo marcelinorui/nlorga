@@ -1,16 +1,15 @@
 var util = require('util'),
     mysql = require('mysql'),
-    Base = require('./../sql/base.js'),
-    utils = require('./../utils/utils.js');
+    Base = require('./../sql/base.js');
 
-function Party(db){
+function Roles(db){
 	Base.apply(this,arguments);
 };
 
-util.inherits(Party, Base);
+util.inherits(Roles, Base);
 
-Party.prototype.getActivePartyConfiguration = function(callback){
-	var sql = 'CALL getuserparty()';
+Roles.prototype.getRoles = function(callback){
+	var sql = 'CALL getroles()';
 	var params = [];
 	var query = mysql.format(sql,params);
 	var self = this;
@@ -24,4 +23,4 @@ Party.prototype.getActivePartyConfiguration = function(callback){
 	});
 };
 
-module.exports = Party;
+module.exports = Roles;

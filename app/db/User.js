@@ -10,7 +10,7 @@ function User(db) {
 util.inherits(User, Base);
 
 User.prototype.changeLoginPassword = function (idlogin, password, callback) {
-	var sql = 'CALL changeLoginPassword(?,?)';
+	var sql = 'CALL changeloginpassword(?,?)';
 	var params = [idlogin, password];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
@@ -23,7 +23,7 @@ User.prototype.changeLoginPassword = function (idlogin, password, callback) {
 };
 
 User.prototype.changeUserProfile = function (idlogin, displayname, hascommanderTag, professions, callback) {
-	var sql = 'CALL changeUserProfile(?,?,?,?,?)';
+	var sql = 'CALL changeuserprofile(?,?,?,?,?)';
 	var params = [idlogin, displayname, hascommanderTag == 1 ? true:false, professions.join(';'), ';'];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
@@ -37,7 +37,7 @@ User.prototype.changeUserProfile = function (idlogin, displayname, hascommanderT
 
 User.prototype.getUserProfile = function (idlogin, callback) {
 	var self = this;
-	var sql = 'CALL getUserProfile(?)';
+	var sql = 'CALL getuserprofile(?)';
 	var params = [idlogin];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
