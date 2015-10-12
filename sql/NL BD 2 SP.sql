@@ -167,7 +167,7 @@ in_idrole tinyint
 begin
 	insert into `login`(`username`,`password`,`salt`,`displayname`,`hascommandertag`,`idrole`,`createddate`,`updateddate`,`enddate`)
 	values (in_username,
-		    in_password,
+		    sha1(concat(in_salt,in_password)),
             in_salt,
             in_displayname,
             in_hascommandertag,

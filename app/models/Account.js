@@ -78,9 +78,9 @@ module.exports.insert = function (req, res, next) {
 		var code = utils.createHashAndSalt(req.body.password);
 		var account = {
 			username: req.body.username,
-			password: code.hash.toString('utf8'),
+			password: req.body.password,
 			displayname: req.body['displayname'] ? req.body.displayname : '',
-			salt: code.salt.toString('utf8'),
+			salt: code.salt.toString('hex'),
 			hascommanderTag: req.body['hascommanderTag'] ? 1 : 0,
 			isAdmin: req.body['isAdmin'] ? 1 : 0
 		};
