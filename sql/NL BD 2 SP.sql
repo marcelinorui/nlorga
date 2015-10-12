@@ -317,13 +317,6 @@ begin
     
     if @mystatus in( 1) then
 		call getactivepartyconfiguration();    
-    elseif @mystatus in (2,3) then
-        call getregistrys(in_idorganization); 
-	elseif @mystatus in (4) then
-		call getregistrys(in_idorganization);
-        call getpartys(in_idorganization);
-	elseif @mystatus in(5,6) then
-		call getpartys(in_idorganization);
 	end if;
 end
 $$

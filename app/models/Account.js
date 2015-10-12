@@ -12,7 +12,7 @@ module.exports.list = function (req, res, next) {
 		return next(err);
 	});
 };
-module.exports.listResponse = function (req, res) {
+module.exports.listResponse = function (req, res, next) {
 	var Response = require('./../response/admin-accounts-response.js');
 	res.render('admin-accounts', new Response(req))
 };

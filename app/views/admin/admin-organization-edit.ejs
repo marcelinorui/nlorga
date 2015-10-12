@@ -66,11 +66,16 @@
 					<div class="col-lg-offset-3 col-lg-5">
 						<div class="form-group">
 						<label>Pick a party size</label>						
-							<div class="radio"><label><input type="radio" name="partysize" value="2" checked /> 2 Members</label></div>
-							<div class="radio"><label><input type="radio" name="partysize" value="3"  /> 3 Members</label></div>
-							<div class="radio"><label><input type="radio" name="partysize" value="4"  /> 4 Members</label></div>
-							<div class="radio"><label><input type="radio" name="partysize" value="5"  /> 5 Members</label></div>
-							<%/*<div class="radio"><label><input type="radio" name="partysize" value="10" disabled  /> 10 Members</label></div>*/%>
+							<div class="radio"><label><input type="radio" name="partysize" value="2" 
+							<%if (partysize) { if (partysize == 2){%>
+								checked
+							<% }} else {%>
+								checked
+							<% }%> /> 2 Members</label></div>
+							<div class="radio"><label><input type="radio" name="partysize" value="3" <%if (partysize) { if (partysize == 3){%>checked<% }}%> /> 3 Members</label></div>
+							<div class="radio"><label><input type="radio" name="partysize" value="4" <%if (partysize) { if (partysize == 4){%>checked<% }}%> /> 4 Members</label></div>
+							<div class="radio"><label><input type="radio" name="partysize" value="5" <%if (partysize) { if (partysize == 5){%>checked<% }}%> /> 5 Members</label></div>
+							<div class="radio"><label><input type="radio" name="partysize" value="10" disabled <%if (partysize) { if (partysize == 10){%>checked<% }}%> /> 10 Members</label></div>
 						</div>
 					</div>					
 					<span class="pull-right">
@@ -86,11 +91,12 @@
 						<div class="row">
 							<div class="col-lg-offset-3 col-lg-5">			
 								<label>Pick a party size</label>						
-								<div class="radio"><label><input type="radio" name="partysize" value="2" checked /> 2 Members</label></div>
-								<div class="radio"><label><input type="radio" name="partysize" value="3"  /> 3 Members</label></div>
-								<div class="radio"><label><input type="radio" name="partysize" value="4"  /> 4 Members</label></div>
-								<div class="radio"><label><input type="radio" name="partysize" value="5"  /> 5 Members</label></div>
-								<%/*<div class="radio"><label><input type="radio" name="partysize" value="10" disabled  /> 10 Members</label></div>*/%>
+								<div class="radio"><label><input type="radio" name="partysize" value="2" <%if (partysize) { if (partysize == 2){%>checked<% }} else {%>checked<% } %> /> 2 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="3" <%if (partysize) { if (partysize == 3){%>checked<% }}%> /> 3 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="4" <%if (partysize) { if (partysize == 4){%>checked<% }}%> /> 4 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="5" <%if (partysize) { if (partysize == 5){%>checked<% }}%> /> 5 Members</label></div>
+								<div class="radio"><label><input type="radio" name="partysize" value="10" disabled <%if (partysize) { if (partysize == 10){%>checked<% }}%> /> 10 Members</label></div>
+
 							</div>
 							<div class="col-lg-2">						
 								<button type="submit" class="btn btn-success">Remake Partys </button>

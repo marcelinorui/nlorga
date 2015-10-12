@@ -1,6 +1,7 @@
 var express = require('express'),
-	db = require('./../db/index.js');
-
+	db = require('./../db/index.js'),
+	changepassword = require('./../models/ChangePassword.js'),
+	profile = require('./../models/Profile.js');
 
 function user(passport) {
 	var router = express.Router();
@@ -22,58 +23,11 @@ function user(passport) {
 		res.render('user-index', new Response(req));
 	});
 
-	router.get('/profile',
-		function (req, res, next) {
-			db.User.getUserProfile(req.user.idlogin, function (err, profile) {
-				if (!err) {
-					req.session.profile = profile;
-				}
-				return next(err);
-			});
-		}, function (req, res) {
-			var Response = require('./../response/user-profile-response.js');
-			res.render('user-profile', new Response(req));
-		});
+	router.get(changepassword.getUrl,changepassword.get,changepassword.getResponse);
+	router.post(changepassword.updateUrl,changepassword.update,changepassword.updateResponse);
 
-	router.post('/profile',
-		function (req, res, next) {
-			db.Profession.getAllProfessions(function (err, professions) {
-				if (err) {
-					return next(err);
-				}				
-				// Get Selected Professions
-				var prof = [];
-				for (var i = 0; i < professions.length; i++) {
-					if (req.body[professions[i].name]) {
-						prof.push(professions[i].idprofession);
-					}
-				}
-
-				// Get CommanderTag
-				var hascommanderTag = false;
-				if (req.body['hascommanderTag']) {
-					hascommanderTag = true;
-				}
-				
-				// Get DisplayName
-				var displayname = req.body['displayname'] ? req.body['displayname'] : '';
-
-				db.User.changeUserProfile(req.user.idlogin, displayname, hascommanderTag, prof,
-					function (err, ok) {
-						if (err) {
-							return next(err);
-						};
-						req.user.displayname = displayname;
-						req.user.hascommanderTag = hascommanderTag;
-						req.flash('success', 'Profile Changed Successfully.');
-						return next();
-					});
-			});
-
-		}, function (req, res, next) {
-			res.redirect('/user/profile');
-		});
-
+	router.get(profile.getUrl,profile.get,profile.getResponse);
+	router.post(profile.updateUrl,profile.update,profile.updateResponse);
 
 
 	router.get('/organization/:id/register', function (req, res, next) {
@@ -114,44 +68,10 @@ function user(passport) {
 	}, function (req, res) {
 		var Response = require('./../response/user-organization-view-response.js');
 		res.render('user-organization-view', new Response(req));
-	});
-
-	router.get('/changePassword',
-		function (req, res) {
-			var Response = require('./../response/user-change-password-response.js');
-			res.render('user-change-password', new Response(req));
-		});
-
-	router.post('/changePassword', function (req, res, next) {
-		var obj = {
-			password1: req.body['password1'],
-			password2: req.body['password2'],
-		};
-
-		if (obj.password1 && obj.password2) {
-			if (obj.password1 == obj.password2 && obj.password1.length > 0 && obj.password2.length > 0) {
-				db.User.changeLoginPassword(req.user.idlogin, obj.password1,
-					function (err, ok) {
-						if (!err) {
-							req.flash('success', 'Password changed successfully.');
-						}
-						return next(err);
-					});
-			} else {
-				req.flash('warning', 'Both fields must have the same password.');
-				return res.redirect('/user/changePassword')
-			}
-		} else {
-			req.flash('warning', 'Both fields must have the same password.');
-			return res.redirect('/user/changePassword')
-		}
-		
-	}, function (req, res) {
-		res.redirect('/user');
-	});
-
+	});	
+	
 	return router;
-}
+};
 
 
 module.exports = user; 	

@@ -64,33 +64,33 @@ module.exports.get = function (req, res, next) {
 		return next(err);
 	});
 };
-module.exports.getResponse = function (req, res, next) { 
+module.exports.getResponse = function (req, res, next) {
 	var Response = require('./../response/admin-organization-edit-response.js');
-		res.render('admin-organization-edit', new Response(req));
+	res.render('admin-organization-edit', new Response(req));
 };
 
 
 module.exports.updateUrl = '/organization/:id/edit';
-module.exports.update = function (req, res, next) { 
+module.exports.update = function (req, res, next) {
 	var idorganization = req.params.id;
-		var title = req.body['title'];
-		var idpartyconfiguration = req.body['idpartyconfiguration'];
-		db.Organization.updateOrganization(
-			idorganization,
-			title,
-			idpartyconfiguration,
-			function (err, ok) {
-				if (!err) {
-					req.flash('success', 'The organization changed successfuly.')
-				} else {
-					req.flash('error', 'SQL Error.')
-				}
-				return next();
-			});
+	var title = req.body['title'];
+	var idpartyconfiguration = req.body['idpartyconfiguration'];
+	db.Organization.updateOrganization(
+		idorganization,
+		title,
+		idpartyconfiguration,
+		function (err, ok) {
+			if (!err) {
+				req.flash('success', 'The organization changed successfuly.')
+			} else {
+				req.flash('error', 'SQL Error.')
+			}
+			return next();
+		});
 };
 module.exports.updateResponse = function (req, res, next) {
 	res.redirect('/admin/organization/' + req.params.id + '/edit');
- };
+};
 
 module.exports.statusUrl = '/organization/:id/status/:idstatus';
 module.exports.status = function (req, res, next) {
@@ -105,6 +105,7 @@ module.exports.status = function (req, res, next) {
 		if (req.params.idstatus == -2) {
 			db.Organization.makeOrganizationPartys(req.params.id, Number(req.body['partysize']), function (err, ok) {
 				if (!err) {
+					req.session.partysize = Number(req.body['partysize']);
 					req.session.idstatus = idstatus;
 					req.flash('success', 'The Partys were remaded.');
 				}
@@ -114,25 +115,26 @@ module.exports.status = function (req, res, next) {
 			var idstatus = req.params.idstatus;
 			idstatus = idstatus > 5 ? 5 : idstatus;
 			if (idstatus == 3) {
-				db.Organization.makeOrganizationPartys(req.params.id, Number(req.body['partysize']), function (err, ok) {
+				var partysize = Number(req.body['partysize']);
+				db.Organization.makeOrganizationPartys(req.params.id, partysize, function (err, ok) {
 					if (!err) {
 						db.Organization.moveStatusOrganization(req.params.id, idstatus, function (err, ok) {
 							if (!err) {
+								req.session.partysize = partysize;
 								req.session.idstatus = idstatus;
 								req.flash('success', 'The Organization status changed successfuly.');
 							}
 							return next(err);
 						});
+					} else {
+						return next(err);
 					}
-					return next(err);
 				});
 			} else {
 				db.Organization.moveStatusOrganization(req.params.id, idstatus, function (err, ok) {
 					if (!err) {
 						req.session.idstatus = idstatus;
 						req.flash('success', 'The Organization status changed successfuly.');
-					} else {
-
 					}
 					return next(err);
 				});

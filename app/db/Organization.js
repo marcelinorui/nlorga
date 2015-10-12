@@ -42,25 +42,10 @@ Organization.prototype.getOrganization = function (idorganization, callback) {
 					break;
 				case 2:
 				case 3:
-					data.registry = self.getTable(rows, fields, 1);
-					data.statistic = self.getTable(rows, fields, 2);
-					break;
 				case 4:
 				case 5:
 				case 6:
-					var partys = self.getTable(rows, fields, 1);
-
-					data.partys = _.map(_.keys(_.groupBy(partys, 'partyname')), function (partyname) {
-						var aux = {
-							partyname: partyname,
-							members: _.filter(partys, function (p) {
-								return p.partyname == partyname;
-							})
-						};
-						return aux;
-					});
-					data.statistic = self.getTable(rows, fields, 2);
-					break;
+				break;
 			}
 
 			callback(err, data);
