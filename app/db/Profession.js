@@ -9,9 +9,9 @@ function Profession(db){
 
 util.inherits(Profession, Base);
 
-Profession.prototype.getAllProfessions = function(callback){
+Profession.prototype.getallprofessions = function(callback){
 	var self = this;
-	var sql = 'CALL getAllProfessions()';
+	var sql = 'CALL getallprofessions()';
 	var params = [];
 	var query = mysql.format(sql,params);
 	this.db.query(query, function (err, rows, fields) {

@@ -10,7 +10,7 @@ function Configuration(db){
 util.inherits(Configuration, Base);
 
 Configuration.prototype.getActivePartyConfiguration = function(callback){
-	var sql = 'CALL getActivePartyConfiguration()';
+	var sql = 'CALL getactivepartyconfiguration()';
 	var params = [];
 	var query = mysql.format(sql,params);
 	var self = this;
@@ -25,7 +25,7 @@ Configuration.prototype.getActivePartyConfiguration = function(callback){
 };
 
 Configuration.prototype.getConfiguration = function (idpartyconfiguration, callback){
-	var sql = 'CALL getConfiguration(?)';
+	var sql = 'CALL getconfiguration(?)';
 	var params = [idpartyconfiguration];
 	var query = mysql.format(sql,params);
 	var self = this;
@@ -54,7 +54,7 @@ Configuration.prototype.listConfigurations = function( where , order, parameters
 };
 
 Configuration.prototype.createConfiguration = function(description,jsviewname,pickbanner,pickfood,pickcommander, callback){
-	var sql = 'CALL createConfiguration(?,?,?,?,?)';
+	var sql = 'CALL createconfiguration(?,?,?,?,?)';
 	var params = [description,jsviewname,pickbanner,pickfood,pickcommander];
 	var query = mysql.format(sql,params);
 	var self = this;
@@ -69,7 +69,7 @@ Configuration.prototype.createConfiguration = function(description,jsviewname,pi
 };
 
 Configuration.prototype.saveConfiguration = function(idpartyconfiguration,description,jsviewname,pickbanner,pickfood,pickcommander, callback){
-	var sql = 'CALL saveConfiguration(?,?,?,?,?,?)';
+	var sql = 'CALL saveconfiguration(?,?,?,?,?,?)';
 	var params = [idpartyconfiguration, description, jsviewname,pickbanner,pickfood,pickcommander];
 	var query = mysql.format(sql,params);
 	this.db.query(query, function (err, rows, fields) {

@@ -1,7 +1,7 @@
 use `nl`;
-##############################################################
-#						login
-##############################################################
+/*************************************************************/
+/*						login                                */
+/*************************************************************/
 
 drop procedure if exists `verifylogin`;
 delimiter $$
@@ -20,17 +20,31 @@ begin
 		select idlogin, username,displayname, hascommandertag, idrole
         from login
         where username = in_username
-        and enddate > now();
+        and (enddate is null OR enddate > now());
 	else
 		signal sqlstate '45000' set message_text = 'Invalid username/password ';
 	end if;
 end$$
 delimiter ;
 
+/*************************************************************/
+/*						 roles                               */
+/*************************************************************/
 
-##############################################################
-##						user
-##############################################################
+drop procedure if exists `getroles`;
+delimiter $$
+create procedure `getroles`()
+begin
+	select idrole,description
+    from role
+    where active = 1;
+end$$
+delimiter ;
+
+
+/*************************************************************/
+/*						 user                                */
+/*************************************************************/
 
 drop procedure if exists `changeloginpassword`;
 delimiter $$
@@ -114,10 +128,9 @@ end
 $$
 delimiter ;
 
-##############################################################
-##						profession
-##############################################################
-
+/*************************************************************/
+/*						profession                           */
+/*************************************************************/
 
 
 drop procedure if exists `getallprofessions`;
@@ -133,11 +146,9 @@ $$
 delimiter ;
 
 
-##############################################################
-##						account
-##############################################################
-
-
+/*************************************************************/
+/*						account                              */
+/*************************************************************/
 drop procedure if exists `getaccount`;
 delimiter $$
 create procedure `getaccount` (
@@ -162,12 +173,12 @@ in_password varchar(128),
 in_displayname varchar(50),
 in_salt varchar(128),
 in_hascommandertag tinyint,
-in_idrole tinyint
+in_idrole int
 )
 begin
 	insert into `login`(`username`,`password`,`salt`,`displayname`,`hascommandertag`,`idrole`,`createddate`,`updateddate`,`enddate`)
 	values (in_username,
-		    in_password,
+		    sha1(concat(in_salt,in_password)),
             in_salt,
             in_displayname,
             in_hascommandertag,
@@ -188,7 +199,7 @@ create procedure `updateaccount` (
 	in_username varchar(50),
 	in_displayname varchar(50),
 	in_hascommandertag tinyint,
-	in_idrole tinyint,
+	in_idrole int,
 	in_delete tinyint
 )
 begin
@@ -203,11 +214,9 @@ begin
 end
 $$
 delimiter ;
-
-##############################################################
-##						organization
-##############################################################
-
+/*************************************************************/
+/*						organization                         */
+/*************************************************************/
 
 drop procedure if exists `createorganization`;
 delimiter $$
@@ -317,18 +326,7 @@ begin
     
     if @mystatus in( 1) then
 		call getactivepartyconfiguration();    
-    elseif @mystatus in (2,3) then
-        call getregistrys(in_idorganization); 
-        call getstatistics(in_idorganization);
-	elseif @mystatus in (4) then
-		call getregistrys(in_idorganization); 
-        call getpartys(in_idorganization);
-        call getstatistics(in_idorganization);
-	elseif @mystatus in(5,6) then
-		call getpartys(in_idorganization);
-        call getstatistics(in_idorganization);
-	end if;  
-    
+	end if;
 end
 $$
 delimiter ;
@@ -438,7 +436,10 @@ create procedure `getregistrysforpartys` (
 )
 begin
 	select r.idregistry,
-		   p.idprofession
+		   p.idprofession,
+           r.havefood,
+           r.havebanner,
+           r.havetag
 	from organizationregistry r 
 	inner join profession p 
 		on r.idprofession = p.idprofession
@@ -611,9 +612,9 @@ end
 $$
 delimiter ;
 
-##############################################################
-##						party configuration
-##############################################################
+/*************************************************************/
+/*						party configuration                  */
+/*************************************************************/
 drop procedure if exists `getactivepartyconfiguration`;
 delimiter $$
 create procedure `getactivepartyconfiguration` ()
@@ -623,7 +624,7 @@ begin
 ,pickbanner 
 ,pickcommander
 	from partyconfiguration
-	where enddate = NULL;
+	where enddate IS NULL;
 end
 $$
 delimiter ;
@@ -742,9 +743,9 @@ end
 $$
 delimiter ;
 
-##############################################################
-##						testing purposes
-##############################################################
+/*************************************************************/
+/*					testing purposes                         */
+/*************************************************************/
 drop procedure if exists `populatepartyregistrys`;
 delimiter $$
 create procedure `populatepartyregistrys` (
@@ -852,4 +853,4 @@ end
 $$
 delimiter ;
 
-##call populatepartyregistrys(3);
+##call populatepartyregistrys(1);

@@ -49,7 +49,7 @@ CREATE TABLE `role` (
 );
 
 /*********************************************/
-/* 					login    			 	                 */
+/* 					login    			 	 */
 /*********************************************/  
 drop table if exists `login`;
 create table `login` (
@@ -67,8 +67,8 @@ create table `login` (
   unique key `uk_username_displayname`(`username`, `displayname`)
   );
 
-alter table `login` add constraint `fk_login_role` foreign key (`idrole`)
-references role (`idrole`);   
+/*alter table `login` add constraint `fk_login_role` foreign key (`idrole`)
+references role (`idrole`);   */
 
 /*********************************************/
 /* 			    loginprofession    		 	 */

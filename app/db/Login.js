@@ -11,7 +11,7 @@ util.inherits(Login, Base);
 
 Login.prototype.verifyLogin = function( username, password, callback){
 	var self = this;
-	var sql = 'CALL verifyLogin(?,?)';
+	var sql = 'CALL verifylogin(?,?)';
 	var params = [ username, password];
 	var query = mysql.format(sql,params);
 	this.db.query(query, function (err, rows, fields) {

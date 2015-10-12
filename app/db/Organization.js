@@ -11,7 +11,7 @@ function Organization(db) {
 util.inherits(Organization, Base);
 
 Organization.prototype.createOrganization = function (idpartyconfiguration, title, callback) {
-	var sql = 'CALL createOrganization(?,?)';
+	var sql = 'CALL createorganization(?,?)';
 	var params = [idpartyconfiguration, title];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -26,7 +26,7 @@ Organization.prototype.createOrganization = function (idpartyconfiguration, titl
 };
 
 Organization.prototype.getOrganization = function (idorganization, callback) {
-	var sql = 'CALL getOrganization(?)';
+	var sql = 'CALL getorganization(?)';
 	var params = [idorganization];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -42,25 +42,10 @@ Organization.prototype.getOrganization = function (idorganization, callback) {
 					break;
 				case 2:
 				case 3:
-					data.registry = self.getTable(rows, fields, 1);
-					data.statistic = self.getTable(rows, fields, 2);
-					break;
 				case 4:
 				case 5:
 				case 6:
-					var partys = self.getTable(rows, fields, 1);
-
-					data.partys = _.map(_.keys(_.groupBy(partys, 'partyname')), function (partyname) {
-						var aux = {
-							partyname: partyname,
-							members: _.filter(partys, function (p) {
-								return p.partyname == partyname;
-							})
-						};
-						return aux;
-					});
-					data.statistic = self.getTable(rows, fields, 2);
-					break;
+				break;
 			}
 
 			callback(err, data);
@@ -71,10 +56,10 @@ Organization.prototype.getOrganization = function (idorganization, callback) {
 };
 
 Organization.prototype.addPartys = function (partys, callback) {
-	var sql = 'INSERT INTO organizationparty (`idorganization`, `idpartyname`, `idregistry`, `createddate`) values  ?';
+	var sql = 'INSERT INTO organizationparty (`idorganization`, `idpartyname`, `idregistry`,`havebanner`,`havefood`,`createddate`) values  ?';
 	var params = partys;
 	var query = mysql.format(sql, [params]);
-	console.log(query);
+	console.log(query.replace(/\),/g,'),\r\n'));
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
 			callback(err, 'ok');
@@ -85,7 +70,7 @@ Organization.prototype.addPartys = function (partys, callback) {
 };
 
 Organization.prototype.addOrganizationUser = function (idorganization, idlogin, idprofession, havefood, havebanner, havetag, callback) {
-	var sql = 'CALL addOrganizationUser(?,?,?,?,?,?)';
+	var sql = 'CALL addorganizationuser(?,?,?,?,?,?)';
 	var params = [idorganization, idlogin, idprofession, havefood, havebanner, havetag];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
@@ -98,7 +83,7 @@ Organization.prototype.addOrganizationUser = function (idorganization, idlogin, 
 }
 
 Organization.prototype.updateOrganization = function (idorganization, title, idpartyconfiguration, callback) {
-	var sql = 'CALL updateOrganization(?,?,?)';
+	var sql = 'CALL updateorganization(?,?,?)';
 	var params = [idorganization, title, idpartyconfiguration];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
@@ -111,7 +96,7 @@ Organization.prototype.updateOrganization = function (idorganization, title, idp
 };
 
 Organization.prototype.resetOrganization = function (idorganization, callback) {
-	var sql = 'CALL resetOrganization(?)';
+	var sql = 'CALL resetorganization(?)';
 	var params = [idorganization];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
@@ -124,7 +109,7 @@ Organization.prototype.resetOrganization = function (idorganization, callback) {
 };
 
 Organization.prototype.moveStatusOrganization = function (idorganization, idstatus, callback) {
-	var sql = 'CALL moveStatusOrganization(?,?)';
+	var sql = 'CALL movestatusorganization(?,?)';
 	var params = [idorganization, idstatus];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
@@ -137,7 +122,7 @@ Organization.prototype.moveStatusOrganization = function (idorganization, idstat
 };
 
 Organization.prototype.getRegistrys = function (idorganization, callback) {
-	var sql = 'CALL getRegistrys(?)';
+	var sql = 'CALL getregistrys(?)';
 	var params = [idorganization];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -152,7 +137,7 @@ Organization.prototype.getRegistrys = function (idorganization, callback) {
 };
 
 Organization.prototype.getRegistrysForPartys = function (idorganization, callback) {
-	var sql = 'CALL getRegistrysForPartys(?)';
+	var sql = 'CALL getregistrysforpartys(?)';
 	var params = [idorganization];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -194,7 +179,7 @@ Organization.prototype.getPartys = function (idorganization, callback) {
 };
 
 Organization.prototype.cleanPartys = function (idorganization, callback) {
-	var sql = 'CALL cleanPartys(?)';
+	var sql = 'CALL cleanpartys(?)';
 	var params = [idorganization];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
@@ -211,7 +196,7 @@ Organization.prototype.listOrganizations = function (where, order, parameters, i
 };
 
 Organization.prototype.getUserOrganizationConfiguration = function (idorganization, idlogin, callback) {
-	var sql = 'CALL getUserOrganizationConfiguration(?,?)';
+	var sql = 'CALL getuserorganizationconfiguration(?,?)';
 	var params = [idorganization, idlogin];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -229,7 +214,7 @@ Organization.prototype.getUserOrganizationConfiguration = function (idorganizati
 };
 
 Organization.prototype.getActiveOrganizations = function (idlogin, callback) {
-	var sql = 'CALL getActiveOrganizations(?)';
+	var sql = 'CALL getactiveorganizations(?)';
 	var params = [idlogin];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -244,7 +229,7 @@ Organization.prototype.getActiveOrganizations = function (idlogin, callback) {
 };
 
 Organization.prototype.getOrganizationForUser = function (idorganization, idlogin, callback) {
-	var sql = 'CALL getOrganizationForUser(?,?)';
+	var sql = 'CALL getorganizationforuser(?,?)';
 	var params = [idorganization, idlogin];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -262,13 +247,11 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 			data.organization = self.getFirstRow(rows, fields, 3);
 			switch (data.organization.idstatus) {
 				case 1:
-
-					data.partyconfiguration = self.getFirstRow(rows, fields, 4);
+					data.partyconfiguration = self.getTable(rows, fields, 4);
 					break;
 				case 2:
 				case 3:
 					data.registry = self.getTable(rows, fields, 4);
-					data.statistic = self.getTable(rows, fields, 5);
 					break;
 				case 4:
 					data.registry = self.getTable(rows, fields, 4);
@@ -282,7 +265,6 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 						};
 						return aux;
 					});
-					data.statistic = self.getTable(rows, fields, 6);
 					break;
 				case 5:
 				case 6:
@@ -296,7 +278,6 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 						};
 						return aux;
 					});
-					data.statistic = self.getTable(rows, fields, 5);
 					break;
 			}
 
@@ -308,7 +289,7 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 };
 
 Organization.prototype.getOrganizationStatus = function (idorganization, callback) {
-	var sql = 'CALL getOrganizationStatus(?)';
+	var sql = 'CALL getorganizationstatus(?)';
 	var params = [idorganization];
 	var query = mysql.format(sql, params);
 	var self = this;
@@ -349,8 +330,9 @@ Organization.prototype.makeOrganizationPartys = function (idorganization, groupS
 					return callback(err,null);
 				}
 			});
-		} 
-		return callback(err,null);
+		} else {
+			return callback(err,null);
+		}
 	});
 };
 
