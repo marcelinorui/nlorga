@@ -3,7 +3,8 @@ var BaseResponse = require('./base-response.js'),
 
 function Response(request){
 	BaseResponse.apply(this, arguments);
-	this.organization = request.session.organization.organization || {};	
+	this.organization = request.session.organization.organization || {};
+	this.partyconfiguration = request.session.organization.partyconfiguration || {};	
 	this.useroptions = 	request.session.organization.options || {};
 	if ( request.session.organization ){
 		request.session.organization = null;

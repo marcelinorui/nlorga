@@ -20,7 +20,7 @@ begin
 		select idlogin, username,displayname, hascommandertag, idrole
         from login
         where username = in_username
-        and enddate > now();
+        and (enddate is null OR enddate > now());
 	else
 		signal sqlstate '45000' set message_text = 'Invalid username/password ';
 	end if;
@@ -319,16 +319,12 @@ begin
 		call getactivepartyconfiguration();    
     elseif @mystatus in (2,3) then
         call getregistrys(in_idorganization); 
-        call getstatistics(in_idorganization);
 	elseif @mystatus in (4) then
-		call getregistrys(in_idorganization); 
+		call getregistrys(in_idorganization);
         call getpartys(in_idorganization);
-        call getstatistics(in_idorganization);
 	elseif @mystatus in(5,6) then
 		call getpartys(in_idorganization);
-        call getstatistics(in_idorganization);
-	end if;  
-    
+	end if;
 end
 $$
 delimiter ;
@@ -438,7 +434,10 @@ create procedure `getregistrysforpartys` (
 )
 begin
 	select r.idregistry,
-		   p.idprofession
+		   p.idprofession,
+           r.havefood,
+           r.havebanner,
+           r.havetag
 	from organizationregistry r 
 	inner join profession p 
 		on r.idprofession = p.idprofession
@@ -623,7 +622,7 @@ begin
 ,pickbanner 
 ,pickcommander
 	from partyconfiguration
-	where enddate = NULL;
+	where enddate IS NULL;
 end
 $$
 delimiter ;
@@ -852,4 +851,4 @@ end
 $$
 delimiter ;
 
-##call populatepartyregistrys(3);
+##call populatepartyregistrys(1);

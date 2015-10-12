@@ -71,10 +71,10 @@ Organization.prototype.getOrganization = function (idorganization, callback) {
 };
 
 Organization.prototype.addPartys = function (partys, callback) {
-	var sql = 'INSERT INTO organizationparty (`idorganization`, `idpartyname`, `idregistry`, `createddate`) values  ?';
+	var sql = 'INSERT INTO organizationparty (`idorganization`, `idpartyname`, `idregistry`,`havebanner`,`havefood`,`createddate`) values  ?';
 	var params = partys;
 	var query = mysql.format(sql, [params]);
-	console.log(query);
+	console.log(query.replace(/\),/g,'),\r\n'));
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
 			callback(err, 'ok');
@@ -262,13 +262,11 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 			data.organization = self.getFirstRow(rows, fields, 3);
 			switch (data.organization.idstatus) {
 				case 1:
-
-					data.partyconfiguration = self.getFirstRow(rows, fields, 4);
+					data.partyconfiguration = self.getTable(rows, fields, 4);
 					break;
 				case 2:
 				case 3:
 					data.registry = self.getTable(rows, fields, 4);
-					data.statistic = self.getTable(rows, fields, 5);
 					break;
 				case 4:
 					data.registry = self.getTable(rows, fields, 4);
@@ -282,7 +280,6 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 						};
 						return aux;
 					});
-					data.statistic = self.getTable(rows, fields, 6);
 					break;
 				case 5:
 				case 6:
@@ -296,7 +293,6 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 						};
 						return aux;
 					});
-					data.statistic = self.getTable(rows, fields, 5);
 					break;
 			}
 
@@ -349,8 +345,9 @@ Organization.prototype.makeOrganizationPartys = function (idorganization, groupS
 					return callback(err,null);
 				}
 			});
-		} 
-		return callback(err,null);
+		} else {
+			return callback(err,null);
+		}
 	});
 };
 

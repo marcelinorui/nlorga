@@ -73,7 +73,9 @@
 							<%/*<div class="radio"><label><input type="radio" name="partysize" value="10" disabled  /> 10 Members</label></div>*/%>
 						</div>
 					</div>					
-					<span class="pull-right"><button type="submit" class="btn btn-success">Create Partys</button></span>
+					<span class="pull-right">
+						<button type="submit" class="btn btn-success">Create Partys</button>
+					</span>
 			</form>
 			<% } %>
 			
@@ -119,12 +121,11 @@
 <% include ./../partials/end-body %>
 <script>
 	$(function(){
-	var view = new NL.View.AdminOrganization({
-		el: '.main', 
-		organization: <%- JSON.stringify(organization) %>,
-		useroptions: <%- JSON.stringify(useroptions) %>
-		});	
-	});
-</script>
+		var view = new NL.View.AdminOrganization({
+			el: '.main', 
+			organization: <%- JSON.stringify(organization) %>,
+			useroptions: <%- JSON.stringify(useroptions) %>
+		});
+	});	
 </script>
 <% include ./../partials/end-footer %>
