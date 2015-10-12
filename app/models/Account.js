@@ -112,7 +112,6 @@ module.exports.insert = function (req, res, next) {
 				next(err);
 			});
 };
-
 module.exports.insertResponse = function(req,res,next){
 	res.redirect('/admin/accounts');
 };
