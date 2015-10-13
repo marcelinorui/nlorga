@@ -1,6 +1,5 @@
 var db = require('./../db/index.js');
 
-module.exports.getUrl = '/profile';
 module.exports.get = function (req, res, next) {
 	db.User.getUserProfile(req.user.idlogin, function (err, profile) {
 		if (!err) {
@@ -9,12 +8,7 @@ module.exports.get = function (req, res, next) {
 		return next(err);
 	});
 };
-module.exports.getResponse = function (req, res, next) {
-	var Response = require('./../response/user-profile-response.js');
-	res.render('user-profile', new Response(req));
-};
 
-module.exports.updateUrl = '/profile';
 module.exports.update = function (req, res, next) {
 	db.Profession.getAllProfessions(function (err, professions) {
 		if (err) {
@@ -48,7 +42,4 @@ module.exports.update = function (req, res, next) {
 				return next();
 			});
 	});
-};
-module.exports.updateResponse = function (req, res, next) {
-	res.redirect('/user/profile');
 };

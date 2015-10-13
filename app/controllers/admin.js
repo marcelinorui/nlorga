@@ -2,39 +2,67 @@ var express = require('express'),
 	db = require('./../db/index.js'),
 	utils = require('./../utils/utils.js'),
 	account = require('./../models/Account.js'),
-	organization = require('./../models/Organization.js'),
+
 	configuration = require('./../models/Configuration.js');
 
 
 
 function admin(passport) {
 	var router = express.Router();
-
+	//Middleware for admin authentication
 	router.use(require('../utils/auth.js').isAdminAuthenticated);
 
 	router.get('/', function (req, res, next) {
-		var Response = require('./../response/admin-accounts-response.js');
-		res.render('admin', new Response(req));
+		res.render('admin', new (require('./../response/admin-accounts-response.js'))(req));
 	});
 
-	router.get(account.listUrl, account.list, account.listResponse);
-	router.get(account.getUrl, account.get, account.getResponse);
-	router.post(account.updateUrl,account.update, account.updateResponse);
-	router.get(account.createUrl,account.create,account.createResponse);
-	router.post(account.insertUrl, account.insert,account.insertResponse);  
+/******************************************************************************************/
+/**                                   ACCOUNTS                                           **/
+/******************************************************************************************/
+	router.get('/accounts', account.list,
+		function (req, res, next) {
+			res.render('admin-accounts', new (require('./../response/admin-accounts-response.js'))(req))
+		});
+	router.get('/account/:id/edit', account.get,
+		function (req, res, next) {
+			res.render('admin-account-edit', new (require('./../response/admin-account-edit-response.js'))(req));
+		});
+	router.post('/account/:id/edit', account.update,
+		function (req, res, next) {
+			res.redirect('/admin/account/' + req.params.id + '/edit');
+		});
+	router.get('/account/create', account.create,
+		function (req, res, next) {
+			res.render('admin-account-create', new (require('./../response/admin-account-create-response.js'))(req));
+		});
+	router.post('/account/create', account.insert,
+		function (req, res, next) {
+			res.redirect('/admin/accounts');
+		});
 
-	router.get(organization.listUrl, organization.list, organization.listResponse);
-	router.get(organization.createUrl,organization.create,organization.createResponse);
-	router.post(organization.insertUrl, organization.insert,organization.insertResponse);  
-	router.get(organization.getUrl, organization.get, organization.getResponse);
-	router.post(organization.updateUrl,organization.update, organization.updateResponse);
-	router.post(organization.statusUrl,organization.status,organization.statusResponse);
-	
-	router.get(configuration.listUrl, configuration.list, configuration.listResponse);
-	router.get(configuration.createUrl,configuration.create,configuration.createResponse);
-	router.post(configuration.insertUrl, configuration.insert,configuration.insertResponse);
-	router.get(configuration.getUrl, configuration.get, configuration.getResponse);
-	router.post(configuration.updateUrl,configuration.update, configuration.updateResponse);
+/******************************************************************************************/
+/**                                   CONFIGURATIONS                                     **/
+/******************************************************************************************/
+	router.get('/configurations', configuration.list,
+		function (req, res) {
+			res.render('admin-configurations', new (require('./../response/admin-configurations-response.js'))(req))
+		});
+	router.get('/configuration/create',
+		function (req, res, next) {
+			res.render('admin-configuration-create', new (require('./../response/admin-configuration-create-response.js'))(req))
+		});
+	router.post('/configuration/create', configuration.insert,
+		function (req, res, next) {
+			res.redirect('/admin/configuration/' + req.session.idconfiguration + '/edit');
+		});
+	router.get('/configuration/:id/edit', configuration.get,
+		function (req, res, next) {
+			res.render('admin-configuration-edit', new (require('./../response/admin-configuration-edit-response.js'))(req))
+		});
+	router.post('/configuration/:id/edit',
+		function (req, res, next) {
+			res.render('admin-configuration-edit', new (require('./../response/admin-configuration-edit-response.js'))(req));
+		});
 
 	return router;
 };

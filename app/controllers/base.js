@@ -9,13 +9,11 @@ function base(passport) {
 	});
 
 	router.get('/index', function (req, res, next) {
-		var Response = require('./../response/base-response.js');
-		res.render('index', new Response(req));
+		res.render('index', new (require('./../response/base-response.js'))(req));
 	});
 
 	router.get('/login', function (req, res, next) {
-		var Response = require('./../response/login-response.js');
-		res.render('login', new Response(req));
+		res.render('login', new (require('./../response/login-response.js'))(req));
 	});
 
 	router.post('/login', function (req, res, next) {
@@ -41,8 +39,7 @@ function base(passport) {
 	});
 	
 	router.get('/no-permitions', function (req, res) {
-		var Response = require('./../response/base-response.js');
-		res.render('no-permitions', new Response(req));
+		res.render('no-permitions', new (require('./../response/base-response.js'))(req));
 	});
 	
 	return router;
