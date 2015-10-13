@@ -20,14 +20,7 @@ function apiAdmin(passport) {
 		});
 	});
 	
-	router.get('/organizations', function(req,res,next){
-	db.Organization.listOrganizations('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, organizations){
-			if(!err){
-				res.status(200).json(organizations);
-			}
-			return next(err);
-		});
-	});
+	
 	
 	router.get('/configurations', function(req,res,next){
 	db.Configuration.listConfigurations('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, configurations){

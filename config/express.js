@@ -19,7 +19,8 @@ module.exports = function (app, db, config) {
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
   app.set('views', [
-    config.root + '/app/views', 
+    config.root + '/app/views',
+    config.root + '/app/views/commander',  
     config.root + '/app/views/admin', 
     config.root + '/app/views/user']);
   app.set('view engine', 'ejs');
@@ -51,8 +52,10 @@ module.exports = function (app, db, config) {
 
   app.use('/', require('./../app/controllers/base.js')(passport));	
   app.use('/user', require('./../app/controllers/user.js')(passport));
+  app.use('/commander', require('./../app/controllers/commander.js')(passport));
   app.use('/admin', require('./../app/controllers/admin.js')(passport));
   app.use('/api/user', require('./../app/controllers/api-user.js')(passport));
+  app.use('/api/commander', require('./../app/controllers/api-commander.js')(passport));
   app.use('/api/admin', require('./../app/controllers/api-admin.js')(passport));
  
 

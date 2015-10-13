@@ -251,33 +251,9 @@ Organization.prototype.getOrganizationForUser = function (idorganization, idlogi
 					break;
 				case 2:
 				case 3:
-					data.registry = self.getTable(rows, fields, 4);
-					break;
 				case 4:
-					data.registry = self.getTable(rows, fields, 4);
-					var partys = self.getTable(rows, fields, 5);
-					data.partys = _.map(_.keys(_.groupBy(partys, 'partyname')), function (partyname) {
-						var aux = {
-							partyname: partyname,
-							members: _.filter(partys, function (p) {
-								return p.partyname == partyname;
-							})
-						};
-						return aux;
-					});
-					break;
 				case 5:
 				case 6:
-					var partys = self.getTable(rows, fields, 4);
-					data.partys = _.map(_.keys(_.groupBy(partys, 'partyname')), function (partyname) {
-						var aux = {
-							partyname: partyname,
-							members: _.filter(partys, function (p) {
-								return p.partyname == partyname;
-							})
-						};
-						return aux;
-					});
 					break;
 			}
 

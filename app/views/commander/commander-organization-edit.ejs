@@ -6,9 +6,9 @@
 		<span class="label label-info pull-right"><%- organization.status %></span>
 	</div>
 	<% if ( organization.idstatus == 1 ) {  %>
-	<form action="/admin/organization/<%- organization.idorganization %>/edit" method="post">
+	<form action="/commander/organization/<%- organization.idorganization %>/edit" method="post">
 		<div class="form-group">
-			<label for="username">Title</label>
+			<label for="title">Title</label>
 			<input type="text" id="title" class="form-control" name="title" placeholder="Title" value="<%- organization.title %>" />
 		</div>
 		<div class="form-group">
@@ -41,10 +41,9 @@
 	<% } %>
 	<% if ( organization.idstatus < 6 ){ %>
 	<hr>		
-	<div class="row">
-		
+	<div class="row">		
 		<div class="col-lg-3">
-			<form action="/admin/organization/<%- organization.idorganization%>/status/-1" method="post">
+			<form action="/commander/organization/<%- organization.idorganization%>/status/-1" method="post">
 				<div class="form-group">
 					<button type="submit" class="btn btn-danger"> Reset Organization </button>
 				</div>	
@@ -52,17 +51,17 @@
 		</div>		
 		<div class="col-lg-9">
 			<% if ( organization.idstatus == 1) { %>
-			<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+			<form action="/commander/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 				<span class="pull-right"><button type="submit" class="btn btn-success">Start Party Registry</button></span>	
 			</form>
 			<% } %>			
 			<% if ( organization.idstatus == 2) { %>
-			<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+			<form action="/commander/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 				<span class="pull-right"><button type="submit" class="btn btn-success">Stop Party Registry</button>	</span>	
 			</form>
 			<% } %>
 			<% if ( organization.idstatus == 3) { %>
-			<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+			<form action="/commander/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 					<div class="col-lg-offset-3 col-lg-5">
 						<div class="form-group">
 						<label>Pick a party size</label>						
@@ -87,7 +86,7 @@
 			<% if ( organization.idstatus == 4) { %>
 			<div class="row">
 				<div class="col-lg-10">
-					<form action="/admin/organization/<%- organization.idorganization%>/status/-2" method="post" >
+					<form action="/commander/organization/<%- organization.idorganization%>/status/-2" method="post" >
 						<div class="row">
 							<div class="col-lg-offset-3 col-lg-5">			
 								<label>Pick a party size</label>						
@@ -105,7 +104,7 @@
 					</form>
 				</div>
 				<div class="col-lg-2">
-					<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+					<form action="/commander/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 						<button type="submit" class="btn btn-success">Show Partys </button>
 					</form>
 				</div>
@@ -113,7 +112,7 @@
 			<% } %>
 			
 			<% if ( organization.idstatus == 5) { %>			
-				<form action="/admin/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+				<form action="/commander/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
 				<span class="pull-right"><button type="submit" class="btn btn-success">Close Organization</button>	</span>
 				</form>
 			<% } %>
