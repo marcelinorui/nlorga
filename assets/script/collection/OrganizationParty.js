@@ -35,5 +35,18 @@ NL.Collection.OrganizationParty = NL.Collection.OrganizationParty || Backbone.Co
 			return member.username;
 		}
 		return null;
+	},
+	getMyParty:function(){
+		var username = this.options.username;
+		var partys = _.select(this.toJSON(),function(p){ 
+			var myparty = _.select(p.members,function(m){ 
+				return m.username == username;
+			}); 
+			if(myparty.length > 0){ return myparty; }
+		});
+		if(partys && partys.length > 0){
+			return partys[0].partyname;
+		}
+		return "";
 	}
 });
