@@ -37,7 +37,10 @@ NL.View.OrganizationParty = NL.View.OrganizationParty || Backbone.View.extend({
 		));
 		this.$el.append(this.template({
 			partys: this.collection.toJSON(),
-			username: this.collection.options.username}));
+			username: this.collection.options.username,
+			myparty: this.collection.getMyParty()
+		}));
+		
 		if ( this.options.jsviewname ){
 			this.$el.append(NL.Template[this.options.jsviewname](this.collection.toJSON()));
 		}
