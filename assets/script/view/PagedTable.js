@@ -11,6 +11,7 @@ NL.View.PagedTable = NL.View.PagedTable || Backbone.View.extend({
 		
 		this.collection = new NL.Collection.Pager(options.table.data);
 		this.collection.updatePager(options.table.pager);
+		this.collection.updateSearch(options.search);
 		this.collection.url = options.url;
 		this.$table = this.$el.find('table');
 		this.$header = this.$table.find('thead');

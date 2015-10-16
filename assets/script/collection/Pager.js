@@ -19,15 +19,16 @@ NL.Collection.Pager = NL.Collection.Pager || Backbone.Collection.extend({
 	},
 	fetch: function (options) {
 		options = options || {};
-		
-		_.extend(options,{data:{
-			currentPage: this.pager.currentPage,
-			itemsPerPage: this.pager.itemsPerPage
-		}});
+		var data = this.pager;
+		_.extend(data,this.search);
+		_.extend(options,{data:data});		
 		
 		return Backbone.Collection.prototype.fetch.call(this, options);
 	},
 	updatePager: function (pager) {
 		this.pager = pager;
+	},
+	updateSearch:function(search){
+		this.search = search;
 	}
 });

@@ -1,8 +1,47 @@
 var db = require('./../db/index.js'),
 	utils = require('./../utils/utils.js');
 
+module.exports.search = function(req,res,next){
+	var search = {};
+	var sqlsearch = [];
+	if(req.query['name']){
+		search.name = req.query['name'];
+		sqlsearch.push("( username like '%"+search.name+"%' OR displayname like '%"+search.name+"%' )");
+	}
+	
+	if( req.query['idrole'] ){
+		if(req.query['idrole'] !== ""){
+			search['idrole'] = Number(req.query['idrole']);
+			sqlsearch.push('idrole = '+ search.idrole);
+		}
+	}
+	
+	if( req.query['removed']){
+		if(req.query['removed'] !== ""){
+			search.removed = Number(req.query['removed']);
+			if( search.removed === 1 ){
+				sqlsearch.push('enddate is not null');
+			}else{
+				sqlsearch.push('enddate is null');
+			}
+		}
+	}
+	
+	if( req.query['haveTag']){
+		if(req.query['haveTag'] !== ""){
+			search.haveTag = Number(req.query['haveTag']);	
+			sqlsearch.push('hascommandertag = '+ search.haveTag);
+		}
+	}
+	
+	
+	req.session.sqlsearch = sqlsearch;
+	req.session.search = search;
+	return next();	
+};
+
 module.exports.list = function (req, res, next) {
-	db.Account.listAccounts('', '', null, null, null, function (err, accounts) {
+	db.Account.listAccounts(req.session.sqlsearch, '', null, null, null, function (err, accounts) {
 		if (!err) {
 			req.session.accounts = accounts;
 		} else {

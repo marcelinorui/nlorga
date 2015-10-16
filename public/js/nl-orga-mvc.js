@@ -16056,16 +16056,17 @@ NL.Collection.Pager = NL.Collection.Pager || Backbone.Collection.extend({
 	},
 	fetch: function (options) {
 		options = options || {};
-		
-		_.extend(options,{data:{
-			currentPage: this.pager.currentPage,
-			itemsPerPage: this.pager.itemsPerPage
-		}});
+		var data = this.pager;
+		_.extend(data,this.search);
+		_.extend(options,{data:data});		
 		
 		return Backbone.Collection.prototype.fetch.call(this, options);
 	},
 	updatePager: function (pager) {
 		this.pager = pager;
+	},
+	updateSearch:function(search){
+		this.search = search;
 	}
 });
 NL.Collection.PartyConfigurationProfession = NL.Collection.PartyConfigurationProfession || Backbone.Collection.extend({
@@ -16405,6 +16406,7 @@ NL.View.PagedTable = NL.View.PagedTable || Backbone.View.extend({
 		
 		this.collection = new NL.Collection.Pager(options.table.data);
 		this.collection.updatePager(options.table.pager);
+		this.collection.updateSearch(options.search);
 		this.collection.url = options.url;
 		this.$table = this.$el.find('table');
 		this.$header = this.$table.find('thead');
