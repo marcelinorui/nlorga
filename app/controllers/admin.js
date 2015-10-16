@@ -2,7 +2,7 @@ var express = require('express'),
 	db = require('./../db/index.js'),
 	utils = require('./../utils/utils.js'),
 	account = require('./../models/Account.js'),
-
+	roles = require('./../models/Roles.js'),
 	configuration = require('./../models/Configuration.js');
 
 
@@ -19,7 +19,7 @@ function admin(passport) {
 /******************************************************************************************/
 /**                                   ACCOUNTS                                           **/
 /******************************************************************************************/
-	router.get('/accounts', account.list,
+	router.get('/accounts',account.search, account.list, roles.activeRoles,
 		function (req, res, next) {
 			res.render('admin-accounts', new (require('./../response/admin-accounts-response.js'))(req))
 		});

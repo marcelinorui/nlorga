@@ -6,7 +6,11 @@ function Base(db) {
 
 Base.prototype.paginateQuery = function (table, columns, where, order, parameters, itemsPerPage, currentPage, callback) {
     if (where) {
-        where = ' WHERE 1 = 1 ' + where.join(' AND ');
+        if( where.length > 0 ){
+            where = ' WHERE 1 = 1 AND ' + where.join(' AND ');
+        } else {
+            where = '';
+        }
     }
 
     if (!order) {
@@ -42,6 +46,7 @@ Base.prototype.paginateQuery = function (table, columns, where, order, parameter
     var countQuery = mysql.format(countSql, countParams);
     var pageQuery = mysql.format(querySql, queryParams);
     var self = this;
+    console.log(pageQuery);
     this.db.query(countQuery + pageQuery, function (err, rows, fields) {
         if (!err) {
             var total = self.getSingle(rows, fields, 0);

@@ -1,4 +1,5 @@
 var express = require('express'),
+		account = require('./../models/Account.js'),
 		 db = require('./../db/index.js');
 		 
 function apiAdmin(passport) {
@@ -10,20 +11,18 @@ function apiAdmin(passport) {
 		res.status(200).json('ok');
 	});
 		
-	router.get('/accounts', function(req,res,next){
-		db.Account.listAccounts('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, accounts){
+	router.get('/accounts', account.search, function(req,res,next){
+		db.Account.listAccounts(req.session.sqlsearch,'',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, accounts){
 			if(!err){
 				res.status(200).json(accounts);
 			} else {
 				return next(err);
 			}
 		});
-	});
-	
-	
+	});	
 	
 	router.get('/configurations', function(req,res,next){
-	db.Configuration.listConfigurations('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, configurations){
+		db.Configuration.listConfigurations('','',null,req.query['itemsPerPage'],req.query['currentPage'],function(err, configurations){
 			if(!err){
 				res.status(200).json(configurations);
 			}
