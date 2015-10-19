@@ -1,9 +1,7 @@
-var db = require('./../db/index.js'),
-	utils = require('./../utils/utils.js');
-	
+var db = require('./../db/index.js');
 
 module.exports.search = function(req,res,next){
-	var search = {};
+	var search = {startdate:'',enddate:''};
 	if(req.query['startdate']){
 		if(req.query['startdate'] !== ""){
 			search.startdate = req.query['startdate'];

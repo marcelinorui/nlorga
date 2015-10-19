@@ -9,7 +9,7 @@ function Participation(db) {
 
 util.inherits(Participation, Base);
 
-Participation.prototype.getParticipation = function (startdate,enddate, callback) {
+Participation.prototype.getParticipation = function (startdate, enddate, callback) {
 	var sql = 'CALL getparticipation(?,?)';
 	var params = [startdate,enddate];
 	var query = mysql.format(sql, params);
@@ -23,3 +23,5 @@ Participation.prototype.getParticipation = function (startdate,enddate, callback
 		}
 	});
 };
+
+module.exports = Participation;

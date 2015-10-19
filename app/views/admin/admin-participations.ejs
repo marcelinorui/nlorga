@@ -1,19 +1,28 @@
 <% include ./../partials/header %>
-<h2>Participations</h2>
+<h2>Participation</h2>
 <hr>
 <div class="col-lg-12">
-	<form action="/commander/participations" method="get" class="form-horizontal">		
+	<form action="/admin/participation" method="get" class="form-horizontal">		
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-lg-2">
 				<label for="startdate">Start Date</label>
 				<input id="startdate" name="startdate" type="text" class="form-control" value="<%= search.startdate%>"/>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-2">
 				<label for="enddate">End Date</label>
 				<input id="enddate" name="enddate" type="text" class="form-control" value="<%= search.enddate%>"/>
 			</div>
 		</div>
-	</form>
+		<div class="row">
+		<div class="col-lg-offset-8 col-lg-4">
+			<div class="btn-group pull-right">
+				<a href="/admin/participation/csv?startdate=<%=search.startdate%>&enddate=<%=search.enddate%>" class="btn btn-default">Download</a>
+				<button type="button" class="btn btn-default" id="btnClear">Clear</button>
+				<button type="submit" class="btn btn-default" id="btnSearch">Search</button>
+			</div>	
+		</div>
+	</div>
+	</form>	
 </div>
 <% if (participations.length > 0 ) {%>
 <div class="mytable">
@@ -33,8 +42,8 @@
 				<td><%= participations[i].username %></td>
 				<td><%= participations[i].displayname %></td>
 				<td><%= participations[i].participation %></td>
-				<td><%= participations[i].startdate %></td>
-				<td><%= participations[i].enddate %></td>
+				<td><%= participations[i].startdate.toISOString().substring(0,10) %></td>
+				<td><%= participations[i].enddate.toISOString().substring(0,10) %></td>
 			</tr>
 		<% }%>			
 		</tbody>	
@@ -44,5 +53,14 @@
 </div>
 <% }%> 
 <% include ./../partials/end-body %>
-
+<script>
+$(function(){
+	$('#btnClear').on('click',function(){
+		$('#startdate').val('');
+		$('#enddate').val('');
+		
+		$('#btnSubmit').click();
+	});
+});
+</script>
 <% include ./../partials/end-footer %>

@@ -1,0 +1,3 @@
+"Username";"Displayname";"Participation";"Start Date";"End Date";
+<% for(var i = 0; i < participations.length; i++){ %>"<%= participations[i].username %>";"<%= participations[i].displayname %>";"<%= participations[i].participation %>";"<%= participations[i].startdate.toISOString().substring(0,10) %>";"<%= participations[i].enddate.toISOString().substring(0,10) %>";
+<% }%>
