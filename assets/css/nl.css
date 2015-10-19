@@ -57,6 +57,102 @@ label.counter {
 .check-select input[type="checkbox"] {
   display: none!important;
 }
+.list-group-item-guardian {
+  color: white;
+  background-color: #0066ff;
+}
+a.list-group-item-guardian,
+button.list-group-item-guardian {
+  color: white;
+}
+a.list-group-item-guardian .list-group-item-heading,
+button.list-group-item-guardian .list-group-item-heading {
+  color: inherit;
+}
+a.list-group-item-guardian:hover,
+button.list-group-item-guardian:hover,
+a.list-group-item-guardian:focus,
+button.list-group-item-guardian:focus {
+  color: white;
+  background-color: #005ce6;
+}
+a.list-group-item-guardian.active,
+button.list-group-item-guardian.active,
+a.list-group-item-guardian.active:hover,
+button.list-group-item-guardian.active:hover,
+a.list-group-item-guardian.active:focus,
+button.list-group-item-guardian.active:focus {
+  color: #fff;
+  background-color: white;
+  border-color: white;
+}
+.list-group-item-warrior {
+  color: white;
+  background-color: orange;
+}
+a.list-group-item-warrior,
+button.list-group-item-warrior {
+  color: white;
+}
+a.list-group-item-warrior .list-group-item-heading,
+button.list-group-item-warrior .list-group-item-heading {
+  color: inherit;
+}
+a.list-group-item-warrior:hover,
+button.list-group-item-warrior:hover,
+a.list-group-item-warrior:focus,
+button.list-group-item-warrior:focus {
+  color: white;
+  background-color: #e69500;
+}
+a.list-group-item-warrior.active,
+button.list-group-item-warrior.active,
+a.list-group-item-warrior.active:hover,
+button.list-group-item-warrior.active:hover,
+a.list-group-item-warrior.active:focus,
+button.list-group-item-warrior.active:focus {
+  color: #fff;
+  background-color: white;
+  border-color: white;
+}
+/*.list-group-item-variant(revenant; @state-danger-bg; @state-danger-text);
+.list-group-item-variant(ranger; @state-danger-bg; @state-danger-text);
+.list-group-item-variant(thief; @state-danger-bg; @state-danger-text);
+.list-group-item-variant(engineer; @state-danger-bg; @state-danger-text);*/
+.list-group-item-elementalist {
+  color: white;
+  background-color: purple;
+}
+a.list-group-item-elementalist,
+button.list-group-item-elementalist {
+  color: white;
+}
+a.list-group-item-elementalist .list-group-item-heading,
+button.list-group-item-elementalist .list-group-item-heading {
+  color: inherit;
+}
+a.list-group-item-elementalist:hover,
+button.list-group-item-elementalist:hover,
+a.list-group-item-elementalist:focus,
+button.list-group-item-elementalist:focus {
+  color: white;
+  background-color: #670066;
+}
+a.list-group-item-elementalist.active,
+button.list-group-item-elementalist.active,
+a.list-group-item-elementalist.active:hover,
+button.list-group-item-elementalist.active:hover,
+a.list-group-item-elementalist.active:focus,
+button.list-group-item-elementalist.active:focus {
+  color: #fff;
+  background-color: white;
+  border-color: white;
+}
+/*.list-group-item-variant(mesmer; @state-danger-bg; @state-danger-text);
+.list-group-item-variant(necromancer; @state-danger-bg; @state-danger-text);*/
+.nlbg {
+  background-image: url(/img/NLBG.jpg);
+}
 span.guardian-icon,
 span.icon-1 {
   background-image: url("/img/guardian.png");
