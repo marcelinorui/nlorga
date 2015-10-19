@@ -23,14 +23,14 @@ function admin(passport) {
 
 	router.get('/participation', participation.search, participation.list, 
 	function(req,res,next){
-		res.render('admin-participations', new (require('./../response/participations-response.js'))(req));
+		res.render('admin-participation', new (require('./../response/participation-response.js'))(req));
 	});
 	
 	router.get('/participation/csv', participation.search, participation.list, 
 	function(req,res,next){
 		res.set('Content-Type', 'application/octet-stream');		
 		res.set('content-disposition', 'attachment; filename=\"' + 'participation.csv' +'\"');
-		res.render('admin-participations-csv', new (require('./../response/participations-response.js'))(req));
+		res.render('admin-participation-csv', new (require('./../response/participation-response.js'))(req));
 	});
 	
 
