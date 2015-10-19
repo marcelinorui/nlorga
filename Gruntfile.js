@@ -27,7 +27,8 @@ module.exports = function (grunt) {
                 '<%= css_path %>/<%= pkg.name %>.css',
                 '<%= css_path %>/nl.css',
                 '<%= css_path %>/toastr.css',
-                '<%= css_path %>/bootstrap.css'],
+                '<%= css_path %>/bootstrap.css'                
+                ],
             js: [
                 '<%=js_template_path %>/template.js',
                 'public/js/<%= pkg.name %>.js',
@@ -47,6 +48,7 @@ module.exports = function (grunt) {
                     'public/js/<%= pkg.name %>.js': ['assets/lib/jquery/dist/jquery.js',
                         'assets/lib/bootstrap/dist/js/bootstrap.js',
                         'assets/lib/bootstrap-checkbox/dist/js/bootstrap-checkbox.js',
+                        'assets/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
                         'assets/lib/toastr/toastr.js',
                         'assets/lib/underscore/underscore.js',
                         'assets/lib/backbone/backbone.js',
@@ -60,7 +62,11 @@ module.exports = function (grunt) {
             },
             css: {
                 files: {
-                    'public/css/<%= pkg.name %>.css': ['<%= css_path %>/nl.css', '<%= css_path %>/toastr.css', '<%= css_path %>/bootstrap.css'],
+                    'public/css/<%= pkg.name %>.css': 
+                        ['<%= css_path %>/nl.css', 
+                         '<%= css_path %>/toastr.css', 
+                         '<%= css_path %>/bootstrap.css', 
+                         'assets/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css'],
                 }
             }
 

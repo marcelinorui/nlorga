@@ -3,7 +3,8 @@ var express = require('express'),
 	utils = require('./../utils/utils.js'),
 	account = require('./../models/Account.js'),
 	roles = require('./../models/Roles.js'),
-	configuration = require('./../models/Configuration.js');
+	configuration = require('./../models/Configuration.js'),
+	participation = require('./../models/Participation.js');
 
 
 
@@ -15,13 +16,30 @@ function admin(passport) {
 	router.get('/', function (req, res, next) {
 		res.render('admin', new (require('./../response/admin-accounts-response.js'))(req));
 	});
+	
+/******************************************************************************************/
+/**                                   PARTICIPATION                                      **/
+/******************************************************************************************/
+
+	router.get('/participation', participation.search, participation.list, 
+	function(req,res,next){
+		res.render('admin-participation', new (require('./../response/participation-response.js'))(req));
+	});
+	
+	router.get('/participation/csv', participation.search, participation.list, 
+	function(req,res,next){
+		res.set('Content-Type', 'application/octet-stream');		
+		res.set('content-disposition', 'attachment; filename=\"' + 'participation.csv' +'\"');
+		res.render('admin-participation-csv', new (require('./../response/participation-response.js'))(req));
+	});
+	
 
 /******************************************************************************************/
 /**                                   ACCOUNTS                                           **/
 /******************************************************************************************/
 	router.get('/accounts',account.search, account.list, roles.activeRoles,
 		function (req, res, next) {
-			res.render('admin-accounts', new (require('./../response/admin-accounts-response.js'))(req))
+			res.render('admin-accounts', new (require('./../response/admin-accounts-response.js'))(req));
 		});
 	router.get('/account/:id/edit', account.get,
 		function (req, res, next) {
@@ -45,11 +63,11 @@ function admin(passport) {
 /******************************************************************************************/
 	router.get('/configurations', configuration.list,
 		function (req, res) {
-			res.render('admin-configurations', new (require('./../response/admin-configurations-response.js'))(req))
+			res.render('admin-configurations', new (require('./../response/admin-configurations-response.js'))(req));
 		});
 	router.get('/configuration/create',
 		function (req, res, next) {
-			res.render('admin-configuration-create', new (require('./../response/admin-configuration-create-response.js'))(req))
+			res.render('admin-configuration-create', new (require('./../response/admin-configuration-create-response.js'))(req));
 		});
 	router.post('/configuration/create', configuration.insert,
 		function (req, res, next) {
@@ -57,7 +75,7 @@ function admin(passport) {
 		});
 	router.get('/configuration/:id/edit', configuration.get,
 		function (req, res, next) {
-			res.render('admin-configuration-edit', new (require('./../response/admin-configuration-edit-response.js'))(req))
+			res.render('admin-configuration-edit', new (require('./../response/admin-configuration-edit-response.js'))(req));
 		});
 	router.post('/configuration/:id/edit',
 		function (req, res, next) {
