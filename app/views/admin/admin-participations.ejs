@@ -1,0 +1,48 @@
+<% include ./../partials/header %>
+<h2>Participations</h2>
+<hr>
+<div class="col-lg-12">
+	<form action="/commander/participations" method="get" class="form-horizontal">		
+		<div class="form-group">
+			<div class="col-lg-4">
+				<label for="startdate">Start Date</label>
+				<input id="startdate" name="startdate" type="text" class="form-control" value="<%= search.startdate%>"/>
+			</div>
+			<div class="col-lg-4">
+				<label for="enddate">End Date</label>
+				<input id="enddate" name="enddate" type="text" class="form-control" value="<%= search.enddate%>"/>
+			</div>
+		</div>
+	</form>
+</div>
+<% if (participations.length > 0 ) {%>
+<div class="mytable">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>Displayname</th>
+				<th>Participation</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% for(var i = 0; i < participations.length; i++){ %>
+			<tr>
+				<td><%= participations[i].username %></td>
+				<td><%= participations[i].displayname %></td>
+				<td><%= participations[i].participation %></td>
+				<td><%= participations[i].startdate %></td>
+				<td><%= participations[i].enddate %></td>
+			</tr>
+		<% }%>			
+		</tbody>	
+		<tfoot>			
+		</tfoot>	
+	</table>
+</div>
+<% }%> 
+<% include ./../partials/end-body %>
+
+<% include ./../partials/end-footer %>

@@ -3,7 +3,8 @@ var express = require('express'),
 	utils = require('./../utils/utils.js'),
 	account = require('./../models/Account.js'),
 	roles = require('./../models/Roles.js'),
-	configuration = require('./../models/Configuration.js');
+	configuration = require('./../models/Configuration.js'),
+	participation = require('./../models/Participation.js');
 
 
 
@@ -15,6 +16,16 @@ function admin(passport) {
 	router.get('/', function (req, res, next) {
 		res.render('admin', new (require('./../response/admin-accounts-response.js'))(req));
 	});
+	
+/******************************************************************************************/
+/**                                   PARTICIPATION                                      **/
+/******************************************************************************************/
+
+	router.get('/participation', participation.search, participation.list, 
+	function(req,res,next){
+		res.render('participations', new (require('./../response/participations-response.js'))(req))	
+	});
+	
 
 /******************************************************************************************/
 /**                                   ACCOUNTS                                           **/
