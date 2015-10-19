@@ -12,6 +12,7 @@
     "jquery": "~2.1.4",
     "bootstrap": "~3.3.5",
     "bootstrap-checkbox": "~1.2.8",
-    "marionette": "~2.4.3"
+    "marionette": "~2.4.3",
+    "bootstrap-datepicker": "~1.5.0"
   }
 }

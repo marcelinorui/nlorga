@@ -5,7 +5,7 @@
 	<div class="form-group">
 		<div class="col-lg-2">
 			<label for="startdate">Start Date</label>
-			<div class="input-group date">
+			<div class="input-group date" id="igstartdate">
 				<input id="startdate" name="startdate" type="text" class="form-control" value="<%= search.startdate%>" aria-describedby="startdate-addon"/>
 				<div class="input-group-addon">
     				<span class="glyphicon glyphicon-calendar" id="startdate-addon"></span>
@@ -14,7 +14,7 @@
 		</div>
 		<div class="col-lg-2">
 			<label for="enddate">End Date</label>
-			<div class="input-group date">
+			<div class="input-group date"  id="igenddate">
 				<input id="enddate" name="enddate" type="text" class="form-control" value="<%= search.enddate%>" aria-describedby="enddate-addon"/>
 				 <div class="input-group-addon">
     				<span class="glyphicon glyphicon-calendar" id="enddate-addon"></span>
@@ -74,9 +74,25 @@ $(function(){
 		$('#startdate').val('');
 		$('#enddate').val('');
 		
-		$('#btnSubmit').click();
+		
 	});
-	
+	$('#igstartdate.input-group.date').datepicker({
+			format: "yyyy-mm-dd",
+			weekStart: 1,
+			todayBtn: "linked",
+			clearBtn: true,
+			autoclose: true,
+			todayHighlight: true
+		});
+		
+		$('#igenddate.input-group.date').datepicker({
+			format: "yyyy-mm-dd",
+			weekStart: 1,
+			todayBtn: "linked",
+			clearBtn: true,
+			autoclose: true,
+			todayHighlight: true
+		});
 	
 });
 </script>
