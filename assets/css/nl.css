@@ -152,6 +152,13 @@ button.list-group-item-elementalist.active:focus {
 .list-group-item-variant(necromancer; @state-danger-bg; @state-danger-text);*/
 .nlbg {
   background-image: url(/img/NLBG.jpg);
+  background: url(/img/NLBG.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
 }
 span.guardian-icon,
 span.icon-1 {

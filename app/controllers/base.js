@@ -4,12 +4,12 @@ function base(passport) {
 	var router = express.Router();
 
 	router.get('/', function (req, res, next) {
-		var Response = require('./../response/base-response.js');
-		res.render('index', new Response(req));
+		var Response = require('./../response/login-response.js');
+		res.render('login', new Response(req));
 	});
 
 	router.get('/index', function (req, res, next) {
-		res.render('index', new (require('./../response/base-response.js'))(req));
+		res.render('login', new (require('./../response/login-response.js'))(req));
 	});
 
 	router.get('/login', function (req, res, next) {

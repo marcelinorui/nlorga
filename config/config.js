@@ -14,7 +14,7 @@ var config = {
     db: {
       "username": "root",
       "password": "root",
-      "database": "nl",
+      "database": "orga",
       "host": "127.0.0.1",
       "dialect": "mysql"
     },
