@@ -6,8 +6,8 @@ NL.Collection.OrganizationPartyTeqDefZerg = NL.Collection.OrganizationPartyTeqDe
 		defBattery:["North","North","West","West"]
 	},
 	setJobs:function(arr){
-		var def = arr.slice(0,4);
-		var zerg = arr.slice(4); 
+		var def = arr.slice(arr.length-4,4);
+		var zerg = arr
 		for(var d = 0; d < def.length; d++){
 			def[d].job = [ this.options.defJob[d],'Battery Fase - '+ this.options.defBattery[d]];
 		}
