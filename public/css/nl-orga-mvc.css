@@ -57,13 +57,24 @@ label.counter {
 .check-select input[type="checkbox"] {
   display: none!important;
 }
+.list-group-item-player {
+  background-color: #97FF9A;
+}
 .list-group-item-guardian {
   color: white;
-  background-color: #0066ff;
+  background-color: #0066ff!important;
+}
+.list-group-item-guardian .badge {
+  background-color: white;
+  color: #0066ff;
+}
+.list-group-item-guardian {
+  color: #0066ff;
+  background-color: white !important;
 }
 a.list-group-item-guardian,
 button.list-group-item-guardian {
-  color: white;
+  color: #0066ff;
 }
 a.list-group-item-guardian .list-group-item-heading,
 button.list-group-item-guardian .list-group-item-heading {
@@ -73,8 +84,8 @@ a.list-group-item-guardian:hover,
 button.list-group-item-guardian:hover,
 a.list-group-item-guardian:focus,
 button.list-group-item-guardian:focus {
-  color: white;
-  background-color: #005ce6;
+  color: #0066ff;
+  background-color: #f2f2f2;
 }
 a.list-group-item-guardian.active,
 button.list-group-item-guardian.active,
@@ -83,12 +94,16 @@ button.list-group-item-guardian.active:hover,
 a.list-group-item-guardian.active:focus,
 button.list-group-item-guardian.active:focus {
   color: #fff;
-  background-color: white;
-  border-color: white;
+  background-color: #0066ff;
+  border-color: #0066ff;
+}
+.list-group-item-guardian .badge {
+  background-color: #0066ff;
+  color: #e6e6e6;
 }
 .list-group-item-warrior {
   color: white;
-  background-color: orange;
+  background-color: orange !important;
 }
 a.list-group-item-warrior,
 button.list-group-item-warrior {
@@ -115,13 +130,17 @@ button.list-group-item-warrior.active:focus {
   background-color: white;
   border-color: white;
 }
+.list-group-item-warrior .badge {
+  background-color: white;
+  color: #cc8400;
+}
 /*.list-group-item-variant(revenant; @state-danger-bg; @state-danger-text);
 .list-group-item-variant(ranger; @state-danger-bg; @state-danger-text);
 .list-group-item-variant(thief; @state-danger-bg; @state-danger-text);
 .list-group-item-variant(engineer; @state-danger-bg; @state-danger-text);*/
 .list-group-item-elementalist {
   color: white;
-  background-color: purple;
+  background-color: purple !important;
 }
 a.list-group-item-elementalist,
 button.list-group-item-elementalist {
@@ -147,6 +166,10 @@ button.list-group-item-elementalist.active:focus {
   color: #fff;
   background-color: white;
   border-color: white;
+}
+.list-group-item-elementalist .badge {
+  background-color: white;
+  color: #4d004d;
 }
 /*.list-group-item-variant(mesmer; @state-danger-bg; @state-danger-text);
 .list-group-item-variant(necromancer; @state-danger-bg; @state-danger-text);*/

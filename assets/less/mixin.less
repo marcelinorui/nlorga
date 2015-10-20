@@ -40,7 +40,7 @@
 .list-group-item-variant(@state; @background; @color) {
   .list-group-item-@{state} {
     color: @color;
-    background-color: @background;
+    background-color: @background!important;
 
     a&,
     button& {
@@ -63,5 +63,10 @@
         border-color: @color;
       }
     }
+    
+    .badge{
+		  background-color: @color;
+		  color:darken(@background, 10%);
+	  }
   }
 }
