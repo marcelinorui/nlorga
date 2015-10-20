@@ -160,6 +160,14 @@ button.list-group-item-elementalist.active:focus {
   height: 100%;
   text-align: center;
 }
+.panel-center-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  opacity: 0.8;
+}
 span.guardian-icon,
 span.icon-1 {
   background-image: url("/img/guardian.png");
