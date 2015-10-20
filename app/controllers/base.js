@@ -9,7 +9,7 @@ function base(passport) {
 	});
 
 	router.get('/index', function (req, res, next) {
-		res.render('index', new (require('./../response/base-response.js'))(req));
+		res.render('login', new (require('./../response/login-response.js'))(req));
 	});
 
 	router.get('/login', function (req, res, next) {

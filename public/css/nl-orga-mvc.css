@@ -57,6 +57,15 @@ label.counter {
 .check-select input[type="checkbox"] {
   display: none!important;
 }
+.nlbg {
+  background: url(/img/nlbg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+}
 span.guardian-icon,
 span.icon-1 {
   background-image: url("/img/guardian.png");
