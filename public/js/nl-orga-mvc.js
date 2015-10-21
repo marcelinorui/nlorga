@@ -11574,12 +11574,13 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /*!
- * Bootstrap-checkbox v1.2.14 (http://vsn4ik.github.io/bootstrap-checkbox)
+ * Bootstrap-checkbox v1.2.8 (http://vsn4ik.github.io/bootstrap-checkbox)
  * Copyright 2013-2015 Vasily A. (https://github.com/vsn4ik)
- * Licensed under the MIT license
+ * Licensed under MIT (https://github.com/vsn4ik/bootstrap-checkbox/blob/master/LICENSE)
  */
 
 /**
+ * 'Strict Mode' strictly in body of function
  * $.inArray: friends with IE8. Use Array.prototype.indexOf in future.
  * Use this.element.hidden in future.
  * $.proxy: friends with IE8. Use Function.prototype.bind in future.
@@ -11693,14 +11694,14 @@ if (typeof jQuery === 'undefined') {
       }
 
       // Keydown event only trigger if set tabindex, fine!
-      this.$group.on('keydown', $.proxy(this, 'keydown'));
+      this.$group.on('keydown', $.proxy(this.keydown, this));
 
       // Don't trigger if <a> element has .disabled class, fine!
-      this.$group.on('click', 'a:not(.active)', $.proxy(this, 'click'));
+      this.$group.on('click', 'a:not(.active)', $.proxy(this.click, this));
 
-      this.$element.on('change', $.proxy(this, 'toggleChecked'));
-      $(this.element.labels).on('click', $.proxy(this, 'focus'));
-      $(this.element.form).on('reset', $.proxy(this, 'reset'));
+      this.$element.on('change', $.proxy(this.toggle_checked, this));
+      $(this.element.labels).on('click', $.proxy(this.focus, this));
+      $(this.element.form).on('reset', $.proxy(this.reset, this));
 
       this.$group.append(this.$buttons).insertAfter(this.element);
 
@@ -11720,13 +11721,13 @@ if (typeof jQuery === 'undefined') {
         }
       }
     },
-    toggleChecked: function() {
+    toggle_checked: function() {
       // this.$group not focus (incorrect on form reset)
       this.$buttons.toggleClass('active ' + this.options.defaultClass);
       this.$off.toggleClass(this.options.offClass);
       this.$on.toggleClass(this.options.onClass);
     },
-    toggleDisabled: function() {
+    toggle_disabled: function() {
       this.$buttons.toggleClass('disabled');
 
       if (this.element.disabled) {
@@ -11796,7 +11797,7 @@ if (typeof jQuery === 'undefined') {
         var data = $.data(element, 'bs.checkbox');
 
         if (data && element.disabled != value) {
-          data.toggleDisabled();
+          data.toggle_disabled();
         }
 
         if (oldPropHooks.disabled && oldPropHooks.disabled.set) {

@@ -35,3 +35,38 @@
         }
     }
 }
+
+
+.list-group-item-variant(@state; @background; @color) {
+  .list-group-item-@{state} {
+    color: @color;
+    background-color: @background!important;
+
+    a&,
+    button& {
+      color: @color;
+
+      .list-group-item-heading {
+        color: inherit;
+      }
+
+      &:hover,
+      &:focus {
+        color: @color;
+        background-color: darken(@background, 5%);
+      }
+      &.active,
+      &.active:hover,
+      &.active:focus {
+        color: #fff;
+        background-color: @color;
+        border-color: @color;
+      }
+    }
+    
+    .badge{
+		  background-color: @color;
+		  color:darken(@background, 10%);
+	  }
+  }
+}

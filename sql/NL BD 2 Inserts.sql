@@ -52,6 +52,8 @@ VALUES ('Party 1'),
 
 INSERT INTO `profession`(`name`, `active`) VALUES ('guardian',1), ('warrior',1), ('revenant',0), ('ranger',1), ('thief',1), ('engineer',1), ('elementalist',1), ('mesmer',1), ('necromancer',1);
 
+INSERT INTO `role`(`description`) values ('Guild Member'),('Guild Commander'),('Admin');
+
 select 'Uwm0n5bvJElvrfZdpWg7SOUL7OP6B0WpAcQKsF5IN2dz2A0vWpEZEIIA7ftU8F2HDT2sfEkTbSR91ErdpFecV5gc7REZsvrkFq4CITtDoOQ1xRvw82av1PBfrcOFKLWR' into @salt;
 insert into login(`username`,`password`,`salt`,`displayname`,`hascommandertag`,`idrole`,`createddate`,`updateddate`) values 
 ('admin',sha1(concat(sha1(@salt),'123')),sha1(@salt),'',1,4,now(),now()),

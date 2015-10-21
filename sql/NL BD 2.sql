@@ -37,6 +37,17 @@ create table `role` (
   `active` tinyint not null,
   primary key (`idrole`)  );
 
+
+/*********************************************/
+/* 					ROLE    			 	 */
+/*********************************************/  
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+	`idrole` INT NOT NULL AUTO_INCREMENT,
+    `description` varchar(100) not null,
+    PRIMARY KEY (`idrole`)
+);
+
 /*********************************************/
 /* 					login    			 	 */
 /*********************************************/  
