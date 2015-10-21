@@ -7,7 +7,7 @@ NL.Collection.OrganizationPartyTeqDefZerg = NL.Collection.OrganizationPartyTeqDe
 	},
 	setJobs:function(arr){
 		var def = arr.slice(arr.length-4,4);
-		var zerg = arr
+		var zerg = arr;
 		for(var d = 0; d < def.length; d++){
 			def[d].job = [ this.options.defJob[d],'Battery Fase - '+ this.options.defBattery[d]];
 		}

@@ -1,39 +1,29 @@
 <% var zerg = _.chain(obj).pluck('members').flatten().value() %>
-
+<div class="row">
 <% var guardians = _.where(zerg, {profession:'guardian'})  %>
 <% if (guardians.length > 0) {%>
-<br/>
-<div class="row">
-	<div class="col-lg-3">
-		<img src="/img/skills/Wall_of_Reflection.png" />
-	</div>
 
 <% var counter = 0 %>
 <% var start = 0 %>
-<% while(start < guardians.length - 1 ){%>
+<% for(var start = 0; start < guardians.length ;){%>
 	<div class="col-lg-3">
-	<%var group = guardians.slice(start,start+ 4 )%>
-	<% start += group.length %>
+	<%var guard_group = guardians.slice(start,start+ 4 )%>
+	<% start += guard_group.length %>
 	<%++counter%>
-	<div class="list-group-item active"><b> Wall <%= counter %></b></div>
-	<% for(var i = 0; i < group.length; i++) {%>
-		<div class="list-group-item"><%= group[i].username %></div>	
+	<div class="list-group-item list-group-item-guardian"><b> Wall <%= counter %></b> <span class="badge"><b><%= guard_group.length%></b></span></div>
+	<% for(var i = 0; i < guard_group.length; i++) {%>
+		<div class="list-group-item"><%= guard_group[i].username %></div>	
 	<%}%>	 
 	</div>
 <%}%>
-</div>
-<% } %>
+<%}%>
 
 <% var warrior = _.where(zerg,{profession:'warrior'}) %>
 <% var war_group = warrior.slice(0,6) %> 
 <% if(war_group.length > 0) {%>
-<br />
-<div class="row">
+
 	<div class="col-lg-3">
-		<img src="/img/skills/Battle_Standard.png" />
-	</div>
-	<div class="col-lg-3">
-	<div class="list-group-item active"><b>Battle Standard</b></div>
+	<div class="list-group-item list-group-item-warrior"><b>Battle Standard</b> <span class="badge"><b><%= war_group.length%></b></span></div>
 	<% _.each(war_group,function(war,idx){%>
 	<div class="list-group-item">
 		<span>Banner #<%= (idx+1) %></span>
@@ -41,25 +31,17 @@
 	</div>
 <% }); %>
 	</div>
-</div>
 <% } %>
 
 <% var elementalist = _.where(zerg,{profession:'elementalist'}) %>
 <% var ele_group = elementalist.slice(0, 6) %>
 <% if(ele_group.length > 0) {%>
-<br />
-<div class="row">
 	<div class="col-lg-3">
-		<img src="/img/skills/Swirling_Winds.png" />
-	</div>
-	<div class="col-lg-3">
-	<div class="list-group-item active"><b>Swirling Winds</b></div>
+	<div class="list-group-item list-group-item-elementalist"><b>Swirling Winds</b> <span class="badge"><b><%= ele_group.length%></b></span></div>
 	<% _.each(ele_group,function(ele,idx){%>
 	<div class="list-group-item">
 		<span>SW #<%= (idx+1) %></span>
 		<span class="pull-right"><%= ele.username%></span>
 	</div>
 <% }); %>
-	</div>
-</div>
 <% } %>

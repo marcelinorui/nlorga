@@ -11574,13 +11574,12 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /*!
- * Bootstrap-checkbox v1.2.8 (http://vsn4ik.github.io/bootstrap-checkbox)
+ * Bootstrap-checkbox v1.2.14 (http://vsn4ik.github.io/bootstrap-checkbox)
  * Copyright 2013-2015 Vasily A. (https://github.com/vsn4ik)
- * Licensed under MIT (https://github.com/vsn4ik/bootstrap-checkbox/blob/master/LICENSE)
+ * Licensed under the MIT license
  */
 
 /**
- * 'Strict Mode' strictly in body of function
  * $.inArray: friends with IE8. Use Array.prototype.indexOf in future.
  * Use this.element.hidden in future.
  * $.proxy: friends with IE8. Use Function.prototype.bind in future.
@@ -11694,14 +11693,14 @@ if (typeof jQuery === 'undefined') {
       }
 
       // Keydown event only trigger if set tabindex, fine!
-      this.$group.on('keydown', $.proxy(this.keydown, this));
+      this.$group.on('keydown', $.proxy(this, 'keydown'));
 
       // Don't trigger if <a> element has .disabled class, fine!
-      this.$group.on('click', 'a:not(.active)', $.proxy(this.click, this));
+      this.$group.on('click', 'a:not(.active)', $.proxy(this, 'click'));
 
-      this.$element.on('change', $.proxy(this.toggle_checked, this));
-      $(this.element.labels).on('click', $.proxy(this.focus, this));
-      $(this.element.form).on('reset', $.proxy(this.reset, this));
+      this.$element.on('change', $.proxy(this, 'toggleChecked'));
+      $(this.element.labels).on('click', $.proxy(this, 'focus'));
+      $(this.element.form).on('reset', $.proxy(this, 'reset'));
 
       this.$group.append(this.$buttons).insertAfter(this.element);
 
@@ -11721,13 +11720,13 @@ if (typeof jQuery === 'undefined') {
         }
       }
     },
-    toggle_checked: function() {
+    toggleChecked: function() {
       // this.$group not focus (incorrect on form reset)
       this.$buttons.toggleClass('active ' + this.options.defaultClass);
       this.$off.toggleClass(this.options.offClass);
       this.$on.toggleClass(this.options.onClass);
     },
-    toggle_disabled: function() {
+    toggleDisabled: function() {
       this.$buttons.toggleClass('disabled');
 
       if (this.element.disabled) {
@@ -11797,7 +11796,7 @@ if (typeof jQuery === 'undefined') {
         var data = $.data(element, 'bs.checkbox');
 
         if (data && element.disabled != value) {
-          data.toggle_disabled();
+          data.toggleDisabled();
         }
 
         if (oldPropHooks.disabled && oldPropHooks.disabled.set) {
@@ -17695,7 +17694,7 @@ this["NL"]["Template"]["organization-statistic"] = function(obj) {obj || (obj = 
 
 this["NL"]["Template"]["pager-template"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) {__p += '<div class="row"><div class="col-lg-3">'; if ( pageCount > 0) { ;__p += '<span><b>Page ' +__e( currentPage ) +' of ' +__e( pageCount ) +'</b></span>'; } ;__p += '</div><div class="col-lg-6 text-center">'; if (pageCount > 1) { ;__p += '<nav><ul class="pagination">'; if (currentPage > 1) { ;__p += '<li><a href="#" data-pager=\'' +__e( parseInt(currentPage,10)-1 ) +'\'><span class="glyphicon glyphicon-menu-left"></span></a></li>'; } ; var i = 1;if (currentPage > 5) {i = +currentPage - 4;} ; if (i !== 1) { ;__p += '<li class="disabled"><a href="#">...</a></li>'; } ; for (i; i<=pageCount; i++) { ; if (currentPage == i) { ;__p += '<li class="active"><span>' +((__t = ( i )) == null ? '' : __t) +' <span class="sr-only">(current)</span></span></li>'; } else { ;__p += '<li><a href="#" data-pager=\'' +((__t = ( i )) == null ? '' : __t) +'\'>' +((__t = ( i )) == null ? '' : __t) +'</a></li>'; } ; if (i == (+currentPage + 4)) { ;__p += '<li class="disabled"><a href="#">...</a></li>'; break; } ; } ; if (currentPage != pageCount) { ;__p += '<li><a href="#" data-pager=\'' +__e( parseInt(currentPage,10)+1 ) +'\'><span class="glyphicon glyphicon-menu-right"></span></a></li>'; } ;__p += '</ul></nav>'; } ;__p += '</div><div class="col-lg-3">'; if ( pageCount > 0) { ;__p += '<div class="row"><label class="col-lg-offset-4 col-lg-3"> Items:</label><div class="col-lg-5"><select class="form-control"><option value="10" ' +__e( itemsPerPage == 10 ? "selected" : "" ) +' >10</option><option value="25" ' +__e( itemsPerPage == 25 ? "selected" : "" ) +' >25</option><option value="50" ' +__e( itemsPerPage == 50 ? "selected" : "" ) +' >50</option><option value="100" ' +__e( itemsPerPage == 100 ? "selected" : "" ) +' >100</option></select></div></div>'; } ;__p += '</div></div>';}return __p};
 
-this["NL"]["Template"]["tequatl-zerg-jobs"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) { var zerg = _.chain(obj).pluck('members').flatten().value() ; var guardians = _.where(zerg, {profession:'guardian'})  ; if (guardians.length > 0) {;__p += '<br/><div class="row"><div class="col-lg-3"><img src="/img/skills/Wall_of_Reflection.png" /></div>'; var counter = 0 ; var start = 0 ; while(start < guardians.length - 1 ){;__p += '<div class="col-lg-3">';var group = guardians.slice(start,start+ 4 ); start += group.length ;++counter;__p += '<div class="list-group-item active"><b> Wall ' +((__t = ( counter )) == null ? '' : __t) +'</b></div>'; for(var i = 0; i < group.length; i++) {;__p += '<div class="list-group-item">' +((__t = ( group[i].username )) == null ? '' : __t) +'</div>';};__p += '</div>';};__p += '</div>'; } ; var warrior = _.where(zerg,{profession:'warrior'}) ; var war_group = warrior.slice(0,6) ; if(war_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Battle_Standard.png" /></div><div class="col-lg-3"><div class="list-group-item active"><b>Battle Standard</b></div>'; _.each(war_group,function(war,idx){;__p += '<div class="list-group-item"><span>Banner #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( war.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ; var elementalist = _.where(zerg,{profession:'elementalist'}) ; var ele_group = elementalist.slice(0, 6) ; if(ele_group.length > 0) {;__p += '<br /><div class="row"><div class="col-lg-3"><img src="/img/skills/Swirling_Winds.png" /></div><div class="col-lg-3"><div class="list-group-item active"><b>Swirling Winds</b></div>'; _.each(ele_group,function(ele,idx){;__p += '<div class="list-group-item"><span>SW #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( ele.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div></div>'; } ;}return __p};
+this["NL"]["Template"]["tequatl-zerg-jobs"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape, __j = Array.prototype.join;function print() { __p += __j.call(arguments, '') }with (obj) { var zerg = _.chain(obj).pluck('members').flatten().value() ;__p += '<div class="row">'; var guardians = _.where(zerg, {profession:'guardian'})  ; if (guardians.length > 0) {; var counter = 0 ; var start = 0 ; for(var start = 0; start < guardians.length ;){;__p += '<div class="col-lg-3">';var guard_group = guardians.slice(start,start+ 4 ); start += guard_group.length ;++counter;__p += '<div class="list-group-item list-group-item-guardian"><b> Wall ' +((__t = ( counter )) == null ? '' : __t) +'</b> <span class="badge"><b>' +((__t = ( guard_group.length)) == null ? '' : __t) +'</b></span></div>'; for(var i = 0; i < guard_group.length; i++) {;__p += '<div class="list-group-item">' +((__t = ( guard_group[i].username )) == null ? '' : __t) +'</div>';};__p += '</div>';};}; var warrior = _.where(zerg,{profession:'warrior'}) ; var war_group = warrior.slice(0,6) ; if(war_group.length > 0) {;__p += '<div class="col-lg-3"><div class="list-group-item list-group-item-warrior"><b>Battle Standard</b> <span class="badge"><b>' +((__t = ( war_group.length)) == null ? '' : __t) +'</b></span></div>'; _.each(war_group,function(war,idx){;__p += '<div class="list-group-item"><span>Banner #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( war.username)) == null ? '' : __t) +'</span></div>'; }); ;__p += '</div>'; } ; var elementalist = _.where(zerg,{profession:'elementalist'}) ; var ele_group = elementalist.slice(0, 6) ; if(ele_group.length > 0) {;__p += '<div class="col-lg-3"><div class="list-group-item list-group-item-elementalist"><b>Swirling Winds</b> <span class="badge"><b>' +((__t = ( ele_group.length)) == null ? '' : __t) +'</b></span></div>'; _.each(ele_group,function(ele,idx){;__p += '<div class="list-group-item"><span>SW #' +((__t = ( (idx+1) )) == null ? '' : __t) +'</span><span class="pull-right">' +((__t = ( ele.username)) == null ? '' : __t) +'</span></div>'; }); ; } ;}return __p};
 
 this["NL"]["Template"]["user-index"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div class="col-offset-lg-1 col-lg-3"><div class="thumbnail"><p class="text-center"><b>' +__e( title ) +'</b></p><p class="text-center">' +__e( configuration) +'</p><p class="text-center"><span class="label label-success">' +__e( description ) +'</span></p><div class="text-center"><span><a href="/user/organization/' +__e(idorganization) +'/view" role="button" class="btn btn-primary btn-sm">Join The Fight</a></span></div></div></div>';}return __p};
 
@@ -17907,8 +17906,8 @@ NL.Collection.OrganizationPartyTeqDefZerg = NL.Collection.OrganizationPartyTeqDe
 		defBattery:["North","North","West","West"]
 	},
 	setJobs:function(arr){
-		var def = arr.slice(0,4);
-		var zerg = arr.slice(4); 
+		var def = arr.slice(arr.length-4,4);
+		var zerg = arr;
 		for(var d = 0; d < def.length; d++){
 			def[d].job = [ this.options.defJob[d],'Battery Fase - '+ this.options.defBattery[d]];
 		}

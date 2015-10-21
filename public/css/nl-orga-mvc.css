@@ -57,28 +57,25 @@ label.counter {
 .check-select input[type="checkbox"] {
   display: none!important;
 }
-<<<<<<< HEAD
 .nlbg {
   background: url(/img/nlbg.jpg) no-repeat center center fixed;
-=======
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+}
 .list-group-item-player {
   background-color: #97FF9A;
 }
 .list-group-item-guardian {
   color: white;
-  background-color: #0066ff!important;
-}
-.list-group-item-guardian .badge {
-  background-color: white;
-  color: #0066ff;
-}
-.list-group-item-guardian {
-  color: #0066ff;
-  background-color: white !important;
+  background-color: #0066ff !important;
 }
 a.list-group-item-guardian,
 button.list-group-item-guardian {
-  color: #0066ff;
+  color: white;
 }
 a.list-group-item-guardian .list-group-item-heading,
 button.list-group-item-guardian .list-group-item-heading {
@@ -88,8 +85,8 @@ a.list-group-item-guardian:hover,
 button.list-group-item-guardian:hover,
 a.list-group-item-guardian:focus,
 button.list-group-item-guardian:focus {
-  color: #0066ff;
-  background-color: #f2f2f2;
+  color: white;
+  background-color: #005ce6;
 }
 a.list-group-item-guardian.active,
 button.list-group-item-guardian.active,
@@ -98,12 +95,12 @@ button.list-group-item-guardian.active:hover,
 a.list-group-item-guardian.active:focus,
 button.list-group-item-guardian.active:focus {
   color: #fff;
-  background-color: #0066ff;
-  border-color: #0066ff;
+  background-color: white;
+  border-color: white;
 }
 .list-group-item-guardian .badge {
-  background-color: #0066ff;
-  color: #e6e6e6;
+  background-color: white;
+  color: #0052cc;
 }
 .list-group-item-warrior {
   color: white;
@@ -178,9 +175,7 @@ button.list-group-item-elementalist.active:focus {
 /*.list-group-item-variant(mesmer; @state-danger-bg; @state-danger-text);
 .list-group-item-variant(necromancer; @state-danger-bg; @state-danger-text);*/
 .nlbg {
-  background-image: url(/img/NLBG.jpg);
-  background: url(/img/NLBG.jpg) no-repeat center center fixed;
->>>>>>> 342d36ec8c3e6dd85e099d4538d6e677f2a4ab8e
+  background: url(/img/nlbg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -188,17 +183,14 @@ button.list-group-item-elementalist.active:focus {
   height: 100%;
   text-align: center;
 }
-<<<<<<< HEAD
-=======
 .panel-center-screen {
   position: absolute;
-  top: 50%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;
   opacity: 0.8;
 }
->>>>>>> 342d36ec8c3e6dd85e099d4538d6e677f2a4ab8e
 span.guardian-icon,
 span.icon-1 {
   background-image: url("/img/guardian.png");
