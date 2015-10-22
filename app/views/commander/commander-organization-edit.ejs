@@ -111,16 +111,32 @@
 			</div>
 			<% } %>
 			
-			<% if ( organization.idstatus == 5) { %>			
+			<% if ( organization.idstatus == 5) { %>
 				<form action="/commander/organization/<%- organization.idorganization%>/status/<%- organization.idstatus %>" method="post" >
+				
+						<div class="col-lg-offset-3 col-lg-3">
+						<div class="form-group">
+							<label for="partialtime">Partial Time</label>
+							<input type="text" id="partialtime" class="form-control" name="partialtime" placeholder="Partial Time"  />
+						</div>
+						</div>
+						<div class="col-lg-3">
+						<div class="form-group">
+							<label for="endtime">Finish Time</label>
+							<input type="text" id="endtime" class="form-control" name="endtime" placeholder="Finish Time"  />
+						</div>
+						</div>
+				
+				<div class="col-lg-3">			
 				<span class="pull-right"><button type="submit" class="btn btn-success">Close Organization</button>	</span>
+				</div>
 				</form>
 			<% } %>
 		</div>
 	</div>
 	<% } %>	
 	<hr>
-	<div class="main"></div>
+	<div class="main" style="display:none"></div>
 </div>
 
 <% include ./../partials/end-body %>

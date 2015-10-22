@@ -11,7 +11,7 @@
 			<div class="list-group-item list-group-item-warning"><b><%- job %></b></div>
 				<% }) %>
 			<% } else { %>
-			<div class="list-group-item list-group-item-warning"><b><%- party.job %></b></div>
+				<div class="list-group-item list-group-item-warning"><b><%- party.job %></b></div>
 			<% } %>
 		<% } %>
 		<div class="list-group-item ">
@@ -26,10 +26,8 @@
 			<% } %>
 			<% if( member.havefood == true ) { %>
 				<span class="food-icon"></span>
-			<% } %>
-			 	
-			<span class="user"><%- member.displayname != '' ? member.displayname : member.username %></span>
-				
+			<% } %>			 	
+			<span class="user"><%- member.displayname != '' ? member.displayname : member.username %></span>				
 			</div>						
 		<%});%>
 		</div>						

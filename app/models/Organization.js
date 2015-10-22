@@ -110,7 +110,9 @@ module.exports.status = function (req, res, next) {
 					}
 				});
 			} else {
-				db.Organization.moveStatusOrganization(req.params.id, idstatus, function (err, ok) {
+				var partialtime = req.body.partialtime ? req.body.partialtime : '' ;
+				var endtime = req.body.endtime ? req.body.endtime : '';
+				db.Organization.moveStatusOrganization(req.params.id,partialtime,endtime, idstatus, function (err, ok) {
 					if (!err) {
 						req.session.idstatus = idstatus;
 						req.flash('success', 'The Organization status changed successfuly.');

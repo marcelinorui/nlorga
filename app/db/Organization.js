@@ -108,9 +108,9 @@ Organization.prototype.resetOrganization = function (idorganization, callback) {
 	});
 };
 
-Organization.prototype.moveStatusOrganization = function (idorganization, idstatus, callback) {
-	var sql = 'CALL movestatusorganization(?,?)';
-	var params = [idorganization, idstatus];
+Organization.prototype.moveStatusOrganization = function (idorganization,partialtime,endtime, idstatus, callback) {
+	var sql = 'CALL movestatusorganization(?,?,?,?)';
+	var params = [idorganization, partialtime, endtime, idstatus];
 	var query = mysql.format(sql, params);
 	this.db.query(query, function (err, rows, fields) {
 		if (!err) {
@@ -192,7 +192,7 @@ Organization.prototype.cleanPartys = function (idorganization, callback) {
 };
 
 Organization.prototype.listOrganizations = function (where, order, parameters, itemsPerPage, currentPage, callback) {
-	this.paginateQuery('organization o inner join status s on o.idstatus = s.idstatus inner join partyconfiguration p on p.idpartyconfiguration = o.idpartyconfiguration', ['o.idorganization', 'o.title', 's.description as status', 'p.description', 'o.createddate', 'o.updateddate'], where, order, parameters, itemsPerPage, currentPage, callback);
+	this.paginateQuery('organization o inner join status s on o.idstatus = s.idstatus inner join partyconfiguration p on p.idpartyconfiguration = o.idpartyconfiguration', ['o.idorganization', 'o.title', 's.description as status', 'p.description','o.partialtime','o.endtime', 'o.createddate', 'o.updateddate'], where, order, parameters, itemsPerPage, currentPage, callback);
 };
 
 Organization.prototype.getUserOrganizationConfiguration = function (idorganization, idlogin, callback) {
