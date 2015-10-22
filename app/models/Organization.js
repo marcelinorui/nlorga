@@ -94,7 +94,7 @@ module.exports.status = function (req, res, next) {
 				var partysize = Number(req.body['partysize']);
 				db.Organization.makeOrganizationPartys(req.params.id, partysize, function (err, ok) {
 					if (!err) {
-						db.Organization.moveStatusOrganization(req.params.id, idstatus, function (err, ok) {
+						db.Organization.moveStatusOrganization(req.params.id,'','', idstatus, function (err, ok) {
 							if (!err) {
 								req.session.partysize = partysize;
 								req.session.idstatus = idstatus;
