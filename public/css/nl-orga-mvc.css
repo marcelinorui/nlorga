@@ -21,13 +21,13 @@ label.counter {
   vertical-align: middle;
   margin-bottom: 10px;
 }
-.list-group-item span.no-icon {
+.guild-group-item span.no-icon {
   display: inline-block;
   width: 20px;
   height: 20px;
   padding: 0;
 }
-.list-group-item span.user {
+.guild-group-item span.user {
   padding: 0;
   float: right;
 }
@@ -66,131 +66,308 @@ label.counter {
   height: 100%;
   text-align: center;
 }
-.list-group-item-player {
-  background-color: #97FF9A;
-}
-.list-group-item-guardian {
-  color: white;
-  background-color: #0066ff !important;
-}
-a.list-group-item-guardian,
-button.list-group-item-guardian {
-  color: white;
-}
-a.list-group-item-guardian .list-group-item-heading,
-button.list-group-item-guardian .list-group-item-heading {
-  color: inherit;
-}
-a.list-group-item-guardian:hover,
-button.list-group-item-guardian:hover,
-a.list-group-item-guardian:focus,
-button.list-group-item-guardian:focus {
-  color: white;
-  background-color: #005ce6;
-}
-a.list-group-item-guardian.active,
-button.list-group-item-guardian.active,
-a.list-group-item-guardian.active:hover,
-button.list-group-item-guardian.active:hover,
-a.list-group-item-guardian.active:focus,
-button.list-group-item-guardian.active:focus {
-  color: #fff;
-  background-color: white;
-  border-color: white;
-}
-.list-group-item-guardian .badge {
-  background-color: white;
-  color: #0052cc;
-}
-.list-group-item-warrior {
-  color: white;
-  background-color: #e09712 !important;
-}
-a.list-group-item-warrior,
-button.list-group-item-warrior {
-  color: white;
-}
-a.list-group-item-warrior .list-group-item-heading,
-button.list-group-item-warrior .list-group-item-heading {
-  color: inherit;
-}
-a.list-group-item-warrior:hover,
-button.list-group-item-warrior:hover,
-a.list-group-item-warrior:focus,
-button.list-group-item-warrior:focus {
-  color: white;
-  background-color: #c88710;
-}
-a.list-group-item-warrior.active,
-button.list-group-item-warrior.active,
-a.list-group-item-warrior.active:hover,
-button.list-group-item-warrior.active:hover,
-a.list-group-item-warrior.active:focus,
-button.list-group-item-warrior.active:focus {
-  color: #fff;
-  background-color: white;
-  border-color: white;
-}
-.list-group-item-warrior .badge {
-  background-color: white;
-  color: #b1770e;
-}
-/*.list-group-item-variant(revenant; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(ranger; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(thief; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(engineer; @state-danger-bg; @state-danger-text);*/
-.list-group-item-elementalist {
-  color: white;
-  background-color: #800080 !important;
-}
-a.list-group-item-elementalist,
-button.list-group-item-elementalist {
-  color: white;
-}
-a.list-group-item-elementalist .list-group-item-heading,
-button.list-group-item-elementalist .list-group-item-heading {
-  color: inherit;
-}
-a.list-group-item-elementalist:hover,
-button.list-group-item-elementalist:hover,
-a.list-group-item-elementalist:focus,
-button.list-group-item-elementalist:focus {
-  color: white;
-  background-color: #670066;
-}
-a.list-group-item-elementalist.active,
-button.list-group-item-elementalist.active,
-a.list-group-item-elementalist.active:hover,
-button.list-group-item-elementalist.active:hover,
-a.list-group-item-elementalist.active:focus,
-button.list-group-item-elementalist.active:focus {
-  color: #fff;
-  background-color: white;
-  border-color: white;
-}
-.list-group-item-elementalist .badge {
-  background-color: white;
-  color: #4d004d;
-}
-/*.list-group-item-variant(mesmer; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(necromancer; @state-danger-bg; @state-danger-text);*/
-.nlbg {
-  background: url(/img/nlbg.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100%;
-  text-align: center;
-}
 .panel-center-screen {
   position: absolute;
   top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;
-  opacity: 0.8;
 }
+.guild-group {
+  margin-bottom: 10px;
+  padding-left: 0;
+}
+.guild-group-item {
+  position: relative;
+  display: block;
+  padding: 5px 8px;
+  margin-bottom: -1px;
+  background-color: white;
+  border: 1px solid #e3e3e3;
+}
+.guild-group-item:first-child {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+.guild-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.guild-group-item .badge,
+.guild-group-item .user {
+  float: right;
+}
+.guild-group-item-player {
+  color: black;
+  background-color: #ddfbd5 !important;
+}
+a.guild-group-item-player,
+button.guild-group-item-player {
+  color: black;
+}
+a.guild-group-item-player .guild-group-item-heading,
+button.guild-group-item-player .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-player:hover,
+button.guild-group-item-player:hover,
+a.guild-group-item-player:focus,
+button.guild-group-item-player:focus {
+  color: black;
+  background-color: #caf9be;
+}
+a.guild-group-item-player.active,
+button.guild-group-item-player.active,
+a.guild-group-item-player.active:hover,
+button.guild-group-item-player.active:hover,
+a.guild-group-item-player.active:focus,
+button.guild-group-item-player.active:focus {
+  color: #fff;
+  background-color: black;
+  border-color: black;
+}
+.guild-group-item-player .badge {
+  background-color: black;
+  color: #b7f7a6;
+}
+.guild-group-item-player-party {
+  color: #a94442;
+  background-color: #f2dede !important;
+}
+a.guild-group-item-player-party,
+button.guild-group-item-player-party {
+  color: #a94442;
+}
+a.guild-group-item-player-party .guild-group-item-heading,
+button.guild-group-item-player-party .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-player-party:hover,
+button.guild-group-item-player-party:hover,
+a.guild-group-item-player-party:focus,
+button.guild-group-item-player-party:focus {
+  color: #a94442;
+  background-color: #ebcccc;
+}
+a.guild-group-item-player-party.active,
+button.guild-group-item-player-party.active,
+a.guild-group-item-player-party.active:hover,
+button.guild-group-item-player-party.active:hover,
+a.guild-group-item-player-party.active:focus,
+button.guild-group-item-player-party.active:focus {
+  color: #fff;
+  background-color: #a94442;
+  border-color: #a94442;
+}
+.guild-group-item-player-party .badge {
+  background-color: #a94442;
+  color: #e4b9b9;
+}
+.guild-group-item-party {
+  color: #0066ff;
+  background-color: #d9edf7 !important;
+}
+a.guild-group-item-party,
+button.guild-group-item-party {
+  color: #0066ff;
+}
+a.guild-group-item-party .guild-group-item-heading,
+button.guild-group-item-party .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-party:hover,
+button.guild-group-item-party:hover,
+a.guild-group-item-party:focus,
+button.guild-group-item-party:focus {
+  color: #0066ff;
+  background-color: #c4e3f3;
+}
+a.guild-group-item-party.active,
+button.guild-group-item-party.active,
+a.guild-group-item-party.active:hover,
+button.guild-group-item-party.active:hover,
+a.guild-group-item-party.active:focus,
+button.guild-group-item-party.active:focus {
+  color: #fff;
+  background-color: #0066ff;
+  border-color: #0066ff;
+}
+.guild-group-item-party .badge {
+  background-color: #0066ff;
+  color: #afd9ee;
+}
+.guild-group-item-job {
+  color: #8a6d3b;
+  background-color: #fcf8e3 !important;
+}
+a.guild-group-item-job,
+button.guild-group-item-job {
+  color: #8a6d3b;
+}
+a.guild-group-item-job .guild-group-item-heading,
+button.guild-group-item-job .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-job:hover,
+button.guild-group-item-job:hover,
+a.guild-group-item-job:focus,
+button.guild-group-item-job:focus {
+  color: #8a6d3b;
+  background-color: #faf2cc;
+}
+a.guild-group-item-job.active,
+button.guild-group-item-job.active,
+a.guild-group-item-job.active:hover,
+button.guild-group-item-job.active:hover,
+a.guild-group-item-job.active:focus,
+button.guild-group-item-job.active:focus {
+  color: #fff;
+  background-color: #8a6d3b;
+  border-color: #8a6d3b;
+}
+.guild-group-item-job .badge {
+  background-color: #8a6d3b;
+  color: #f7ecb5;
+}
+.guild-group-item-join {
+  color: #31708f;
+  background-color: #d9edf7 !important;
+}
+a.guild-group-item-join,
+button.guild-group-item-join {
+  color: #31708f;
+}
+a.guild-group-item-join .guild-group-item-heading,
+button.guild-group-item-join .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-join:hover,
+button.guild-group-item-join:hover,
+a.guild-group-item-join:focus,
+button.guild-group-item-join:focus {
+  color: #31708f;
+  background-color: #c4e3f3;
+}
+a.guild-group-item-join.active,
+button.guild-group-item-join.active,
+a.guild-group-item-join.active:hover,
+button.guild-group-item-join.active:hover,
+a.guild-group-item-join.active:focus,
+button.guild-group-item-join.active:focus {
+  color: #fff;
+  background-color: #31708f;
+  border-color: #31708f;
+}
+.guild-group-item-join .badge {
+  background-color: #31708f;
+  color: #afd9ee;
+}
+.guild-group-item-guardian {
+  color: white;
+  background-color: #0066ff !important;
+}
+a.guild-group-item-guardian,
+button.guild-group-item-guardian {
+  color: white;
+}
+a.guild-group-item-guardian .guild-group-item-heading,
+button.guild-group-item-guardian .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-guardian:hover,
+button.guild-group-item-guardian:hover,
+a.guild-group-item-guardian:focus,
+button.guild-group-item-guardian:focus {
+  color: white;
+  background-color: #005ce6;
+}
+a.guild-group-item-guardian.active,
+button.guild-group-item-guardian.active,
+a.guild-group-item-guardian.active:hover,
+button.guild-group-item-guardian.active:hover,
+a.guild-group-item-guardian.active:focus,
+button.guild-group-item-guardian.active:focus {
+  color: #fff;
+  background-color: white;
+  border-color: white;
+}
+.guild-group-item-guardian .badge {
+  background-color: white;
+  color: #0052cc;
+}
+.guild-group-item-warrior {
+  color: white;
+  background-color: #e09712 !important;
+}
+a.guild-group-item-warrior,
+button.guild-group-item-warrior {
+  color: white;
+}
+a.guild-group-item-warrior .guild-group-item-heading,
+button.guild-group-item-warrior .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-warrior:hover,
+button.guild-group-item-warrior:hover,
+a.guild-group-item-warrior:focus,
+button.guild-group-item-warrior:focus {
+  color: white;
+  background-color: #c88710;
+}
+a.guild-group-item-warrior.active,
+button.guild-group-item-warrior.active,
+a.guild-group-item-warrior.active:hover,
+button.guild-group-item-warrior.active:hover,
+a.guild-group-item-warrior.active:focus,
+button.guild-group-item-warrior.active:focus {
+  color: #fff;
+  background-color: white;
+  border-color: white;
+}
+.guild-group-item-warrior .badge {
+  background-color: white;
+  color: #b1770e;
+}
+/*.guild-group-item-variant(revenant; @guild-group-revenant-bg; @guild-group-revenant);
+.guild-group-item-variant(ranger; @guild-group-ranger-bg; @guild-group-ranger);
+.guild-group-item-variant(thief; @guild-group-thief-bg; @guild-group-thief);
+.guild-group-item-variant(engineer; @guild-group-engineer-bg; @guild-group-engineer);*/
+.guild-group-item-elementalist {
+  color: white;
+  background-color: #800080 !important;
+}
+a.guild-group-item-elementalist,
+button.guild-group-item-elementalist {
+  color: white;
+}
+a.guild-group-item-elementalist .guild-group-item-heading,
+button.guild-group-item-elementalist .guild-group-item-heading {
+  color: inherit;
+}
+a.guild-group-item-elementalist:hover,
+button.guild-group-item-elementalist:hover,
+a.guild-group-item-elementalist:focus,
+button.guild-group-item-elementalist:focus {
+  color: white;
+  background-color: #670066;
+}
+a.guild-group-item-elementalist.active,
+button.guild-group-item-elementalist.active,
+a.guild-group-item-elementalist.active:hover,
+button.guild-group-item-elementalist.active:hover,
+a.guild-group-item-elementalist.active:focus,
+button.guild-group-item-elementalist.active:focus {
+  color: #fff;
+  background-color: white;
+  border-color: white;
+}
+.guild-group-item-elementalist .badge {
+  background-color: white;
+  color: #4d004d;
+}
+/*.guild-group-item-variant(mesmer; @guild-group-mesmer-bg; @guild-group-mesmer);
+.guild-group-item-variant(necromancer; @guild-group-necromancer-bg; @guild-group-necromancer);*/
 span.guardian-icon,
 span.icon-1 {
   background-image: url("/img/guardian.png");

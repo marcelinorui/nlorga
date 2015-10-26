@@ -10,9 +10,9 @@
 	<%var guard_group = guardians.slice(start,start+ 4 )%>
 	<% start += guard_group.length %>
 	<%++counter%>
-	<div class="list-group-item list-group-item-guardian"><b> Wall <%= counter %></b> <span class="badge"><b><%= guard_group.length%></b></span></div>
+	<div class="guild-group-item guild-group-item-guardian"><b> Wall <%= counter %></b> <span class="badge"><b><%= guard_group.length%></b></span></div>
 	<% for(var i = 0; i < guard_group.length; i++) {%>
-		<div class="list-group-item"><%= guard_group[i].username %></div>	
+		<div class="guild-group-item"><%= guard_group[i].username %></div>	
 	<%}%>	 
 	</div>
 <%}%>
@@ -23,9 +23,9 @@
 <% if(war_group.length > 0) {%>
 
 	<div class="col-lg-3">
-	<div class="list-group-item list-group-item-warrior"><b>Battle Standard</b> <span class="badge"><b><%= war_group.length%></b></span></div>
+	<div class="guild-group-item guild-group-item-warrior"><b>Battle Standard</b> <span class="badge"><b><%= war_group.length%></b></span></div>
 	<% _.each(war_group,function(war,idx){%>
-	<div class="list-group-item">
+	<div class="guild-group-item">
 		<span>Banner #<%= (idx+1) %></span>
 		<span class="pull-right"><%= war.username%></span>
 	</div>
@@ -37,9 +37,9 @@
 <% var ele_group = elementalist.slice(0, 6) %>
 <% if(ele_group.length > 0) {%>
 	<div class="col-lg-3">
-	<div class="list-group-item list-group-item-elementalist"><b>Swirling Winds</b> <span class="badge"><b><%= ele_group.length%></b></span></div>
+	<div class="guild-group-item guild-group-item-elementalist"><b>Swirling Winds</b> <span class="badge"><b><%= ele_group.length%></b></span></div>
 	<% _.each(ele_group,function(ele,idx){%>
-	<div class="list-group-item">
+	<div class="guild-group-item">
 		<span>SW #<%= (idx+1) %></span>
 		<span class="pull-right"><%= ele.username%></span>
 	</div>

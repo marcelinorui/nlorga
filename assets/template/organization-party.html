@@ -3,20 +3,20 @@
 <div class="row">
 <% _.each(partys, function(party, idx){ %>
 <div class="col-lg-3">
-	<div class="list-group">
-		<div class="list-group-item <%if(party.partyname == myparty){%>list-group-item-danger<%}else{%>active<%}%>"><b> <%- party.partyname %></b> <span class="badge"><%- party.members.length%></span></div>
+	<div class="guild-group">
+		<div class="guild-group-item <%if(party.partyname == myparty){%>guild-group-item-player-party<%}else{%>active<%}%>"><b> <%- party.partyname %></b> <span class="badge"><%- party.members.length%></span></div>
 		<% if(party.job){ %>
 			<% if( Array.isArray(party.job) ){ %>
 			<%	_.each(party.job, function(job) {%>
-			<div class="list-group-item list-group-item-warning"><b><%- job %></b></div>
+			<div class="guild-group-item guild-group-item-job"><b><%- job %></b></div>
 				<% }) %>
 			<% } else { %>
-				<div class="list-group-item list-group-item-warning"><b><%- party.job %></b></div>
+				<div class="guild-group-item guild-group-item-job"><b><%- party.job %></b></div>
 			<% } %>
 		<% } %>
-		<div class="list-group-item ">
+				
 		<% _.each(party.members,function(member){ %>
-			<div class="player <% if ( member.username == username ) {%> bg-success <%}%>">
+		<div class="guild-group-item <% if( member.username == username ){%>guild-group-item-player<%}%>">
 				<span class="<%- member.profession%>-icon"></span>
 			<% if( member.commander) { %>
 				<span class="<%- member.commander%>-icon"></span>
@@ -28,10 +28,10 @@
 				<span class="food-icon"></span>
 			<% } %>			 	
 			<span class="user"><%- member.displayname != '' ? member.displayname : member.username %></span>				
-			</div>						
+		</div>							
 		<%});%>
-		</div>						
-		<div class="list-group-item list-group-item-info text-center"><span>/join <%-party.members[0].username %></span></div>
+							
+		<div class="guild-group-item guild-group-item-join text-center"><span>/join <%-party.members[0].username %></span></div>
 	</div>
 </div>
 <% if ( (idx % 4) == 3 ) {%></div><div class="row"><%}%>

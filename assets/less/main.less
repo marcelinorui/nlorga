@@ -20,12 +20,13 @@
     text-align: left;
     font-size: 13px;
 }
+
 label.counter {
     vertical-align: middle;
     margin-bottom: 10px;
 }
 
-.list-group-item {
+.guild-group-item {
 	span{
 		&.no-icon{
 	 		display: inline-block;
@@ -73,30 +74,6 @@ label.counter {
 
 .nlbg{
 	background: url(/img/nlbg.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;  
-	height: 100%;
-	text-align: center;
-}
-
-.list-group-item-player {
-    background-color: #97FF9A;
-}
-
-.list-group-item-variant(guardian; #0066ff; white);
-.list-group-item-variant(warrior; #E09712; white);
-/*.list-group-item-variant(revenant; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(ranger; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(thief; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(engineer; @state-danger-bg; @state-danger-text);*/
-.list-group-item-variant(elementalist; #800080; white);
-/*.list-group-item-variant(mesmer; @state-danger-bg; @state-danger-text);
-.list-group-item-variant(necromancer; @state-danger-bg; @state-danger-text);*/
-
-.nlbg{
-	background: url(/img/nlbg.jpg) no-repeat center center fixed; 
   	-webkit-background-size: cover;
   	-moz-background-size: cover;
   	-o-background-size: cover;
@@ -111,5 +88,46 @@ label.counter {
   left:50%;
   transform: translate(-50%,-50%);
   color:#000;
-  opacity: 0.8; 
 }
+
+.guild-group {
+  margin-bottom: 10px;
+  padding-left: 0; // reset padding because ul and ol
+}
+
+.guild-group-item {
+  position: relative;
+  display: block;
+  padding: 5px 8px;
+  margin-bottom: -1px;
+  background-color: @guild-group-bg;
+  border: 1px solid @guild-group-border;
+    
+  &:first-child {
+    .border-top-radius(@guild-group-border-radius);
+  }
+  &:last-child {
+    margin-bottom: 0;
+    .border-bottom-radius(@guild-group-border-radius);
+  }
+  
+  .badge, .user{
+	  float:right;
+  }
+}
+
+.guild-group-item-variant(player; @guild-group-player-bg; @guild-group-player);
+.guild-group-item-variant(player-party; @guild-group-player-party-bg; @guild-group-player-party);
+.guild-group-item-variant(party; @guild-group-party-bg; @guild-group-party);
+.guild-group-item-variant(job; @guild-group-job-bg; @guild-group-job);
+.guild-group-item-variant(join; @guild-group-join-bg; @guild-group-join);
+
+.guild-group-item-variant(guardian; @guild-group-guardian-bg; @guild-group-guardian);
+.guild-group-item-variant(warrior; @guild-group-warrior-bg; @guild-group-warrior);
+/*.guild-group-item-variant(revenant; @guild-group-revenant-bg; @guild-group-revenant);
+.guild-group-item-variant(ranger; @guild-group-ranger-bg; @guild-group-ranger);
+.guild-group-item-variant(thief; @guild-group-thief-bg; @guild-group-thief);
+.guild-group-item-variant(engineer; @guild-group-engineer-bg; @guild-group-engineer);*/
+.guild-group-item-variant(elementalist;@guild-group-elementalist-bg; @guild-group-elementalist);
+/*.guild-group-item-variant(mesmer; @guild-group-mesmer-bg; @guild-group-mesmer);
+.guild-group-item-variant(necromancer; @guild-group-necromancer-bg; @guild-group-necromancer);*/
